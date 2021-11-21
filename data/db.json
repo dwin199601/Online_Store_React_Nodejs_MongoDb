@@ -1,0 +1,12 @@
+{
+    "item": 
+    [
+      {
+        "item_id": 1,
+        "item_image": "https://th.bing.com/th/id/OIP.J5HyA-UqL64j2dARkh1MKQHaHa?pid=ImgDet&rs=1",
+        "item_name": "Iphone 10",
+        "item_description": "Item description",
+        "price": "500"
+      }
+    ]
+  }
