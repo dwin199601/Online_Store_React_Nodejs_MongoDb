@@ -13,26 +13,24 @@ export default function Newitems() {
   
     const random = Math.round(Math.random() * 100);
 
-    
-     
-
      const handleSubmit = (e)=>{
        e.preventDefault();
        setLoading(true);
         
        //const itemsave = {random,image,name,description, price};
-
+        //console.log(random +" " + image +" " +name +" " +description +" " +price)
 
             fetch("http://localhost:8000/item", {
                 method: 'POST',
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({
-                    item_id: 2,
-                    item_image: image,
-                    item_name: name,
-                    item_description: description,
-                    price: price
-                })
+                  
+                    "item_image": image,
+                    "item_name": name,
+                    "item_description": description,
+                    "price": price
+                }
+                )
                
             }).then(()=> {
                 console.log("New item added");
@@ -43,6 +41,7 @@ export default function Newitems() {
                 console.log("Error: " + err);
                 setLoading(false);
             })
+          
         
         
       
