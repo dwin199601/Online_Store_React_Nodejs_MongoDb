@@ -1,25 +1,11 @@
 {
   "item": [
     {
-      "id": 1,
-      "item_image": "https://th.bing.com/th/id/OIP.J5HyA-UqL64j2dARkh1MKQHaHa?pid=ImgDet&rs=1",
-      "item_name": "Iphone 10",
-      "item_description": "Item description",
-      "price": "500"
-    },
-    {
       "item_image": "https://th.bing.com/th/id/OIP.J5HyA-UqL64j2dARkh1MKQHaHa?pid=ImgDet&rs=1",
       "item_name": "Iphone 10",
       "item_description": "Item description",
       "price": "500",
       "id": 2
-    },
-    {
-      "item_image": "https://m.media-amazon.com/images/I/71e-6qcoO2L._AC_SL1500_.jpg",
-      "item_name": "New Item",
-      "item_description": "dsdsd",
-      "price": "500",
-      "id": 3
     }
   ]
 }

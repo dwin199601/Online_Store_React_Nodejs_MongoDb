@@ -1,8 +1,11 @@
 import React from 'react'
 import { useState } from 'react'
 import { useHistory } from 'react-router';
+import 'bootstrap/dist/css/bootstrap.css';
+
 
 export default function Newitems() {
+   
 
     const [image, setImage] = useState('');
     const [name, setName] = useState('');
@@ -11,20 +14,17 @@ export default function Newitems() {
     const [loading, setLoading] = useState(false);
     const history = useHistory();
   
-    const random = Math.round(Math.random() * 100);
+    
 
-     const handleSubmit = (e)=>{
+     const handleSubmit = async(e)=>{
        e.preventDefault();
        setLoading(true);
-        
-       //const itemsave = {random,image,name,description, price};
-        //console.log(random +" " + image +" " +name +" " +description +" " +price)
 
-            fetch("http://localhost:8000/item", {
+           fetch("http://localhost:5000/api/newitems", {
                 method: 'POST',
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({
-                  
+                   
                     "item_image": image,
                     "item_name": name,
                     "item_description": description,
@@ -35,16 +35,13 @@ export default function Newitems() {
             }).then(()=> {
                 console.log("New item added");
                 alert("Thank you! Your product was added!");
+               
                 history.push('/items')
                 setLoading(false);
             }).catch(err=>{
                 console.log("Error: " + err);
                 setLoading(false);
             })
-          
-        
-        
-      
 
      }
 
