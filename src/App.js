@@ -6,43 +6,15 @@ import Items from './components/items';
 import Newitems from './components/newitems';
 import ItemDetails from './components/itemDetails';
 import UpdateItem from './components/updateItem';
-import { useState } from 'react'
-import { useEffect } from 'react'
-
-
-
+import { useState } from 'react';
+import { FetchDataFromDB } from './util/FetchDataHelper';
 
 
 function App() {
-
-
   const [item, setItem] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  useEffect(()=> {
-   fetch('http://localhost:5000/api/items')
-   .then(res=>{
-       if(!res.ok){
-           throw Error (`Couldn't fetch the data from the server!`)
-       }
-       console.log("Server works!!")
-       return res.json();
-      
-   })
-   .then(data=>{//to process data from the json file
-       setItem(data);
-       console.log(item)
-       setLoading(false);
-       
-   })
-   .catch(err=>{
-       console.log("Error: " + err);
-       setLoading(false);
-   })
-   }, []);
-
-   
-
+  FetchDataFromDB(setItem, setLoading, item);
+  
   return (
     <Router>
     <div className="App">
@@ -51,20 +23,17 @@ function App() {
        <Switch>
 
        <Route exact path="/"  render={()=> <Home 
-                                        item = {item} 
-                                        setLoading = {setLoading}
-                                        loading={loading}
-
-                                    />} />
-
+                                              item = {item} 
+                                              setLoading = {setLoading}
+                                              loading={loading}
+                                              />} 
+        />
         <Route path="/newitems" >
           <Newitems/>
         </Route>
-
         <Route path="/items/:param">
          <ItemDetails/>
         </Route>
-        
         <Route path="/items" >
           <Items />
         </Route>
@@ -72,8 +41,6 @@ function App() {
         <Route path="/updateItem/:param">
           <UpdateItem/>
         </Route>
-      
-     
         </Switch>
         </div> 
     </div>

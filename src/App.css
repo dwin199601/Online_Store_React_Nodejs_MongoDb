@@ -1,38 +1,119 @@
 .App {
   text-align: center;
+  width: 100%;
+}
+body {
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.NavBar {
+  background-color: rgb(17, 4, 43);
+  width: 100%;
+  height: 80px;
+  font-family: Arial, Helvetica, sans-serif;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.NavBar .leftSide {
+  flex: 50%;
+  display: flex;
+  align-items: center; /* to place item on the middle(veritacaly) of the navbar*/
+  justify-content: flex-start; /*to push search bar to the left-side */
+  padding-left: 20px;
+}
+
+.NavBar .leftSide input {
+  width: 200px;
+  height: 30px;
+  border: none;
+  border-radius: 4px;
+  font-size: 20px;
+  padding-left: 5px;
+  color: black;
+}
+.NavBar .leftSide button {
+  height: 33px;
+  width: 70px;
+  font-size: 17px;
+}
+
+button {
+  cursor: pointer;
+}
+
+.NavBar .rightSide .links {
+  max-height: 80px;
+  margin-top: 10px;
+}
+
+.NavBar .rightSide button {
+  display: none;
+  margin-right: 20px;
+}
+
+.NavBar .rightSide #hidden {
+  display: flex;
+}
+
+.NavBar .rightSide .links a {
+  text-decoration: none;
   color: white;
+  font-size: 20px;
+  margin-left: 15px;
 }
 
-.App-link {
-  color: #61dafb;
+.NavBar .rightSide .links a:hover {
+  color: rgb(20, 219, 153);
+}
+.NavBar .rightSide {
+  flex: 50%;
+  display: flex;
+  justify-content: right;
+  margin-right: 20px;
+  align-items: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+@media only screen and (max-width: 850px) {
+  .NavBar .rightSide .links a {
+    font-size: 15px;
   }
 }
+
+@media only screen and (max-width: 650px) {
+  .NavBar .rightSide .links a {
+    font-size: 12px;
+  }
+
+  .NavBar .rightSide button {
+    display: flex;
+  }
+
+  .NavBar .rightSide .links {
+    display: none;
+  }
+
+  .NavBar .rightSide #hidden {
+    position: absolute;
+    left: 0px;
+    top: 80px;
+    height: 140px;
+    max-height: 150px;
+    width: 100%;
+    background-color: rgb(17, 4, 43);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .NavBar .rightSide #hidden a {
+    margin: 5px;
+    font-size: 20px;
+  }
+}
+
+.fileUploadStyle{
+  display: none;
+  border: 2px red solid;
+}
+
