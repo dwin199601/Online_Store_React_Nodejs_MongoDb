@@ -23,9 +23,12 @@ app.get('/api/items', async (req, res)=>{
         await mongoose.connect(url);
         console.log("Database is connected");
         ItemModel.find((err, items)=>{
-            if(err) {console.log(err)
-                alert(err);
-        }else {
+        if(err) 
+        {   console.log(err)
+            alert(err);
+        }
+        else 
+        {
             console.log(items);
             res.send(items);
             mongoose.connection.close();
@@ -66,7 +69,7 @@ app.get('/api/items/:id', async (req, res)=>{
 app.post("/api/newitems", async (req,res)=>{
     try{
       
-        const {item_image, item_name,item_description, price} = req.body;
+        const {item_image, item_name, item_description, price} = req.body;
         console.log(item_image, item_name, item_description, price);
         const items = new ItemModel({
             item_image: item_image,
@@ -101,7 +104,7 @@ app.put("/api/items/:id", async (req,res)=>{
         let _id = req.params.id;
         _id = mongoose.Types.ObjectId(_id);
          console.log(_id);
-         const {item_image, item_name,item_description, price} = req.body;
+         const {item_image, item_name, item_description, price} = req.body;
 
          await mongoose.connect(url); //await is used to tell function that first of all we need to get connection before going farther
          console.log("Database is connected");

@@ -1,0 +1,44 @@
+.parentInputForm{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 100%;
+    width: 100%;
+    justify-items: center;
+    align-items: center;   
+ 
+}
+label{
+    font-size: 20px;
+    font-weight: 500;
+}
+.childContainer img{
+    width: 250px;
+}
+.childContainer{
+    margin: 1rem;
+}
+.childContainer input{
+    font-size: 12px;
+    width: 200px;
+    margin-left: 1rem;
+    background-color: rgba(85, 11, 235, 0.1);
+    padding: 8px;
+    border: none
+}
+.textAreaChild textarea{
+    font-size: 12px;
+    margin-left: 1rem;
+    width: 150px;
+    height: 80px;
+    background-color: rgba(85, 11, 235, 0.1);
+    border: none;
+    padding: 5px;
+}
+.textAreaChild{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+

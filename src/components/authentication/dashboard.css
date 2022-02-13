@@ -1,0 +1,62 @@
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .dashText{
+    display: flex;
+    width: 100%;
+  }
+  .dashText p{
+    margin-left: 1rem;
+    margin-top: 10px;
+    font-style: italic;
+  }
+  .emailStyles{
+    text-decoration: underline;
+    color: rgb(14, 14, 134);
+    cursor: pointer;
+    transition: color 0.5s ease-in 0.5s,
+  }
+  .emailStyles:hover{
+    color: rgb(8, 126, 71);
+  }
+
+
+  .dashboard__container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: #dcdcdc;
+    padding: 30px;
+  }
+  .dashboard__btn {
+    padding: 10px;
+    font-size: 18px;
+    margin-top: 10px;
+    border: none;
+    color: white;
+    background-color: black;
+  }
+  .dashboard__btn_delete{
+    padding: 10px;
+    font-size: 18px;
+    margin-top: 10px;
+    border: none;
+    color: white;
+    background-color: rgb(194, 12, 12);
+  }
+
+  .dashboard__btn_store{
+    padding: 10px;
+    font-size: 18px;
+    margin-top: 10px;
+    border: none;
+    color: white;
+    background-color: rgb(18, 27, 145);
+  }
+
+  .dashboard div {
+    margin-top: 7px;
+  }

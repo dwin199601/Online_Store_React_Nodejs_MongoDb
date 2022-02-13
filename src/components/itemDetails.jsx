@@ -7,9 +7,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { useHistory } from 'react-router';
 import { itemDetailsOpen } from '../util/FetchDataHelper.js';
 
-export default function ItemDetails() {
+export default function ItemDetails(props) {
 
-  const [item, setItem] = useState(null);
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const history = useHistory();
@@ -20,9 +19,9 @@ export default function ItemDetails() {
       items._id = param;
       console.log("Item was deleted");
       const { data } = await axios.delete("http://localhost:5000/api/items/" + items._id);
-      const newItem = item.filter(i => i._id !== items._id);
+      const newItem = props.item.filter(i => i._id !== items._id);
       console.log(data, newItem);
-      setItem([...newItem]);
+      props.setItem([...newItem]);
       alert("Item was deleted!!")
     }
     catch (error) {
@@ -33,7 +32,7 @@ export default function ItemDetails() {
   }
 
   useEffect(() => {
-    itemDetailsOpen(setItem, setLoading, param, setError);
+    itemDetailsOpen(props.setItem, setLoading, param, setError);
   }, [param]);
 
 
@@ -43,21 +42,21 @@ export default function ItemDetails() {
 
       {isLoading && <div>Loading..</div>}
       {error && <div>Error: {error}</div>}
-      {item &&
+      {props.item &&
         <span>
-          <h1 style={{ margin: "10px", color: "#06412f" }}>{item.item_name}</h1>
+          <h1 style={{ margin: "10px", color: "#06412f" }}>{props.item.item_name}</h1>
           <div className="boxParent">
-            <div className="boxchild"><img src={item.item_image} alt="" /> </div>
+            <div className="boxchild"><img src={props.item.item_image} alt="" /> </div>
             <div className="boxchild">
               <span>
-                <p>Price: ${item.price}</p>
-                <p>Description: {item.item_description}</p>
+                <p>Price: ${props.item.price}</p>
+                <p>Description: {props.item.item_description}</p>
 
               </span>
             </div>
           </div>
           <button type="button"
-            class="btn btn-danger"
+            className="btn btn-danger"
             onClick={deleteHandler} style={{ marginTop: "20px" }}>Delete Item</button>
         </span>
       }

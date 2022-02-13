@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 toast.configure();
 
 const url = "http://localhost:5000/api/items";
-const itemWasCreated = () => {
-  toast.success("New item was created!!", { position: toast.POSITION.TOP_RIGHT, autoClose: 4000 })
+export const successfullMessage = (message) => {
+  toast.success(message, { position: toast.POSITION.TOP_RIGHT, autoClose: 4000 })
 }
 
 export const FetchDataFromDB =(setItem, setLoading, item) =>{
@@ -94,7 +94,7 @@ export const newItem = (itemUrl, name, description, price, history, setLoading) 
 
         }).then(() => {
             console.log("New item added");
-            itemWasCreated();
+            successfullMessage("New item was created!!");
             history.push('/items')
             setLoading(false);
 
@@ -133,3 +133,4 @@ export const itemDetailsOpen = (setItem, setLoading, param, setError) => {
     return () => abortControl.abort();
   
 }
+

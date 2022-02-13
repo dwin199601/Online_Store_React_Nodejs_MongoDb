@@ -1,15 +1,18 @@
-import React from 'react'
-import UserAuthentic from './authentication/userAuthentic';
 
-function Home(props) {
+import React, { useState, useRef, useEffect } from 'react'
+
+function Home() {
+
+
 
   return (
     <>
-      <UserAuthentic />
+
     </>
   )
 }
 
 export default Home;
+
 
 

@@ -1,95 +1,112 @@
 import React from 'react';
-import axios from 'axios';
 import { useParams } from 'react-router';
-import { useState } from 'react'
 import { useHistory } from 'react-router';
 import { toast } from 'react-toastify';
+import "./updateItemStyles.css"
 import 'react-toastify/dist/ReactToastify.css';
 import { UpdateItemHelper } from '../util/FetchDataHelper';
 
 toast.configure();
 
-function UpdateItem() {
+function UpdateItem(props) {
   const history = useHistory();
   const { param } = useParams();
-  const [item, setItem] = useState({});
+  UpdateItemHelper(param, props.setItem);
 
   const successToastMessage = () => {
     toast.success("The item was updated!", { position: toast.POSITION.TOP_RIGHT, autoClose: 4000 })
   }
 
-  const updateData = async (e) => {
+  const updateD = async (e) => {
     e.preventDefault();
-    try {
-      await axios.put("http://localhost:5000/api/items/" + param, item);
-      console.log("Item was updated!!")
+    /*const imgURL = await getImageUrl(props.item)
+    console.log("URL::: " + imgURL)
+    props.setItem({ ...props.item, "item_image": imgURL })*/
+
+    fetch("http://localhost:5000/api/items/" + param, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(props.item)
+    }).then(response => {
       successToastMessage();
       history.push('/items');
-    } catch (err) {
-      console.log(err);
-
-    }
+      return response.json();
+    }).catch(error => {
+      console.log(error);
+    })
 
   }
-  UpdateItemHelper(param, setItem);
+
 
   return (
     <div>
-      <h1> Udate Page</h1>
+      <h1> Udate Item</h1>
       <form>
         <div className="parentInputForm">
 
-          <div className="childInputForm">
+          <div className='childContainer'>
+            <img src={props.item.item_image} alt="item_image" />
+          </div>
+
+          <div className='childContainer'>
             <label>Name</label>
-          </div>
-
-          <div className="childInputForm">
             <input type="text"
-              value={item.item_name}
-              onChange={(e) => setItem({ ...item, "item_name": e.target.value })}
+              value={props.item.item_name}
+              onChange={(e) => props.setItem({ ...props.item, item_name: e.target.value })}
               required />
           </div>
 
-          <div className="childInputForm">
+          <div className='childContainer'>
             <label>Price$</label>
-          </div>
-
-          <div className="childInputForm">
             <input type="number" placeholder="999"
-              value={item.price}
-              onChange={(e) => setItem({ ...item, "price": e.target.value })}
+              value={props.item.price}
+              onChange={(e) => props.setItem({ ...props.item, price: e.target.value })}
               required />
           </div>
-          <div className="childInputForm">
-            <label>Change Image</label>
-          </div>
-          <div className="childInputForm">
-            <input type="url"
-              value={item.item_image}
-              onChange={(e) => setItem({ ...item, "item_image": e.target.value })} />
-          </div>
 
-          <div className="childInputForm">
+          <div className='textAreaChild'>
             <label>Description</label>
-          </div>
-
-          <div className="childInputForm">
             <textarea required
-              value={item.item_description}
-              onChange={(e) => setItem({ ...item, "item_description": e.target.value })}
+              value={props.item.item_description}
+              onChange={(e) => props.setItem({ ...props.item, item_description: e.target.value })}
             />
           </div>
 
-          <div className="childInputForm">
-            <button onClick={updateData} className="btn btn-success">Edit
+          <div className="childContainer">
+            <button onClick={updateD} className="btn btn-success m-0">Edit
             </button>
           </div>
 
         </div>
-      </form>
-    </div>
+      </form >
+    </div >
   )
 }
 
 
 export default UpdateItem;
+
+/*
+ <input type="url"
+                value={item.item_image}
+                onChange={(e) => setItem({ ...item, "item_image": e.target.value })} />*/
+
+/* <span className='dropZona'>
+<input type="file" className='dropButton' onChange={(e) => CapturFile(e, props.setItem)} />
+<span className='dropIcon'>Open Image</span>
+</span>*/
+
+
+/*  <div className='childContainer'>
+            <div className="childInputForm">
+              <label>Image</label>
+            </div>
+            <div className="childInputForm">
+
+            </div>
+            <span className='dropZona'>
+              <input type="file" className='dropButton' value="" onChange={(e) => CapturFile(e, props.setItem)} />
+              <span className='dropIcon'>Open Image</span>
+            </span>
+
+          </div>*/
