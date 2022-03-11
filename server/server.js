@@ -70,7 +70,7 @@ app.post("/api/newitems", async (req,res)=>{
     try{
       
         const {item_image, item_name, item_description, price} = req.body;
-        console.log(item_image, item_name, item_description, price);
+        //console.log(item_image, item_name, item_description, price);
         const items = new ItemModel({
             item_image: item_image,
             item_name: item_name,

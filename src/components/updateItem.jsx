@@ -1,20 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router';
 import { useHistory } from 'react-router';
 import { toast } from 'react-toastify';
 import "./updateItemStyles.css"
 import 'react-toastify/dist/ReactToastify.css';
+import { CapturFile, getImageUrl } from '../util/CaptureFileHelper';
 import { UpdateItemHelper } from '../util/FetchDataHelper';
+import { LoadingOutlined } from '@ant-design/icons';
 
 toast.configure();
 
 function UpdateItem(props) {
   const history = useHistory();
   const { param } = useParams();
-  UpdateItemHelper(param, props.setItem);
+  const [file, setFile] = useState(null);
+  const [item, setItem] = useState({});
+  UpdateItemHelper(param, setItem);
 
   const successToastMessage = () => {
     toast.success("The item was updated!", { position: toast.POSITION.TOP_RIGHT, autoClose: 4000 })
+  }
+  const handleImgUrl = async () => {
+    const imageUrl = await getImageUrl(file)
+    //setImage(imageUrl)
+    setItem({ ...item, "item_image": imageUrl })
   }
 
   const updateD = async (e) => {
@@ -26,7 +35,7 @@ function UpdateItem(props) {
     fetch("http://localhost:5000/api/items/" + param, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(props.item)
+      body: JSON.stringify(item)
     }).then(response => {
       successToastMessage();
       history.push('/items');
@@ -45,30 +54,45 @@ function UpdateItem(props) {
         <div className="parentInputForm">
 
           <div className='childContainer'>
-            <img src={props.item.item_image} alt="item_image" />
+            {
+              item.item_image ? <img src={item.item_image} alt="item_image" />
+                : <LoadingOutlined className="Loadingmessagestyle" />
+            }
           </div>
-
+          <div className='childContainer'>
+            <label>Image</label>
+            <input value={item.item_image ? item.item_image : "loading..."} readOnly={true} />
+            <div className='dragDropZone'>
+              <input
+                type="file"
+                className="uploadImagebtn"
+                onChange={e => CapturFile(e, setFile)}
+                onMouseLeave={handleImgUrl}
+              />
+              <div className="dropzoneIcon">Upload Image</div>
+            </div>
+          </div>
           <div className='childContainer'>
             <label>Name</label>
             <input type="text"
-              value={props.item.item_name}
-              onChange={(e) => props.setItem({ ...props.item, item_name: e.target.value })}
+              value={item.item_name ? item.item_name : "loading..."}
+              onChange={(e) => setItem({ ...item, item_name: e.target.value })}
               required />
           </div>
 
           <div className='childContainer'>
             <label>Price$</label>
             <input type="number" placeholder="999"
-              value={props.item.price}
-              onChange={(e) => props.setItem({ ...props.item, price: e.target.value })}
+              value={item.price ? item.price : "loading..."}
+              onChange={(e) => setItem({ ...item, price: e.target.value })}
               required />
           </div>
 
           <div className='textAreaChild'>
             <label>Description</label>
             <textarea required
-              value={props.item.item_description}
-              onChange={(e) => props.setItem({ ...props.item, item_description: e.target.value })}
+              value={item.item_description ? item.item_description : "loading..."}
+              onChange={(e) => setItem({ ...item, item_description: e.target.value })}
             />
           </div>
 

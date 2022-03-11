@@ -24,7 +24,6 @@ const ItemList = (props) => {
 
     return (
         <div className="itemstyles">
-            <h1>{props.title}</h1>
             <table className="table">
                 <thead className="table-dark">
                     <tr>

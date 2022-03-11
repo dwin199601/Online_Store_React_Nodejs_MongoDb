@@ -4,6 +4,7 @@ import ItemList from './itemList';
 import 'bootstrap/dist/css/bootstrap.css';
 import { FetchDataFromDBWithErrors } from '../util/FetchDataHelper';
 import { IfUserIsntRegistered } from '../util/UserAuthHelper';
+import { LoadingOutlined } from '@ant-design/icons';
 
 export default function Items(props) {
     IfUserIsntRegistered("/login");
@@ -18,9 +19,10 @@ export default function Items(props) {
 
     return (
         <div>
-            {isLoading ? <p className="Loadingmessagestyle">Loading...</p>
-                : <ItemList item={item} title="All items" setItem={setItem} />
+            {isLoading ? <LoadingOutlined className="Loadingmessagestyle" />
+                : <ItemList item={item} setItem={setItem} />
             }
+
             {error &&
                 <div className="Errorstyles">
                     <p>Sorry, no connection with server, try again..</p>

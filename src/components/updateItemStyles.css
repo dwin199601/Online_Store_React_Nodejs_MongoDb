@@ -14,9 +14,10 @@ label{
 }
 .childContainer img{
     width: 250px;
+    border-radius: 5px;
 }
 .childContainer{
-    margin: 1rem;
+    margin: 1.5rem;
 }
 .childContainer input{
     font-size: 12px;
@@ -41,4 +42,35 @@ label{
     align-items: center;
 }
 
+.dragDropZone {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+}
+
+.dragDropZone input {
+    border: 1px solid red;
+    position: absolute;
+    right: 0px;
+    opacity: 0;
+    z-index:10;
+}
+
+.dragDropZone .dropzoneIcon {
+    margin-top: 5px;
+    display: flex;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    background: #b92b27;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #1565C0, #b92b27);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #1565C0, #b92b27); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: white;
+    border: none;
+    width: 200px;
+    z-index: 0;
+}
 

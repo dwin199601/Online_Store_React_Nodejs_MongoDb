@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.css';
 import { useHistory } from 'react-router';
 import { itemDetailsOpen } from '../util/FetchDataHelper.js';
+import { LoadingOutlined } from '@ant-design/icons';
 
 export default function ItemDetails(props) {
 
@@ -39,18 +40,16 @@ export default function ItemDetails(props) {
 
   return (
     <div>
-
-      {isLoading && <div>Loading..</div>}
       {error && <div>Error: {error}</div>}
-      {props.item &&
+      {isLoading ? <LoadingOutlined className="Loadingmessagestyle" /> :
         <span>
-          <h1 style={{ margin: "10px", color: "#06412f" }}>{props.item.item_name}</h1>
+          <h1 style={{ margin: "10px", color: "#06412f" }}>{props.item.item_name ? props.item.item_name : "loading.."}</h1>
           <div className="boxParent">
             <div className="boxchild"><img src={props.item.item_image} alt="" /> </div>
             <div className="boxchild">
               <span>
-                <p>Price: ${props.item.price}</p>
-                <p>Description: {props.item.item_description}</p>
+                <p>Price: ${props.item.price ? props.item.price : "loading"}</p>
+                <p>Description: {props.item.item_description ? props.item.item_description : "loading"}</p>
 
               </span>
             </div>

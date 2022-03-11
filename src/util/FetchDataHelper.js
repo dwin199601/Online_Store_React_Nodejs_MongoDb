@@ -9,59 +9,82 @@ export const successfullMessage = (message) => {
 }
 
 export const FetchDataFromDB =(setItem, setLoading, item) =>{
-
-    useEffect(()=> {
-        fetch(url)
-        .then(res=>{
-            if(!res.ok){
-                throw Error (`Couldn't fetch the data from the server!`)
-            }
-            console.log("Server works!!")
-            return res.json();
-           
-        })
-        .then(data=>{//to process data from the json file
-            setItem(data);
-            console.log(item)
-            setLoading(false);
-            
-        })
-        .catch(err=>{
-            console.log("Error: " + err);
-            setLoading(false);
-        })
-        }, []);
+  let isMounted = true;
+  const fetchData = () => {
+    fetch(url)
+    .then(res=>{
+      if(!res.ok){
+        
+          console.log(`Couldn't fetch the data from the server!`)
+      }
+      console.log("Server works!!")
+      return res.json();
+     
+    })
+    .then(data=>{
+      if(isMounted){
+          setItem(data);
+          console.log(item)
+          setLoading(false);
+      }
+    })
+    .catch(err=>{
+      if(isMounted){
+          console.log("Error: " + err);
+          setLoading(false); 
+      }
+    }) 
+  }
+  useEffect(()=> {
+    fetchData();
+      return ()=>{
+          isMounted = false;
+      }
+  }, []);
 }
 
 export const FetchDataFromDBWithErrors = (setItem, setLoading, setError )=>{
-    useEffect(() => {
-        fetch(url)
-            .then(res => {
-                if (!res.ok) {
-                    throw Error(`Couldn't fetch the data from the server!`)
-                }
-                return res.json();
-            })
-            .then(data => {//to process data from the json file
-                setItem(data);
-                setLoading(false);
-                setError(null);
-            })
-            .catch(err => {
-                console.log("Error: " + err);
-                setError(err.message + " data from the server! Sorry..");
-                setLoading(false);
-            })
-    }, []);
+  let isMounted = true;
+  const fetchData = () =>{
+    fetch(url)
+    .then(res => {
+        if (!res.ok) {
+            console.log(`Couldn't fetch the data from the server!`)
+        }
+        return res.json();
+    })
+    .then(data => {//to process data from the json file
+      if(isMounted){
+        setItem(data);
+        setLoading(false);
+        setError(null);
+      }
+    })
+    .catch(err => {
+      if(isMounted){
+        console.log("Error: " + err);
+        setError(err.message + " data from the server! Sorry..");
+        setLoading(false);
+      }
+    })
+  }
+  useEffect(() => {
+    fetchData();
+    return ()=>{
+      isMounted = false;
+    }
+  }, []);
 }
 
 export const UpdateItemHelper = (param, setItem) => {
+  
     useEffect(() => {
         const abortControl = new AbortController();
         fetch("http://localhost:5000/api/items/" + param, { signal: abortControl.signal })
           .then((res) => {
             if (!res.ok) {
-              throw Error(`Couldn't fetch the data from the server!`);
+              //throw Error(`Couldn't fetch the data from the server!`);
+              console.log(`Couldn't fetch the data from the server!`)
             }
             return res.json()
           })
@@ -111,7 +134,7 @@ export const itemDetailsOpen = (setItem, setLoading, param, setError) => {
     fetch("http://localhost:5000/api/items/" + param, { signal: abortControl.signal })
       .then((res) => {
         if (!res.ok) {
-          throw Error(`Couldn't fetch the data from the server!`);
+          console.log(`Couldn't fetch the data from the server!`);
         }
         return res.json()
       })

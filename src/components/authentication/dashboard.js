@@ -53,11 +53,11 @@ function Dashboard() {
           load?
           <>
           <div className='dashText'>
-          <p>Account Details of {name}</p>
+          <p>Account Details of {name? name: "unknown..."}</p>
           </div>
           <div className="dashboard__container">
          <h3>User Details:</h3>
-         <div>Name: <h3 style={{fontSize: "18px", color: "rgb(7, 7, 134)"}}>{name}</h3></div>
+         <div>Name: <h3 style={{fontSize: "18px", color: "rgb(7, 7, 134)"}}>{name? name: "unknown..."}</h3></div>
          <div>Email: <a href={`mailto:${user?.email}`} className='emailStyles'>{user?.email}</a></div>
          <button className="dashboard__btn" onClick={logout}>
           Logout

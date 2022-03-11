@@ -7,6 +7,24 @@ body {
   padding: 0;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(17, 4, 43);
+}
+
+::-webkit-scrollbar-thumb {
+  background-image: linear-gradient(rgb(231, 235, 236), rgb(8, 95, 117));
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background-image: linear-gradient(rgb(231, 235, 236), rgb(255, 136, 0));
+}
+
+
 .NavBar {
   background-color: rgb(17, 4, 43);
   width: 100%;
