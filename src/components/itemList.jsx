@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { LoadingOutlined, DownCircleOutlined, UpCircleOutlined } from '@ant-design/icons';
+import './itemList.css'
 
 toast.configure();
 const ItemList = (props) => {
-
     const deleteToastMessage = () => {
         toast.error("Item was deleted!", { position: toast.POSITION.TOP_RIGHT, autoClose: 2000 });
     }
@@ -22,40 +23,72 @@ const ItemList = (props) => {
         deleteToastMessage();
     }
 
+    const openDescription = (id) => {
+        let newItems = props.item.map((items) => {
+            if (items._id === id) {
+                items.visibleDescription = true;
+                return items;
+            }
+            else {
+                return items;
+            }
+        })
+        props.setItem(newItems);
+    }
+
+    const closeDescription = (id) => {
+        let newItems = props.item.map((items) => {
+            if (items._id === id) {
+                items.visibleDescription = false;
+                return items;
+            }
+            else {
+                return items;
+            }
+        })
+        props.setItem(newItems);
+    }
+
     return (
-        <div className="itemstyles">
-            <table className="table">
-                <thead className="table-dark">
-                    <tr>
-                        <th>Image</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Description</th>
-                        <th></th>
-                        <th></th>
-
-                    </tr>
-                </thead>
-
-                <tbody>
-                    {props.item.map((allitems) => {
+        <>
+            <h1>All Items</h1>
+            <div className="itemstyles">
+                {
+                    props.item.map((allitems) => {
                         return (
-                            <tr key={allitems._id} className="table-success">
-                                <td><img src={allitems.item_image} alt="item_image" className="imagestyles" /></td>
-                                <td className="NameClasses" title="open product page"><Link to={`/items/${allitems._id}`}>{allitems.item_name}</Link></td>
-                                <td>$ {allitems.price}</td>
-                                <td>{allitems.item_description}</td>
-                                <td><button onClick={() => handledelete(allitems)} className="btn btn-danger">Delete</button></td>
-                                <td><Link to={`/updateItem/${allitems._id}`}><button type="button" className="btn btn-warning" style={{ width: "70px" }}>Edit</button></Link></td>
+                            <div key={allitems._id} >
+                                <div className='product_content'>
+                                    <h1 className='priceItem'>Price ${allitems.price}</h1>
+                                    {
+                                        allitems.item_image ? <Link to={`/items/${allitems._id}`}> <img src={allitems.item_image} alt="item_image" className="imagestyles" /> </Link>
+                                            : <LoadingOutlined style={{ fontSize: 25 }} />
+                                    }
+                                    <Link to={`/items/${allitems._id}`}>{allitems.item_name}</Link>
+                                    <div className='productBtn'>
+                                        <Link to={`/updateItem/${allitems._id}`}><button className='edit_btn'>Edit</button></Link>
+                                        <button className="delete_btn" onClick={() => handledelete(allitems)}>Delete</button>
+                                    </div>
+                                    {
+                                        allitems.visibleDescription === false ?
+                                            <DownCircleOutlined
+                                                className='more_content'
+                                                onClick={() => openDescription(allitems._id)} />
+                                            :
+                                            <UpCircleOutlined
+                                                className='close_morecontent'
+                                                onClick={() => closeDescription(allitems._id)} />
+                                    }
 
-                            </tr>
+                                    <div className={allitems.visibleDescription === true ? "itemDescription" : "hidden"} key={allitems._id}>
+                                        <p>{allitems.item_description}</p>
+                                    </div>
+                                </div>
+                            </div>
                         )
-                    })}
-                </tbody>
-            </table>
-
-
-        </div>
+                    })
+                }
+            </div>
+        </>
     )
 }
 

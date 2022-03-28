@@ -1,0 +1,31 @@
+.login_content {
+    margin: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.passworderror, .emailerror {
+    color: red;
+    margin-bottom: 10px;
+}
+
+.newhere {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: left;
+    align-items: left;
+}
+
+.newhere p {
+    font-style: italic;
+    margin-right: 5px;
+    color: rgb(91, 25, 153);
+}
+
+.newhere a {
+    font-style: italic; 
+    color: rgb(91, 25, 153);
+}

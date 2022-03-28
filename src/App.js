@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
 import './App.css';
 import Navbar from './components/navbar';
 import Home from './components/home';
@@ -6,64 +6,50 @@ import Items from './components/items';
 import Newitems from './components/newitems';
 import ItemDetails from './components/itemDetails';
 import UpdateItem from './components/updateItem';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FetchDataFromDB } from './util/FetchDataHelper';
-import Login from './components/authentication/login';
-import Registration from './components/authentication/registration';
-import Reset from './components/authentication/reset';
-import Dashboard from './components/authentication/dashboard';
+import Signup from './components/signup';
+import Login from './components/login';
 
 function App() {
   const [item, setItem] = useState({});
   const [isLoading, setLoading] = useState(true);
+
+  
   FetchDataFromDB(setItem, setLoading, item);
- 
+  const user = localStorage.getItem("userToken");
+  
+  useEffect(()=> {
+   
+  },[])
 
   return (
-    <div >
-    <Router>
+    <BrowserRouter>
+    <Navbar user={user}/>
     <div className="App">
-    <Navbar/>
       <div className="content">
-       <Switch>       
-        <Route path="/newitems" >
-          <Newitems/>
-        </Route>
-        <Route path="/items/:param" >
-         <ItemDetails item={item} setItem={setItem}/>
-        </Route>
-        <Route path="/items" >
-          <Items isLoading={isLoading} setLoading={setLoading}/>
-        </Route>
-         
-        <Route path="/updateItem/:param">
-          <UpdateItem/>
-        </Route>
-
-        <Route path="/login">
-          <Login />
-        </Route>
-
-        <Route path="/register">
-          <Registration/>
-        </Route>
-
-        <Route path="/reset">
-          <Reset/>
-        </Route>
-
-        <Route path="/dashboard">
-          <Dashboard/>
-        </Route>
-
-        <Route exact path="/"  render={()=> <Home/>} 
-        />
-        
-        </Switch>
-        </div> 
+      <Routes>
+			  {user && 
+          <>
+          <Route path="/" exact element={<Home />} />
+          <Route path="/newitems" exact element={ <Newitems/>} />
+          <Route path="/items/:param" exact element= { <ItemDetails item={item} setItem={setItem}/>} />
+          <Route path="/items" exact element = {<Items isLoading={isLoading} setLoading={setLoading}/>} />
+          <Route path="/updateItem/:param" exact element = { <UpdateItem/>} />
+          </>
+        }
+          <Route path="/signup" exact element = { <Signup />} />
+          <Route path="/login" exact element = { <Login/>} />
+          <Route path="/newitems" exact element={<Navigate replace to="/login" />} />
+          <Route path="/items/:param" exact element={<Navigate replace to="/login" />} />
+          <Route path="/items" exact element={<Navigate replace to="/login" />} />
+          <Route path="/updateItem/:param" exact element={<Navigate replace to="/login" />} />
+          <Route path="/" exact element={<Navigate replace to="/login" />} />
+		  </Routes>
+      </div> 
     </div>
-    </Router>
-    </div>
+    </BrowserRouter>
+   
   );
 }
 

@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 toast.configure();
 
-const url = "http://localhost:5000/api/items";
+export const url = "http://localhost:5000/api/items";
 export const successfullMessage = (message) => {
   toast.success(message, { position: toast.POSITION.TOP_RIGHT, autoClose: 4000 })
 }
@@ -24,7 +24,6 @@ export const FetchDataFromDB =(setItem, setLoading, item) =>{
     .then(data=>{
       if(isMounted){
           setItem(data);
-          console.log(item)
           setLoading(false);
       }
     })
@@ -55,9 +54,13 @@ export const FetchDataFromDBWithErrors = (setItem, setLoading, setError )=>{
     })
     .then(data => {//to process data from the json file
       if(isMounted){
-        setItem(data);
-        setLoading(false);
-        setError(null);
+        let newItem = data.map(items => {
+          items.visibleDescription = false;
+          return items;
+      });
+      setItem(newItem);
+      setLoading(false);
+      setError(null);
       }
     })
     .catch(err => {
@@ -83,13 +86,11 @@ export const UpdateItemHelper = (param, setItem) => {
         fetch("http://localhost:5000/api/items/" + param, { signal: abortControl.signal })
           .then((res) => {
             if (!res.ok) {
-              //throw Error(`Couldn't fetch the data from the server!`);
               console.log(`Couldn't fetch the data from the server!`)
             }
             return res.json()
           })
           .then((res) => {
-            console.log(res);
             setItem(res);
     
           })
@@ -102,7 +103,7 @@ export const UpdateItemHelper = (param, setItem) => {
 }
 
 
-export const newItem = (itemUrl, name, description, price, history, setLoading) => {
+export const newItem = (itemUrl, name, description, price, setLoading) => {
    
         fetch("http://localhost:5000/api/newitems", {
             method: 'POST',
@@ -118,7 +119,6 @@ export const newItem = (itemUrl, name, description, price, history, setLoading) 
         }).then(() => {
             console.log("New item added");
             successfullMessage("New item was created!!");
-            history.push('/items')
             setLoading(false);
 
         }).catch(err => {

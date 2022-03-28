@@ -7,14 +7,19 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "backend": "npm start",
     "front-end": "cd.. && npm start",
-    "devrun": "concurrently \"npm run front-end\" \"npm run backend\""
+    "userAuth": "cd..&&cd userAuth_JWT&&npm start",
+    "devrun": "concurrently \"npm run userAuth\" \"npm run front-end\" \"npm run backend\""
   },
   "author": "Alex",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.19.1",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.2",
+    "cookie-parser": "^1.4.6",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.14",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "validator": "^13.7.0"
   }
 }

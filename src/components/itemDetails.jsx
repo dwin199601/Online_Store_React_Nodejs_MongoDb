@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useState } from 'react'
 import { useEffect } from 'react'
 import 'bootstrap/dist/css/bootstrap.css';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { itemDetailsOpen } from '../util/FetchDataHelper.js';
 import { LoadingOutlined } from '@ant-design/icons';
 
@@ -12,7 +12,7 @@ export default function ItemDetails(props) {
 
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const history = useHistory();
+  const navigate = useNavigate();
   const { param } = useParams();
 
   const deleteHandler = async (items) => {
@@ -27,7 +27,7 @@ export default function ItemDetails(props) {
     }
     catch (error) {
       console.log(error);
-      history.push('/items');
+      navigate('/items');
       setLoading(false);
     }
   }

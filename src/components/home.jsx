@@ -1,18 +1,20 @@
+import React from 'react';
 
-import React, { useState, useRef, useEffect } from 'react'
+
 
 function Home() {
 
 
-
   return (
     <>
+      <p> Home</p>
 
     </>
   )
 }
 
 export default Home;
+
 
 
 

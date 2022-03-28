@@ -3,11 +3,10 @@ import { useState } from 'react'
 import ItemList from './itemList';
 import 'bootstrap/dist/css/bootstrap.css';
 import { FetchDataFromDBWithErrors } from '../util/FetchDataHelper';
-import { IfUserIsntRegistered } from '../util/UserAuthHelper';
 import { LoadingOutlined } from '@ant-design/icons';
+import './item.css';
 
 export default function Items(props) {
-    IfUserIsntRegistered("/login");
     const [item, setItem] = useState([]);
     const [isLoading, setLoading] = useState(true);
     const RefresPage = (e) => {

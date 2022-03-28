@@ -1,77 +1,87 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 import "./updateItemStyles.css"
 import 'react-toastify/dist/ReactToastify.css';
 import { CapturFile, getImageUrl } from '../util/CaptureFileHelper';
 import { UpdateItemHelper } from '../util/FetchDataHelper';
 import { LoadingOutlined } from '@ant-design/icons';
+import TextareaAutosize from 'react-textarea-autosize';
 
 toast.configure();
 
-function UpdateItem(props) {
-  const history = useHistory();
+function UpdateItem() {
+  const navigate = useNavigate();
   const { param } = useParams();
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState("");
   const [item, setItem] = useState({});
+  const [changedImg, setchangedImg] = useState(false);
+  const [itemUpdated, setItemUpdated] = useState(false);
   UpdateItemHelper(param, setItem);
 
   const successToastMessage = () => {
     toast.success("The item was updated!", { position: toast.POSITION.TOP_RIGHT, autoClose: 4000 })
   }
-  const handleImgUrl = async () => {
-    const imageUrl = await getImageUrl(file)
-    //setImage(imageUrl)
-    setItem({ ...item, "item_image": imageUrl })
+
+  const onImageChange = (e) => {
+    CapturFile(e, setFile)
+    setchangedImg(true);
   }
 
   const updateD = async (e) => {
     e.preventDefault();
-    /*const imgURL = await getImageUrl(props.item)
-    console.log("URL::: " + imgURL)
-    props.setItem({ ...props.item, "item_image": imgURL })*/
 
+    const imageUrl = await getImageUrl(file);
     fetch("http://localhost:5000/api/items/" + param, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(item)
+      body: JSON.stringify({
+        "item_image": file ? imageUrl : item.item_image,
+        "item_name": item.item_name,
+        "item_description": item.item_description,
+        "price": item.price
+      })
     }).then(response => {
       successToastMessage();
-      history.push('/items');
+      navigate('/items');
       return response.json();
     }).catch(error => {
       console.log(error);
     })
-
   }
 
 
   return (
-    <div>
-      <h1> Udate Item</h1>
-      <form>
-        <div className="parentInputForm">
-
-          <div className='childContainer'>
+    <div className='content_update'>
+      <form className="updateItemForm">
+        <div className='UpdateImg'>
+          <div>
             {
-              item.item_image ? <img src={item.item_image} alt="item_image" />
-                : <LoadingOutlined className="Loadingmessagestyle" />
+              changedImg === false ?
+                item.item_image ? <img src={item.item_image} alt="item img" />
+                  : <LoadingOutlined className="Loadingmessagestyle" />
+                : <img src={item.item_image} alt="item img" className='uploadedImg' />
             }
           </div>
-          <div className='childContainer'>
-            <label>Image</label>
-            <input value={item.item_image ? item.item_image : "loading..."} readOnly={true} />
-            <div className='dragDropZone'>
-              <input
-                type="file"
-                className="uploadImagebtn"
-                onChange={e => CapturFile(e, setFile)}
-                onMouseLeave={handleImgUrl}
-              />
-              <div className="dropzoneIcon">Upload Image</div>
-            </div>
+          <div className='dragDropZone'>
+
+            {
+              changedImg === false ?
+                <>
+                  <input
+                    type="file"
+                    className="uploadImagebtn"
+                    onChange={(e) => onImageChange(e)} />
+                  <span className="dropzoneIcon">Drop Image Here</span>
+                </>
+                :
+                <span className="dropzoneIconChanged">Uploaded!</span>
+            }
           </div>
+        </div>
+
+        <div className="parentInputForm">
           <div className='childContainer'>
             <label>Name</label>
             <input type="text"
@@ -81,28 +91,26 @@ function UpdateItem(props) {
           </div>
 
           <div className='childContainer'>
-            <label>Price$</label>
+            <label>Price&#x0024;</label>
             <input type="number" placeholder="999"
               value={item.price ? item.price : "loading..."}
               onChange={(e) => setItem({ ...item, price: e.target.value })}
               required />
           </div>
 
-          <div className='textAreaChild'>
+          <div className='childContainer'>
             <label>Description</label>
-            <textarea required
+            <TextareaAutosize
+              required
+              rows={1}
+              maxRows={4}
               value={item.item_description ? item.item_description : "loading..."}
               onChange={(e) => setItem({ ...item, item_description: e.target.value })}
             />
           </div>
-
-          <div className="childContainer">
-            <button onClick={updateD} className="btn btn-success m-0">Edit
-            </button>
-          </div>
-
         </div>
       </form >
+      <button onClick={updateD} className="btnUpdate">Edit </button>
     </div >
   )
 }
@@ -110,27 +118,3 @@ function UpdateItem(props) {
 
 export default UpdateItem;
 
-/*
- <input type="url"
-                value={item.item_image}
-                onChange={(e) => setItem({ ...item, "item_image": e.target.value })} />*/
-
-/* <span className='dropZona'>
-<input type="file" className='dropButton' onChange={(e) => CapturFile(e, props.setItem)} />
-<span className='dropIcon'>Open Image</span>
-</span>*/
-
-
-/*  <div className='childContainer'>
-            <div className="childInputForm">
-              <label>Image</label>
-            </div>
-            <div className="childInputForm">
-
-            </div>
-            <span className='dropZona'>
-              <input type="file" className='dropButton' value="" onChange={(e) => CapturFile(e, props.setItem)} />
-              <span className='dropIcon'>Open Image</span>
-            </span>
-
-          </div>*/

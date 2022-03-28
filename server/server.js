@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
 const ItemModel = require('./models/items.js');
+
 //importing module from the items.js file
 
 app.use(express.json()); 
 app.use(express.urlencoded({extended: true}));
 app.use(cors());
-
 app.get("/", (req, res)=>{
     res.send("Check");
 });
@@ -16,12 +16,14 @@ app.get("/", (req, res)=>{
 const url =
  "mongodb+srv://Alex:Alex@cluster0.gbjfl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
+ mongoose.connect(url)
+ .then(()=> console.log("Database is connected"))
+ .catch((err)=> console.log(err));
+
 
 //Reading Data
-app.get('/api/items', async (req, res)=>{
+app.get('/api/items', (req, res)=>{
     try{
-        await mongoose.connect(url);
-        console.log("Database is connected");
         ItemModel.find((err, items)=>{
         if(err) 
         {   console.log(err)
@@ -31,7 +33,6 @@ app.get('/api/items', async (req, res)=>{
         {
             console.log(items);
             res.send(items);
-            mongoose.connection.close();
         }
         
     })
@@ -47,18 +48,11 @@ app.get('/api/items/:id', async (req, res)=>{
         let _id = req.params.id;
         // _id = mongoose.Types.ObjectId(_id);
         // console.log(_id);
-
-        await mongoose.connect(url);
-        console.log("Database is connected");
         // ItemModel.findOne(_id);
         const item = await ItemModel.findById(_id);
-        // console.log(item);
-        
+        // console.log(item); 
         console.log(item);
-        res.send(item);
-        mongoose.connection.close();
-        
-        
+        res.send(item);   
     } catch(error){
         console.log(error);
     }
@@ -66,7 +60,7 @@ app.get('/api/items/:id', async (req, res)=>{
 
 //Creating Data
 
-app.post("/api/newitems", async (req,res)=>{
+app.post("/api/newitems", (req,res)=>{
     try{
       
         const {item_image, item_name, item_description, price} = req.body;
@@ -77,9 +71,6 @@ app.post("/api/newitems", async (req,res)=>{
             item_description: item_description,
             price: price
         });
-
-        await mongoose.connect(url);
-        console.log("Database connected");
         items.save((err)=>{
            if(err){
                console.log(err);
@@ -88,7 +79,6 @@ app.post("/api/newitems", async (req,res)=>{
            else{
                 console.log("The new item is inserted successfully");
                 res.send(items);
-                mongoose.connection.close();
            }
        });
     }
@@ -99,15 +89,12 @@ app.post("/api/newitems", async (req,res)=>{
 
 
 //UPDATE DATA
-app.put("/api/items/:id", async (req,res)=>{
+app.put("/api/items/:id", (req,res)=>{
     try{
         let _id = req.params.id;
         _id = mongoose.Types.ObjectId(_id);
          console.log(_id);
          const {item_image, item_name, item_description, price} = req.body;
-
-         await mongoose.connect(url); //await is used to tell function that first of all we need to get connection before going farther
-         console.log("Database is connected");
 
          ItemModel.updateOne(
              {
@@ -127,7 +114,6 @@ app.put("/api/items/:id", async (req,res)=>{
                 else {
                     console.log("The item was updated successfully!");
                     res.send("The item was updated successfully!");
-                    mongoose.connection.close();
                 }
              });
        }
@@ -138,15 +124,11 @@ app.put("/api/items/:id", async (req,res)=>{
 
 
      //delete data
-     app.delete("/api/items/:id", async (req,res)=>{
+     app.delete("/api/items/:id", (req,res)=>{
         try{
             let _id = req.params.id;
             _id = mongoose.Types.ObjectId(_id);
              console.log(_id);
-            
-             await mongoose.connect(url); //await is used to tell function that first of all we need to get connection before going farther
-             console.log("Database is connected");
-
              ItemModel.deleteOne(
                  { _id: _id},
                   (err)=>{
@@ -157,7 +139,6 @@ app.put("/api/items/:id", async (req,res)=>{
                     else {
                         console.log("The item was deleted successfully!");
                         res.send("The item was deleted successfully!");
-                        mongoose.connection.close();
                     }
                  });
            }

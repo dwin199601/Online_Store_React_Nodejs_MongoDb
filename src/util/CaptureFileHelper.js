@@ -1,9 +1,9 @@
 import { create } from "ipfs-http-client";
+import { Buffer } from "buffer";
 const client = create('https://ipfs.infura.io:5001/api/v0');
 
 
 export const CapturFile =  (e, setFile) => {
-    console.log(e);
     try{
         const data = e.target.files[0];
         const reader = new window.FileReader();
@@ -14,6 +14,7 @@ export const CapturFile =  (e, setFile) => {
     } catch(error){
         console.log(error.message);
     }
+    e.preventDefault();
 }
 
 export const getImageUrl = async (file) => {
