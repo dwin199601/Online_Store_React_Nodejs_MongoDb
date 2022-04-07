@@ -38,7 +38,9 @@ function Home() {
   }
 
   useEffect(() => {
-    getUserData();
+    if (cookies.jwt) {
+      getUserData();
+    }
   }, [])
 
   const deleteUser = async (e, user_id) => {
