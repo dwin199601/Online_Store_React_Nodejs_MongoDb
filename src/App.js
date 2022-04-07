@@ -7,44 +7,27 @@ import Newitems from './components/newitems';
 import ItemDetails from './components/itemDetails';
 import UpdateItem from './components/updateItem';
 import { useEffect, useState } from 'react';
-import { FetchDataFromDB } from './util/FetchDataHelper';
 import Signup from './components/signup';
 import Login from './components/login';
+import { useCookies } from "react-cookie";
 
 function App() {
   const [item, setItem] = useState({});
   const [isLoading, setLoading] = useState(true);
 
-  
-  FetchDataFromDB(setItem, setLoading, item);
-  const user = localStorage.getItem("userToken");
-  
-  useEffect(()=> {
-   
-  },[])
-
   return (
     <BrowserRouter>
-    <Navbar user={user}/>
+    <Navbar/>
     <div className="App">
       <div className="content">
       <Routes>
-			  {user && 
-          <>
-          <Route path="/" exact element={<Home />} />
-          <Route path="/newitems" exact element={ <Newitems/>} />
-          <Route path="/items/:param" exact element= { <ItemDetails item={item} setItem={setItem}/>} />
-          <Route path="/items" exact element = {<Items isLoading={isLoading} setLoading={setLoading}/>} />
-          <Route path="/updateItem/:param" exact element = { <UpdateItem/>} />
-          </>
-        }
-          <Route path="/signup" exact element = { <Signup />} />
-          <Route path="/login" exact element = { <Login/>} />
-          <Route path="/newitems" exact element={<Navigate replace to="/login" />} />
-          <Route path="/items/:param" exact element={<Navigate replace to="/login" />} />
-          <Route path="/items" exact element={<Navigate replace to="/login" />} />
-          <Route path="/updateItem/:param" exact element={<Navigate replace to="/login" />} />
-          <Route path="/" exact element={<Navigate replace to="/login" />} />
+          <Route exact path="/" element={<Home/>} />
+          <Route exact path="/newitems" element={ <Newitems/>} />
+          <Route exact path="/items/:param" element= { <ItemDetails item={item} setItem={setItem}/>} />
+          <Route exact path="/items" element = {<Items isLoading={isLoading} setLoading={setLoading}/>} />
+          <Route exact path="/updateItem/:param" element = { <UpdateItem/>} />
+          <Route exact path="/signup" element = { <Signup />} />
+          <Route exact path="/login" element = { <Login/>} /> 
 		  </Routes>
       </div> 
     </div>

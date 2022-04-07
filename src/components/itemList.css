@@ -2,12 +2,12 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content:space-evenly;
-    align-items: center; 
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .itemstyles a {
-    text-decoration: none;   
+    text-decoration: none;
     font-size: 1.5rem;
 }
 
@@ -31,10 +31,49 @@
     border-radius: 5px;
     transition: 0.5s ease-in;
 }
+
 .imagestyles:hover {
     transform: scale(1.1);
     transition: 0.5s ease-in;
-    cursor: pointer; 
+    cursor: pointer;
+}
+
+.searchBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.search_icon {
+    color: rgb(117, 118, 119);
+    border: 1px solid gainsboro;
+    border-left: none;
+    padding: 7px;
+    font-size: 20px;
+    background-color: rgb(247, 242, 240);
+}
+
+.searchWithmessage {
+    color: rgb(10, 98, 187);
+    border: 1px solid rgb(10, 98, 187);
+    border-left: none;
+    padding: 7px;
+    font-size: 20px;
+    background-color: rgb(247, 242, 240);
+}
+
+.find_item {
+    width: 300px;
+    border: 1px solid gainsboro;
+    padding: 5px;
+    transition: 0.5s ease-out;
+}
+
+.find_item:focus {
+    outline: none;
+    border: 1px solid rgb(10, 98, 187);
 }
 
 .productBtn {
@@ -50,43 +89,54 @@
     border: none;
     padding: 5px 10px;
     color: white;
-    font-weight: 700;   
+    font-weight: 700;
 }
 
 .edit_btn {
     padding: 5px 10px !important;
     height: 50px;
-    font-weight: 700;   
+    font-weight: 700;
     transition: color 0.6s ease-in;
     font-size: 17px !important;
     color: white !important;
-    background: #AAFFA9;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #11FFBD, #AAFFA9);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #11FFBD, #AAFFA9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */    
+    background: #AAFFA9;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #11FFBD, #AAFFA9);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #11FFBD, #AAFFA9);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-.edit_btn:hover, .edit_btn:focus {
+.edit_btn:hover,
+.edit_btn:focus {
     color: black !important;
 }
 
 .delete_btn {
     transition: color 0.6s ease-in;
-    background: #cb2d3e;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #ef473a, #cb2d3e);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #ef473a, #cb2d3e); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #cb2d3e;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #ef473a, #cb2d3e);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #ef473a, #cb2d3e);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .delete_btn:hover {
     color: #1f2725;
 }
+
 .delete_btn:focus {
     color: #1f2725;
 }
 
 .priceItem {
-    background: #fd746c;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #ff9068, #fd746c);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #ff9068, #fd746c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #fd746c;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #ff9068, #fd746c);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #ff9068, #fd746c);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     font-size: 1.2rem;
     width: 150px;
     border-radius: 5px;
@@ -94,7 +144,8 @@
     color: white;
 }
 
-.more_content, .close_morecontent {
+.more_content,
+.close_morecontent {
     margin-top: 10px;
     font-size: 20px;
     cursor: pointer;

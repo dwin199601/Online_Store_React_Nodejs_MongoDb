@@ -5,24 +5,26 @@ code {
     monospace;
 }
 
-.fileUpload{
+.fileUpload {
   display: flex;
   flex-direction: column;
   margin-top: 4rem;
 }
-.fileUpload>input{
+
+.fileUpload>input {
   border: 2px solid red;
 }
+
 .pasteImgClass {
   width: 250px;
 }
 
-.newItemImage{
+.newItemImage {
   margin-top: 4rem;
   width: 250px;
 }
 
-.btn{
+.btn {
   margin-top: 4rem;
 }
 
@@ -59,29 +61,13 @@ code {
   color: #053611;
   cursor: pointer;
 }
+
 .NameClasses:hover {
   color: #bd1f4e;
 }
+
 .NameClasses a {
   text-decoration: none;
-}
-
-.boxParent {
-  margin-top: 20px;
-  display: flex;
-  flex-flow: row wrap;
-}
-.boxchild {
-  flex: 1 1 50px;
-}
-
-.boxchild img {
-  width: 500px;
-  height: 500px;
-}
-.boxchild span {
-  color: #053627;
-  font-size: 20px;
 }
 
 .stylesforh1home {
@@ -90,11 +76,11 @@ code {
 
 
 
-.authStyles{
+.authStyles {
   margin: 2rem;
 }
 
-.inputAuth{
+.inputAuth {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -104,12 +90,12 @@ code {
   font-size: 17px;
 }
 
-.inputAuth input{
+.inputAuth input {
   width: 250px;
   margin: 0.2rem;
   border-radius: 5px;
   border-width: 0.5px;
   padding: 5px;
   background-color: rgba(236, 248, 214, 0.7);
- 
+
 }

@@ -1,35 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './login.css';
+import {useCookies} from "react-cookie";
 import { successfullMessage } from '../util/FetchDataHelper';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
 
-  const [data, setData] = useState({email: "", password: ""});
+  const [cookies] = useCookies([]);
+  const navigate = useNavigate();
+  const [values, setValues] = useState({email: "", password: ""});
   const [error, setError] = useState("");
 
   const handleChange = ({currentTarget: input}) => {  
-    setData({...data, [input.name]: input.value});
+    setValues({...values, [input.name]: input.value});
   }
+
+  useEffect(() => {
+    if (cookies.jwt) {
+      navigate("/");
+    }
+  }, [cookies, navigate]);
 
   const formSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url ="http://localhost:3050/api/login";
-      const { data: res } = await axios.post(url, data);
-      localStorage.setItem("userToken", res.data); //saving data into user's browser
-      successfullMessage("Welcome Back!");
-      window.location = "/";
+      const url ="http://localhost:6050/login";
+      const { data } = await axios.post(url, {
+        ...values
+      },
+        { withCredentials: true}
+      );
+      if(data){
+        if(data.errors){
+          const {email, password} = data.errors;
+          if(email){
+            setError(email);
+          }
+          else if(password) {
+            setError(password);
+          }
+        }
+        else {
+          window.location = "/";
+        }
+      }
     }
     catch(error) {
-      if (
-        error.response &&
-        error.response.status >= 400 &&
-        error.response.status <= 500
-      ) {
-        setError(error.response.data.message);
-      }
+      console.log(error)
     }
   };
 
@@ -42,7 +60,7 @@ function Login() {
         placeholder='Email'
         type="email" 
         name="email"
-        value={data.email}
+        value={values.email}
         onChange={handleChange}  
         required 
       />
@@ -53,7 +71,7 @@ function Login() {
         placeholder='Password'
         type="password" 
         name="password" 
-        value={data.password}
+        value={values.password}
         onChange={handleChange} 
         required 
       />

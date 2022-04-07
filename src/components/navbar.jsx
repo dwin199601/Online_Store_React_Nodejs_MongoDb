@@ -4,12 +4,15 @@ import 'bootstrap/dist/css/bootstrap.css'
 import '../App.css';
 import { useState } from 'react';
 import ReorderIcon from "@material-ui/icons/Reorder";
+import { useCookies } from "react-cookie";
 
 export default function Navbar(props) {
   const [show, setShow] = useState(false);//its for showing or not showing drop-down menu
+  const [cookies, setCookie, removeCookie] = useCookies([]);
+
   const handleLogout = () => {
-    localStorage.removeItem("userToken");
-    window.location.reload();
+    removeCookie("jwt");
+    window.location = "/login";
   }
 
   return (
@@ -17,13 +20,13 @@ export default function Navbar(props) {
 
       <div className="leftSide">
         {
-          props.user ?
-            <button onClick={handleLogout} className="logoutbtn">LogOut</button>
-            :
+          !cookies.jwt ?
             <>
               <Link to="/signup" className='signUp'>Sign Up</Link>
               <Link to="/login" className='login'>Login</Link>
             </>
+            :
+            <button onClick={handleLogout} className="logoutbtn">LogOut</button>
         }
 
       </div>

@@ -1,0 +1,237 @@
+.home_container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.user_dashboard {
+    flex: 30%;
+    background: #C33764;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #1D2671, #C33764);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #1D2671, #C33764);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: white;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px;
+    align-items: center;
+    max-width: 250px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 6px 6px 20px rgba(16, 18, 18, 0.5);
+}
+
+.user_dashboard h1 {
+    background-image: linear-gradient(to top, rgb(240, 152, 218), rgb(20, 223, 246));
+    background-size: 100%;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+    font-size: 1.7rem;
+}
+
+.btn_box {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.delete_user_btn {
+    width: 70px;
+    border: none;
+    background: #fc4a1a;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #f7b733, #fc4a1a);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #f7b733, #fc4a1a);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: aliceblue;
+    font-weight: 400;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.5s;
+    outline: none;
+}
+
+.delete_user_btn::after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: rgba(239, 9, 101, 0.5);
+    transition: all 0.5s;
+}
+
+.delete_user_btn:hover:after {
+    width: 100%;
+}
+
+.save_user_btn {
+    width: 70px;
+    border: none;
+    background: #11998e;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #38ef7d, #11998e);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #38ef7d, #11998e);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    margin-left: 5px;
+    color: aliceblue;
+    font-weight: 400;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.5s;
+    outline: none;
+}
+
+.save_user_btn::after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: rgba(239, 9, 101, 0.5);
+    transition: all 0.5s;
+}
+
+.save_user_btn:hover:after {
+    width: 100%;
+}
+
+.update {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 40px;
+    width: 100%;
+}
+
+.update_imgbtn {
+    margin-top: 10px;
+    width: 110px;
+    border: none;
+    background: #2C3E50;
+    background: -webkit-linear-gradient(to right, #4CA1AF, #2C3E50);
+    background: linear-gradient(to right, #4CA1AF, #2C3E50);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: aliceblue;
+    font-weight: 400;
+    cursor: pointer;
+    position: absolute;
+    outline: none;
+    top: 0;
+    left: 30%;
+    z-index: 22;
+    opacity: 0;
+}
+
+.update_icon {
+    position: absolute;
+    top: 30%;
+    left: 28%;
+    background-color: #f7f8fe;
+    color: black;
+    padding: 0px 15px;
+    border: 2px dashed rgb(10, 10, 10);
+}
+
+.uploadeduser_img {
+    cursor: pointer;
+    position: absolute;
+    top: 30%;
+    left: 28%;
+    background-color: #058420;
+    color: rgb(249, 245, 245);
+    padding: 0px 15px;
+    border: 2px dashed rgb(10, 10, 10);
+}
+
+.imageBox {
+    height: 100px;
+    display: flex;
+}
+
+.user_profile_img {
+    width: 100px;
+    height: auto;
+    border-radius: 50%;
+    transition: 0.5s ease-in;
+}
+
+.user_profile_img:hover {
+    cursor: pointer;
+    transform: scale(1.5);
+}
+
+
+.userDetail {
+    margin-top: 1rem;
+    width: 100%;
+    border-top: 1px solid white;
+}
+
+.userDetail p {
+    font-size: 20px;
+    text-shadow: 2px 2px #6439ff;
+    font-weight: 600;
+}
+
+.userDetail h3 {
+    padding-top: 5px;
+}
+
+.user_rightSide {
+    flex: 65%;
+}
+
+.user_rightSide h2 {
+    background-image: linear-gradient(to top, rgb(21, 20, 21), rgb(245, 19, 19));
+    background-size: 100%;
+    font-weight: 800;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+    text-shadow: 1px 1px #890320;
+    cursor: crosshair;
+}
+
+.updateName {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.hideInputUpdate {
+    display: none;
+}
+
+.inputUpdateName,
+.updateLastNameInput {
+    width: 100%;
+    display: block;
+    padding: 0px 5px;
+}
+
+
+.inputUpdateName:focus,
+.updateLastNameInput:focus {
+    outline: none;
+}
+
+.updateLastName {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

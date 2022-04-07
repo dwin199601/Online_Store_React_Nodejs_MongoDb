@@ -8,7 +8,32 @@ export const successfullMessage = (message) => {
   toast.success(message, { position: toast.POSITION.TOP_RIGHT, autoClose: 4000 })
 }
 
-export const FetchDataFromDB =(setItem, setLoading, item) =>{
+export const deleteToastMessage = (message) => {
+  toast.error(message, { position: toast.POSITION.TOP_RIGHT, autoClose: 3000 });
+}
+
+export const FetchUserDataFromDb =(setData, setLoading, setError) => {
+  return fetch ("http://localhost:6050")
+          .then(res => {
+            if(!res.ok){
+              console.log("Couldn't fetch user data from the server!")
+            }
+            console.log("User server is on");
+            return res.json();
+          })
+          .then(data => {
+            setData(data);
+            setLoading(false);
+          })
+          .catch(err => {
+            setError(err);
+            console.log(err);
+            setLoading(false);
+          })
+}
+
+
+export const FetchDataFromDB =(setItem, setLoading) =>{
   let isMounted = true;
   const fetchData = () => {
     fetch(url)

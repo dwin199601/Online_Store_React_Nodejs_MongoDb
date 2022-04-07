@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 import './signup.css'
 import { successfullMessage } from '../util/FetchDataHelper';
 import { Link } from 'react-router-dom';
+import {useCookies} from "react-cookie";
 
 function Signup() {
-  const [data, setData] = useState({
+  const [cookies] = useCookies([]);
+  const [values, setValue] = useState({
     firstName: "",
     lastName: "",
     email: "",
@@ -16,26 +18,47 @@ function Signup() {
   const [error, setError] = useState("");
 
   const handleChange = ({currentTarget: input}) => {
-    setData({...data, [input.name]: input.value});
+    setValue({...values, [input.name]: input.value});
   };
+
+  useEffect(() => {
+    if (cookies.jwt) {
+      navigate("/");
+    }
+  }, [cookies, navigate]);
 
   const formSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "http://localhost:3050/api/signup";
-      const { data: res } = await axios.post(url, data)
-      .then(res => {
-        successfullMessage("User was created!");
-        navigate("/login");
+      const url = "http://localhost:6050/signup";
+      const { data } = await axios.post(url, {...values}, {
+        withCredentials: true
       })
-      console.log(res.message);
+      if(data.errors) {
+        const {firstName, lastName, email, password} = data.errors;
+        if(firstName){
+          setError(firstName);
+        }
+        else if(lastName){
+          setError(lastName);
+        }
+        else if(email){
+          setError(email);
+        }
+        else if(password) {
+          setError(password);
+        }
+      }
+      else setError("");
+      if(data.user) {
+        window.location = "/";
+      }  
     }
     catch(error){
-      if(error.response && error.response.status >= 400 && error.response.status <= 500){
-        setError(error.response.data.message);
-      }
+       console.log(error)
     }
   }
+  
 
   return (
     <div className='signup_content'>
@@ -46,27 +69,26 @@ function Signup() {
         type="text" 
         name="firstName"
         placeholder='First name'
-        value={data.firstName}
+        value={values.firstName}
         onChange={handleChange} 
-        required
+        
       />
       <label htmlFor="lastName"> Last Name </label>
       <input 
         placeholder='Last name'
         type="text" 
         name="lastName"
-        value={data.lastName}
+        value={values.lastName}
         onChange={handleChange} 
-        required
       />
       <label htmlFor="email"> Email </label>
       <input 
         placeholder="Email"
         type="email" 
         name="email"
-        value={data.email}
+        value={values.email}
         onChange={handleChange}  
-        required 
+        
       />
 
       <label htmlFor="password"> Password </label>
@@ -74,9 +96,9 @@ function Signup() {
         placeholder="Password"
         type="password" 
         name="password" 
-        value={data.password}
+        value={values.password}
         onChange={handleChange} 
-        required 
+        
       />
       {error && <div className='error_box'>{error}</div>}
       <button>Sign Up</button>

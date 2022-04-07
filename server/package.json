@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "backend": "npm start",
     "front-end": "cd.. && npm start",
-    "userAuth": "cd..&&cd userAuth_JWT&&npm start",
+    "userAuth": "cd..&&cd authentification&&npm start",
     "devrun": "concurrently \"npm run userAuth\" \"npm run front-end\" \"npm run backend\""
   },
   "author": "Alex",

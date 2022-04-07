@@ -5,8 +5,10 @@ import { CapturFile, getImageUrl } from '../util/CaptureFileHelper.js';
 import { newItem } from '../util/FetchDataHelper.js';
 import TextareaAutosize from 'react-textarea-autosize';
 import './newitem.css';
+import { VerifyUserHasToken } from '../util/VerifyUser.js';
 
 export default function Newitems() {
+    VerifyUserHasToken();
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
     const [description, setDesctiption] = useState('');

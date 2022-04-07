@@ -16,8 +16,13 @@ const itemSchema = new mongoose.Schema({
         type: Number,
         min: 1,
         required: [true, "Item price must is required and must be more > 0"]
+    },
+    data_added: {
+        type: Date,
+        default: Date.now
     }
-}, {timestamps: true});
+
+});
 
 const ItemModel = mongoose.model("Item", itemSchema);
 

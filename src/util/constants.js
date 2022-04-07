@@ -1,0 +1,1 @@
+export let USER_URL = "http://localhost:6050";

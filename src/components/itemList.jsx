@@ -1,26 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import { LoadingOutlined, DownCircleOutlined, UpCircleOutlined } from '@ant-design/icons';
-import './itemList.css'
+import { LoadingOutlined, DownCircleOutlined, UpCircleOutlined, SearchOutlined } from '@ant-design/icons';
+import './itemList.css';
+import { deleteToastMessage } from '../util/FetchDataHelper';
 
-toast.configure();
 const ItemList = (props) => {
-    const deleteToastMessage = () => {
-        toast.error("Item was deleted!", { position: toast.POSITION.TOP_RIGHT, autoClose: 2000 });
-    }
+    const [search, setSearch] = useState("");
+
     const handledelete = async (allitems) => {
         console.log("Item was deleted");
+        deleteToastMessage("Item was deleted");
         const { data } = await axios.delete("http://localhost:5000/api/items/"
             + allitems._id);
 
         const newItems = props.item.filter(it => it._id !== allitems._id);
         console.log(data, newItems);
         props.setItem([...newItems]);
-        deleteToastMessage();
+
     }
 
     const openDescription = (id) => {
@@ -52,40 +51,60 @@ const ItemList = (props) => {
     return (
         <>
             <h1>All Items</h1>
+            <div className='searchBar'>
+                <input
+                    type="text"
+                    placeholder='Item Name'
+                    className='find_item'
+                    onChange={(e) => setSearch(e.target.value)}
+                    value={search}
+                />
+                <SearchOutlined className={search ? "searchWithmessage" : "search_icon"} />
+            </div>
+
             <div className="itemstyles">
                 {
-                    props.item.map((allitems) => {
-                        return (
-                            <div key={allitems._id} >
-                                <div className='product_content'>
-                                    <h1 className='priceItem'>Price ${allitems.price}</h1>
-                                    {
-                                        allitems.item_image ? <Link to={`/items/${allitems._id}`}> <img src={allitems.item_image} alt="item_image" className="imagestyles" /> </Link>
-                                            : <LoadingOutlined style={{ fontSize: 25 }} />
-                                    }
-                                    <Link to={`/items/${allitems._id}`}>{allitems.item_name}</Link>
-                                    <div className='productBtn'>
-                                        <Link to={`/updateItem/${allitems._id}`}><button className='edit_btn'>Edit</button></Link>
-                                        <button className="delete_btn" onClick={() => handledelete(allitems)}>Delete</button>
-                                    </div>
-                                    {
-                                        allitems.visibleDescription === false ?
-                                            <DownCircleOutlined
-                                                className='more_content'
-                                                onClick={() => openDescription(allitems._id)} />
-                                            :
-                                            <UpCircleOutlined
-                                                className='close_morecontent'
-                                                onClick={() => closeDescription(allitems._id)} />
-                                    }
+                    props.item.filter((titleValue) => {
+                        let searchElement = search.replace(/ /g, "").toLowerCase();
+                        if (searchElement === "") {
+                            return titleValue;
+                        }
+                        else if (`${titleValue.item_name}`.replace(/ /g, "").toLowerCase().includes(searchElement)) {
+                            return titleValue;
+                        }
+                    })
+                        .map((allitems) => {
+                            return (
+                                <div key={allitems._id} >
+                                    <div className='product_content'>
+                                        <h1 className='priceItem'>Price ${allitems.price}</h1>
+                                        {
+                                            allitems.item_image ? <Link to={`/items/${allitems._id}`}> <img src={allitems.item_image} alt="item_image" className="imagestyles" /> </Link>
+                                                : <LoadingOutlined style={{ fontSize: 25 }} />
+                                        }
+                                        <Link to={`/items/${allitems._id}`}>{allitems.item_name}</Link>
+                                        <div className='productBtn'>
+                                            <Link to={`/updateItem/${allitems._id}`}><button className='edit_btn'>Edit</button></Link>
+                                            <button className="delete_btn" onClick={() => handledelete(allitems)}>Delete</button>
+                                        </div>
+                                        {
+                                            allitems.visibleDescription === false ?
+                                                <DownCircleOutlined
+                                                    className='more_content'
+                                                    onClick={() => openDescription(allitems._id)} />
+                                                :
+                                                <UpCircleOutlined
+                                                    className='close_morecontent'
+                                                    onClick={() => closeDescription(allitems._id)} />
+                                        }
 
-                                    <div className={allitems.visibleDescription === true ? "itemDescription" : "hidden"} key={allitems._id}>
-                                        <p>{allitems.item_description}</p>
+                                        <div className={allitems.visibleDescription === true ? "itemDescription" : "hidden"} key={allitems._id}>
+                                            <p>{allitems.item_description}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        )
-                    })
+                            )
+                        })
                 }
             </div>
         </>

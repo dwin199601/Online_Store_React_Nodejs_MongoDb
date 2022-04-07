@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { useNavigate } from 'react-router';
 import { itemDetailsOpen } from '../util/FetchDataHelper.js';
 import { LoadingOutlined } from '@ant-design/icons';
+import "./itemDetails.css"
 
 export default function ItemDetails(props) {
 
@@ -43,15 +44,15 @@ export default function ItemDetails(props) {
       {error && <div>Error: {error}</div>}
       {isLoading ? <LoadingOutlined className="Loadingmessagestyle" /> :
         <span>
-          <h1 style={{ margin: "10px", color: "#06412f" }}>{props.item.item_name ? props.item.item_name : "loading.."}</h1>
+          <h1 className='itemDetail_h1'>{props.item.item_name ? props.item.item_name : "loading.."}</h1>
           <div className="boxParent">
-            <div className="boxchild"><img src={props.item.item_image} alt="" /> </div>
-            <div className="boxchild">
-              <span>
-                <p>Price: ${props.item.price ? props.item.price : "loading"}</p>
-                <p>Description: {props.item.item_description ? props.item.item_description : "loading"}</p>
-
+            <img src={props.item.item_image} alt="" />
+            <div className="boxContent">
+              <span className='description_item'>
+                <h3>Description</h3>
+                <p>{props.item.item_description ? props.item.item_description : "loading"}</p>
               </span>
+              <p className='price_item'>Price: ${props.item.price ? props.item.price : "loading"}</p>
             </div>
           </div>
           <button type="button"
