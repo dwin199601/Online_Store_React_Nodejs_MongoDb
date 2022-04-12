@@ -13,7 +13,7 @@ const ItemList = (props) => {
     const handledelete = async (allitems) => {
         console.log("Item was deleted");
         deleteToastMessage("Item was deleted");
-        const { data } = await axios.delete("http://localhost:5000/api/items/"
+        const { data } = await axios.delete("http://localhost:6050/api/items/"
             + allitems._id);
 
         const newItems = props.item.filter(it => it._id !== allitems._id);

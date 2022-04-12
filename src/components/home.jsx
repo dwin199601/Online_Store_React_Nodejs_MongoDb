@@ -10,6 +10,7 @@ import user_Image from "../assets/user_image.jpg";
 import { CapturFile, getImageUrl } from '../util/CaptureFileHelper';
 import { EditOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { successfullMessage } from '../util/FetchDataHelper';
+import { Popover, Button } from 'antd';
 
 function Home() {
 
@@ -25,7 +26,7 @@ function Home() {
   const [cookies, setCookie, removeCookie] = useCookies([]);
   const [openNameUpdate, setOpenNameUpdate] = useState(false);
   const [openLastNameUpdate, setOpenLastNameUpdate] = useState(false);
-
+  const [visible, setVisible] = useState(true);
 
   const getUserData = async () => {
     const { data } = await axios.post(

@@ -33,7 +33,7 @@ function UpdateItem() {
     e.preventDefault();
 
     const imageUrl = await getImageUrl(file);
-    fetch("http://localhost:5000/api/items/" + param, {
+    fetch("http://localhost:6050/api/items/" + param, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 toast.configure();
 
-export const url = "http://localhost:5000/api/items";
+export const url = "http://localhost:6050/api/items";
 export const successfullMessage = (message) => {
   toast.success(message, { position: toast.POSITION.TOP_RIGHT, autoClose: 4000 })
 }
@@ -108,7 +108,7 @@ export const UpdateItemHelper = (param, setItem) => {
   
     useEffect(() => {
         const abortControl = new AbortController();
-        fetch("http://localhost:5000/api/items/" + param, { signal: abortControl.signal })
+        fetch("http://localhost:6050/api/items/" + param, { signal: abortControl.signal })
           .then((res) => {
             if (!res.ok) {
               console.log(`Couldn't fetch the data from the server!`)
@@ -130,7 +130,7 @@ export const UpdateItemHelper = (param, setItem) => {
 
 export const newItem = (itemUrl, name, description, price, setLoading) => {
    
-        fetch("http://localhost:5000/api/newitems", {
+        fetch("http://localhost:6050/api/newitems", {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -156,7 +156,7 @@ export const newItem = (itemUrl, name, description, price, setLoading) => {
 
 export const itemDetailsOpen = (setItem, setLoading, param, setError) => {
     const abortControl = new AbortController();
-    fetch("http://localhost:5000/api/items/" + param, { signal: abortControl.signal })
+    fetch("http://localhost:6050/api/items/" + param, { signal: abortControl.signal })
       .then((res) => {
         if (!res.ok) {
           console.log(`Couldn't fetch the data from the server!`);

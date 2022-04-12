@@ -1,155 +1,106 @@
 const express = require('express');
+require("dotenv").config();
+const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
 const ItemModel = require('./models/items.js');
+const UserModel = require("./models/UserModel")
+const authRoutes = require("./routes/authRoutes");
+const itemRouter = require("./routes/itemRoutes")
+const connection = require("./dbconnection");
+const PORT = process.env.PORT || 5050;
 
-//importing module from the items.js file
-
+connection();
+app.use(cookieParser());
 app.use(express.json()); 
 app.use(express.urlencoded({extended: true}));
-app.use(cors());
-app.get("/", (req, res)=>{
-    res.send("Check");
+app.use(cors ({
+    origin: ["http://localhost:3000"],
+    method: ["GET", "POST"],
+    credentials: true,
+})
+);
+app.use("/", authRoutes);
+app.use("/", itemRouter);
+app.get('/', (req, res) => {
+    try {
+        UserModel.find((err, user)=> {
+            if(err){
+                console.log(err);
+                alert(err);
+            }
+            else {
+                console.log(user);
+                res.send(user);
+            }
+        })
+    }
+    catch(err)
+    {
+        console.log(error);
+    }
 });
 
-const url =
- "mongodb+srv://Alex:Alex@cluster0.gbjfl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-
- mongoose.connect(url)
- .then(()=> console.log("Database is connected"))
- .catch((err)=> console.log(err));
-
-
-//Reading Data
-app.get('/api/items', (req, res)=>{
-    try{
-        ItemModel.find((err, items)=>{
-        if(err) 
-        {   console.log(err)
-            alert(err);
-        }
-        else 
-        {
-            console.log(items);
-            res.send(items);
-        }
-        
-    })
-    }
-    catch(error){
-        console.log(error);
-    }
-})
-
-//Reading data based on item ID
-app.get('/api/items/:id', async (req, res)=>{
-    try{
-        let _id = req.params.id;
-        // _id = mongoose.Types.ObjectId(_id);
-        // console.log(_id);
-        // ItemModel.findOne(_id);
-        const item = await ItemModel.findById(_id);
-        // console.log(item); 
-        console.log(item);
-        res.send(item);   
-    } catch(error){
-        console.log(error);
-    }
-})
-
-//Creating Data
-
-app.post("/api/newitems", (req,res)=>{
-    try{
-      
-        const {item_image, item_name, item_description, price} = req.body;
-        //console.log(item_image, item_name, item_description, price);
-        const items = new ItemModel({
-            item_image: item_image,
-            item_name: item_name,
-            item_description: item_description,
-            price: price
-        });
-        items.save((err)=>{
-           if(err){
-               console.log(err);
-               res.send(err);
-           }
-           else{
-                console.log("The new item is inserted successfully");
-                res.send(items);
-           }
-       });
-    }
-    catch(error){
-        console.log(error);
-    }
-})
-
-
-//UPDATE DATA
-app.put("/api/items/:id", (req,res)=>{
-    try{
+app.delete('/:id', (req, res)=> {
+    try {
         let _id = req.params.id;
         _id = mongoose.Types.ObjectId(_id);
-         console.log(_id);
-         const {item_image, item_name, item_description, price} = req.body;
-
-         ItemModel.updateOne(
-             {
-                 _id: _id
-             },
-             {
-                item_image: item_image,
-                item_name: item_name,
-                item_description: item_description,
-                price: price
-
-             }, (err)=>{
+        console.log(_id);
+        UserModel.deleteOne(
+            {_id: _id},
+            (err) => {
                 if(err){
                     console.log(err);
                     res.send(err);
                 }
                 else {
-                    console.log("The item was updated successfully!");
-                    res.send("The item was updated successfully!");
+                    console.log("The user was deleted");
+                    res.send("The user was deleted");
                 }
-             });
-       }
-       catch(error){
-           console.log(error);
-       }
-    })
+            }
+        )
+    }
+    catch(error) {
+        console.log(error);
+    }
+}); 
 
-
-     //delete data
-     app.delete("/api/items/:id", (req,res)=>{
-        try{
-            let _id = req.params.id;
-            _id = mongoose.Types.ObjectId(_id);
-             console.log(_id);
-             ItemModel.deleteOne(
-                 { _id: _id},
-                  (err)=>{
-                    if(err){
-                        console.log(err);
-                        res.send(err);
-                    }
-                    else {
-                        console.log("The item was deleted successfully!");
-                        res.send("The item was deleted successfully!");
-                    }
-                 });
-           }
-           catch(error){
-               console.log(error);
-           }
-        })
-
-
-
-const port = (process.env.PORT) || 5000;
-app.listen(port, ()=>{
-    console.log("The server is up on port " + port);
+app.put('/:id', (req, res) => {
+    try 
+    {
+        let _id = req.params.id;
+        _id = mongoose.Types.ObjectId(_id);
+        console.log(_id);
+        const {firstName, lastName, image} = req.body;
+        UserModel.updateOne(
+            {
+                _id: _id
+            },
+            {
+                firstName: firstName,
+                lastName: lastName,
+                image: image
+            },
+            (err) => {
+               if(err){
+                    console.log(err);
+                    res.send(err);
+               }
+               else {
+                console.log("User details were updated successfully");
+                res.send("User details were updated successfully");
+               }
+            }
+        )
+    }
+    catch(err)
+    {
+        console.log(err);
+    }
 })
+
+
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+    })
