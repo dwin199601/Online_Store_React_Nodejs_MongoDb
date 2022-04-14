@@ -35,12 +35,13 @@ module.exports.getItemById = async (req, res) => {
 
 module.exports.createItem = (req, res) => {
     try{
-        const {item_image, item_name, item_description, price} = req.body;
+        const {item_image, item_name, item_description, price, category} = req.body;
         const items = new Item({
             item_image: item_image,
             item_name: item_name,
             item_description: item_description,
-            price: price
+            price: price,
+            category: category,
         });
         items.save((err)=>{
            if(err){
@@ -63,7 +64,7 @@ module.exports.updateItem = (req, res) => {
         let _id = req.params.id;
         _id = mongoose.Types.ObjectId(_id);
          console.log(_id);
-         const {item_image, item_name, item_description, price} = req.body;
+         const {item_image, item_name, item_description, price, category} = req.body;
 
          Item.updateOne(
              {
@@ -73,7 +74,8 @@ module.exports.updateItem = (req, res) => {
                 item_image: item_image,
                 item_name: item_name,
                 item_description: item_description,
-                price: price
+                price: price,
+                category: category
 
              }, (err)=>{
                 if(err){

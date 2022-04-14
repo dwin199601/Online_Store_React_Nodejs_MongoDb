@@ -128,7 +128,7 @@ export const UpdateItemHelper = (param, setItem) => {
 }
 
 
-export const newItem = (itemUrl, name, description, price, setLoading) => {
+export const newItem = (itemUrl, name, description, price, category, setLoading) => {
    
         fetch("http://localhost:6050/api/newitems", {
             method: 'POST',
@@ -137,7 +137,8 @@ export const newItem = (itemUrl, name, description, price, setLoading) => {
                 "item_image": itemUrl,
                 "item_name": name,
                 "item_description": description,
-                "price": price
+                "price": price,
+                "category": category
             }
             )
 

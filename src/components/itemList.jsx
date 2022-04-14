@@ -49,8 +49,7 @@ const ItemList = (props) => {
     }
 
     return (
-        <>
-            <h1>All Items</h1>
+        <div className='itemContent'>
             <div className='searchBar'>
                 <input
                     type="text"
@@ -100,6 +99,9 @@ const ItemList = (props) => {
 
                                         <div className={allitems.visibleDescription === true ? "itemDescription" : "hidden"} key={allitems._id}>
                                             <p>{allitems.item_description}</p>
+                                            <div className='itemCategory'>
+                                                <p>{allitems.category}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -107,7 +109,7 @@ const ItemList = (props) => {
                         })
                 }
             </div>
-        </>
+        </div>
     )
 }
 

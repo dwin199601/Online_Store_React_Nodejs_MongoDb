@@ -5,7 +5,6 @@
 }
 
 .boxParent {
-    margin-top: 20px;
     display: flex;
     flex-flow: row;
     justify-content: space-evenly;
@@ -55,4 +54,45 @@
     color: rgb(235, 134, 12);
     font-weight: 700;
     text-shadow: 1px 1px #07023d;
+}
+
+.category_item {
+    text-align: left;
+    font-size: 15px;
+    padding: 5px;
+    color: rgb(235, 134, 12);
+    font-weight: 700;
+    text-shadow: 1px 1px #07023d;
+}
+
+.itemRiview {
+    margin: 1rem;
+}
+
+@media screen and (max-width: 600px) {
+
+    .boxParent {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-items: center;
+        align-items: center;
+    }
+
+    .description_item,
+    .price_item,
+    .category_item {
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .boxParent img {
+        width: 250px;
+        height: auto;
+    }
+
+    .price_item {
+        font-size: 20px;
+    }
 }

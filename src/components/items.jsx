@@ -4,8 +4,6 @@ import ItemList from './itemList';
 import 'bootstrap/dist/css/bootstrap.css';
 import { FetchDataFromDBWithErrors } from '../util/FetchDataHelper';
 import { LoadingOutlined } from '@ant-design/icons';
-import { useCookies } from "react-cookie";
-import { useNavigate } from 'react-router-dom';
 import { VerifyUserHasToken } from '../util/VerifyUser';
 import './item.css';
 

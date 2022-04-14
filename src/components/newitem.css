@@ -1,71 +1,82 @@
 .additem {
-    max-width: 500px;
-    margin: 0 auto;
-    text-align: center;
-  }
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}
 
-  .additem label {
-    text-align: left;
-    display: block;
-  }
+.additem label {
+  text-align: left;
+  display: block;
+}
 
-  .additem h1 {
-    margin-top: 20px;
-    font-size: 20px;
-    color: rgb(219, 161, 52);
-    margin-bottom: 30px;
-  }
-  
-  .additem input,
-  .additem textarea,
-  .additem select {
-    width: 100%;
-    padding: 6px 10px;
-    margin: 10px 0;
-    border: 1px solid rgb(29, 28, 28);
-    box-sizing: border-box;
-    display: block;
-  }
+.additem h1 {
+  margin-top: 20px;
+  font-size: 20px;
+  color: rgb(219, 161, 52);
+  margin-bottom: 30px;
+}
 
-  .additem input,
-  .additem textarea:focus {
-    outline: none;
-  }
+.additem input,
+.additem textarea,
+.additem select {
+  width: 100%;
+  padding: 6px 10px;
+  margin: 10px 0;
+  border: 1px solid rgb(173, 172, 172);
+  box-sizing: border-box;
+  display: block;
+}
 
-  .descriptionTextArea {
-    resize: none;
-    overflow-y: auto;
-    overflow-x: hidden !important;
-  }
+.additem input:focus,
+.additem textarea:focus {
+  outline: none;
+  border: 1px solid rgb(80, 80, 151);
+}
 
-  .dropZone{
-    position: relative;
-  }
-  .upload_btn{
-    position: absolute;
-    opacity: 0;
-    z-index:10;
-  }
-  
-  .overlay-layer{
-    z-index:0;
-    margin-top: 5px;
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    width: 500px;
-    height:50px;
-    background: rgba(93, 78, 163, 0.7);
-    border: 3px rgb(12, 11, 63);
-    font-size: 20px;
-    color: aliceblue;
-    font-weight: 600;
-    border-style: dashed;
-  }
+.descriptionTextArea {
+  resize: none;
+  overflow-y: auto;
+  overflow-x: hidden !important;
+}
 
-  #uploadedPhoto{
-    background: rgba(13, 150, 81, 0.7);
-    color: #cfee1e;
-  }
+.dropZone {
+  position: relative;
+}
+
+.upload_btn {
+  position: absolute;
+  opacity: 0;
+  z-index: 10;
+}
+
+.overlay-layer {
+  z-index: 0;
+  margin-top: 5px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 500px;
+  height: 50px;
+  background: rgba(93, 78, 163, 0.7);
+  border: 3px rgb(12, 11, 63);
+  font-size: 20px;
+  color: aliceblue;
+  font-weight: 600;
+  border-style: dashed;
+}
+
+#uploadedPhoto {
+  background: rgba(13, 150, 81, 0.7);
+  color: #cfee1e;
+}
+
+.categorySelection:focus {
+  outline: none;
+  border: 1px solid rgb(5, 5, 157);
+}
+
+.categorySelectionRed {
+  border: 2px solid red !important;
+}

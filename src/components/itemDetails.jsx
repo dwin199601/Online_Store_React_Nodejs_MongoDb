@@ -43,22 +43,23 @@ export default function ItemDetails(props) {
     <div>
       {error && <div>Error: {error}</div>}
       {isLoading ? <LoadingOutlined className="Loadingmessagestyle" /> :
-        <span>
-          <h1 className='itemDetail_h1'>{props.item.item_name ? props.item.item_name : "loading.."}</h1>
+        <div className='itemRiview'>
+          <h1 className='itemDetail_h1'>{props.item.item_name}</h1>
           <div className="boxParent">
             <img src={props.item.item_image} alt="" />
             <div className="boxContent">
               <span className='description_item'>
                 <h3>Description</h3>
-                <p>{props.item.item_description ? props.item.item_description : "loading"}</p>
+                <p>{props.item.item_description}</p>
               </span>
-              <p className='price_item'>Price: ${props.item.price ? props.item.price : "loading"}</p>
+              <p className='price_item'>Price: ${props.item.price}</p>
+              <p className='category_item'>Category: {props.item.category}</p>
             </div>
           </div>
           <button type="button"
             className="btn btn-danger"
             onClick={deleteHandler} style={{ marginTop: "20px" }}>Delete Item</button>
-        </span>
+        </div>
       }
     </div>
   )

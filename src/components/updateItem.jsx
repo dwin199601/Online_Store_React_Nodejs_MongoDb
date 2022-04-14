@@ -8,6 +8,8 @@ import { CapturFile, getImageUrl } from '../util/CaptureFileHelper';
 import { UpdateItemHelper } from '../util/FetchDataHelper';
 import { LoadingOutlined } from '@ant-design/icons';
 import TextareaAutosize from 'react-textarea-autosize';
+import getCategoryJson from '../data/categories.json';
+import { deleteToastMessage } from '../util/FetchDataHelper';
 
 toast.configure();
 
@@ -17,7 +19,6 @@ function UpdateItem() {
   const [file, setFile] = useState("");
   const [item, setItem] = useState({});
   const [changedImg, setchangedImg] = useState(false);
-  const [itemUpdated, setItemUpdated] = useState(false);
   UpdateItemHelper(param, setItem);
 
   const successToastMessage = () => {
@@ -31,24 +32,29 @@ function UpdateItem() {
 
   const updateD = async (e) => {
     e.preventDefault();
-
-    const imageUrl = await getImageUrl(file);
-    fetch("http://localhost:6050/api/items/" + param, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        "item_image": file ? imageUrl : item.item_image,
-        "item_name": item.item_name,
-        "item_description": item.item_description,
-        "price": item.price
+    if (item.category === 'Select') {
+      deleteToastMessage("Select Category!")
+    }
+    else {
+      const imageUrl = await getImageUrl(file);
+      fetch("http://localhost:6050/api/items/" + param, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          "item_image": file ? imageUrl : item.item_image,
+          "item_name": item.item_name,
+          "item_description": item.item_description,
+          "price": item.price,
+          "category": item.category
+        })
+      }).then(response => {
+        successToastMessage();
+        navigate('/items');
+        return response.json();
+      }).catch(error => {
+        console.log(error);
       })
-    }).then(response => {
-      successToastMessage();
-      navigate('/items');
-      return response.json();
-    }).catch(error => {
-      console.log(error);
-    })
+    }
   }
 
 
@@ -96,6 +102,26 @@ function UpdateItem() {
               value={item.price ? item.price : "loading..."}
               onChange={(e) => setItem({ ...item, price: e.target.value })}
               required />
+          </div>
+          <div className='childContainer'>
+            <label>Category</label>
+            <select
+              className='updateItemCategory'
+              onChange={(e) => setItem({ ...item, category: e.target.value })}
+              required>
+              {
+                getCategoryJson.map((value) => {
+                  return (
+                    <option
+                      key={value.id}
+                      defaultValue
+                    >
+                      {value.category}
+                    </option>
+                  )
+                })
+              }
+            </select>
           </div>
 
           <div className='childContainer'>

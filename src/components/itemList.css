@@ -1,3 +1,7 @@
+.itemContent {
+    margin-top: 1rem;
+}
+
 .itemstyles {
     display: flex;
     flex-direction: row;
@@ -41,9 +45,10 @@
 .searchBar {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    justify-content: right;
+    align-items: right;
     position: relative;
+    margin-right: 1rem;
 }
 
 .search_icon {
@@ -175,6 +180,33 @@
     -moz-text-fill-color: transparent;
 }
 
+.itemCategory::before {
+    content: "Category";
+    font-size: 15px;
+    background-image: linear-gradient(to top, rgb(219, 26, 12), rgb(204, 127, 12));
+    background-size: 100%;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+}
+
 .hidden {
     display: none;
+}
+
+
+@media screen and (max-width: 600px) {
+
+    .searchBar {
+        justify-content: center;
+        align-items: center;
+        margin: 10px;
+    }
+
+    .imagestyles {
+        width: 200px;
+        min-height: 210px;
+    }
+
 }

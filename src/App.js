@@ -1,6 +1,7 @@
 import {BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
 import './App.css';
-import Navbar from './components/navbar';
+import Navbar from './components/navbar/navbar.jsx';
+import Footer from './components/footer/footer';
 import Home from './components/home';
 import Items from './components/items';
 import Newitems from './components/newitems';
@@ -9,7 +10,6 @@ import UpdateItem from './components/updateItem';
 import { useEffect, useState } from 'react';
 import Signup from './components/signup';
 import Login from './components/login';
-import { useCookies } from "react-cookie";
 
 function App() {
   const [item, setItem] = useState({});
@@ -31,6 +31,7 @@ function App() {
 		  </Routes>
       </div> 
     </div>
+    <Footer />
     </BrowserRouter>
    
   );

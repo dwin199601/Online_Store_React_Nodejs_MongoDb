@@ -1,0 +1,67 @@
+[
+    {
+        "id": 1,
+        "category": "Select",
+        "description": "some description"
+    },
+    {
+        "id": 2,
+        "category": "Electronics",
+        "description": "some description"
+    },
+    {
+        "id": 3,
+        "category": "Furniture",
+        "description": "some description"
+    },
+    {
+        "id": 4,
+        "category": "Hardware",
+        "description": "some description"
+    },
+    {
+        "id": 5,
+        "category": "Home",
+        "description": "some description"
+    },
+    {
+        "id": 6,
+        "category": "School",
+        "description": "some description"
+    },
+    {
+        "id": 7,
+        "category": "Garage",
+        "description": "some description"
+    },
+    {
+        "id": 8,
+        "category": "Garden",
+        "description": "some description"
+    },
+    {
+        "id": 9,
+        "category": "Beauty",
+        "description": "some description"
+    },
+    {
+        "id": 10,
+        "category": "Garment/Clothing",
+        "description": "some description"
+    },
+    {
+        "id": 11,
+        "category": "Sport",
+        "description": "some description"
+    },
+    {
+        "id": 12,
+        "category": "Entertainment",
+        "description": "some description"
+    },
+    {
+        "id": 13,
+        "category": "Other",
+        "description": "some description"
+    }
+]

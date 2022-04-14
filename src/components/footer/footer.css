@@ -1,0 +1,49 @@
+.footerContent {
+    width: 100%;
+    min-height: 100px;
+    display: flex;
+    background-color: rgb(21, 7, 60);
+    justify-content: space-around;
+    align-items: flex-start;
+    color: white;
+    padding: 10px;
+}
+
+.leftSideFooter {
+    flex: 3;
+    display: flex;
+    justify-content: left;
+}
+
+.centerFooter {
+    flex: 6;
+    display: flex;
+    justify-content: center;
+}
+
+.rightSide {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    justify-content: right;
+}
+
+.rightSideFooter h3 {
+    font-size: 20px;
+}
+
+.rightSideFooter h4 {
+    font-size: 10px;
+}
+
+.rightSideFooter a {
+    text-decoration: none;
+    color: wheat;
+}
+
+.socialMedias {
+    font-size: 30px;
+    cursor: pointer;
+    margin-left: 10px;
+}
