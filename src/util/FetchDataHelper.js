@@ -1,11 +1,14 @@
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { USER_URL } from '../util/constants';
+import axios from 'axios';
 toast.configure();
 
 export const url = "http://localhost:6050/api/items";
+
 export const successfullMessage = (message) => {
-  toast.success(message, { position: toast.POSITION.TOP_RIGHT, autoClose: 4000 })
+  toast.success(message, { position: toast.POSITION.TOP_RIGHT, autoClose: 4000 });
 }
 
 export const deleteToastMessage = (message) => {
@@ -16,7 +19,7 @@ export const FetchUserDataFromDb =(setData, setLoading, setError) => {
   return fetch ("http://localhost:6050")
           .then(res => {
             if(!res.ok){
-              console.log("Couldn't fetch user data from the server!")
+              console.log("Couldn't fetch user data from the server!");
             }
             console.log("User server is on");
             return res.json();
@@ -32,19 +35,16 @@ export const FetchUserDataFromDb =(setData, setLoading, setError) => {
           })
 }
 
-
-export const FetchDataFromDB =(setItem, setLoading) =>{
+export const FetchDataFromDB =(setItem, setLoading) => {
   let isMounted = true;
   const fetchData = () => {
     fetch(url)
     .then(res=>{
       if(!res.ok){
-        
-          console.log(`Couldn't fetch the data from the server!`)
+        console.log(`Couldn't fetch the data from the server!`);
       }
-      console.log("Server works!!")
+      console.log("Server works!!");
       return res.json();
-     
     })
     .then(data=>{
       if(isMounted){
@@ -67,7 +67,7 @@ export const FetchDataFromDB =(setItem, setLoading) =>{
   }, []);
 }
 
-export const FetchDataFromDBWithErrors = (setItem, setLoading, setError )=>{
+export const FetchDataFromDBWithErrors = (setItem, setLoading, setError ) => {
   let isMounted = true;
   const fetchData = () =>{
     fetch(url)
@@ -105,7 +105,6 @@ export const FetchDataFromDBWithErrors = (setItem, setLoading, setError )=>{
 }
 
 export const UpdateItemHelper = (param, setItem) => {
-  
     useEffect(() => {
         const abortControl = new AbortController();
         fetch("http://localhost:6050/api/items/" + param, { signal: abortControl.signal })
@@ -113,11 +112,10 @@ export const UpdateItemHelper = (param, setItem) => {
             if (!res.ok) {
               console.log(`Couldn't fetch the data from the server!`)
             }
-            return res.json()
+            return res.json();
           })
           .then((res) => {
             setItem(res);
-    
           })
           .catch(err => {
             if (err.name === "AbortError")
@@ -127,21 +125,18 @@ export const UpdateItemHelper = (param, setItem) => {
       }, []);
 }
 
-
 export const newItem = (itemUrl, name, description, price, category, setLoading) => {
-   
         fetch("http://localhost:6050/api/newitems", {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                "item_image": itemUrl,
-                "item_name": name,
-                "item_description": description,
-                "price": price,
-                "category": category
+              "item_image": itemUrl,
+              "item_name": name,
+              "item_description": description,
+              "price": price,
+              "category": category
             }
             )
-
         }).then(() => {
             console.log("New item added");
             successfullMessage("New item was created!!");
@@ -150,10 +145,8 @@ export const newItem = (itemUrl, name, description, price, category, setLoading)
         }).catch(err => {
             console.log("Error: " + err);
             setLoading(false);
-        })
-    
-    }
-
+        })    
+}
 
 export const itemDetailsOpen = (setItem, setLoading, param, setError) => {
     const abortControl = new AbortController();
@@ -177,9 +170,15 @@ export const itemDetailsOpen = (setItem, setLoading, param, setError) => {
           setLoading(false);
           setError(err.message);
         }
-
       })
     return () => abortControl.abort();
-  
+}
+
+export const getUserEmail = async (setUserEmail) => {
+  const { data } = await axios.post(
+    USER_URL,
+    {}, {withCredentials: true}
+  );
+  setUserEmail(data.user); 
 }
 

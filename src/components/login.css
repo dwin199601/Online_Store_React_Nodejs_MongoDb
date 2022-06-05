@@ -1,13 +1,14 @@
 .login_content {
-    margin: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 
-.passworderror, .emailerror {
+.passworderror,
+.emailerror {
     color: red;
     margin-bottom: 10px;
 }
@@ -26,6 +27,6 @@
 }
 
 .newhere a {
-    font-style: italic; 
+    font-style: italic;
     color: rgb(91, 25, 153);
 }

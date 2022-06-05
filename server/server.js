@@ -4,25 +4,26 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
-const ItemModel = require('./models/items.js');
 const UserModel = require("./models/UserModel")
 const authRoutes = require("./routes/authRoutes");
 const itemRouter = require("./routes/itemRoutes")
 const connection = require("./dbconnection");
+const paymentRouter = require("./routes/paymentRoutes");
 const PORT = process.env.PORT || 5050;
 
 connection();
 app.use(cookieParser());
 app.use(express.json()); 
 app.use(express.urlencoded({extended: true}));
-app.use(cors ({
+app.use(cors({
     origin: ["http://localhost:3000"],
     method: ["GET", "POST"],
-    credentials: true,
-})
-);
-app.use("/", authRoutes);
-app.use("/", itemRouter);
+    credentials: true
+}));
+app.use('/', authRoutes);
+app.use('/', itemRouter);
+app.use(paymentRouter);
+
 app.get('/', (req, res) => {
     try {
         UserModel.find((err, user)=> {

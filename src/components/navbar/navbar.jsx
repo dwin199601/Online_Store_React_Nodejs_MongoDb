@@ -10,10 +10,10 @@ import { MenuItems } from './menuItems';
 
 export default function Navbar(props) {
   const [cookies, setCookie, removeCookie] = useCookies([]);
-  const [active, setActive] = useState(false);
+  //const [active, setActive] = useState(false);
 
   const showMobileMenu = () => {
-    setActive(!active);
+    props.setActiveMenu(!props.activeMenu);
   }
 
   const handleLogout = () => {
@@ -26,7 +26,7 @@ export default function Navbar(props) {
       <div className='menu-icon'>
         <MenuOutlined className='menu' onClick={showMobileMenu} />
       </div>
-      <nav className={active ? 'slider active' : 'slider'}>
+      <nav className={props.activeMenu ? 'slider active' : 'slider'}>
         <span>
           {
             !cookies.jwt ?
@@ -60,38 +60,3 @@ export default function Navbar(props) {
 
   )
 }
-
-
-/* <div className='navLeft'>
-        {
-          !cookies.jwt ?
-            <>
-              <Link to="/signup" className='signUp'>Sign Up</Link>
-              <Link to="/login" className='login'>Login</Link>
-            </>
-            :
-            <button onClick={handleLogout} className="logoutbtn">LogOut</button>
-        }
-      </div>
-      <div className='menu-icon'>
-        {
-          clicked === false ?
-            <MenuOutlined onClick={() => { setClicked(true) }} className="mobMenuIcon" />
-            :
-            <CloseOutlined onClick={() => { setClicked(false) }} className="mobMenuIcon close" />
-        }
-      </div>
-      <ul className={clicked ? 'mobMenu' : 'navMenu'}>
-        {
-          MenuItems.map((item, index) => {
-            return (
-              <li key={index}>
-                <Link className={item.className} to={item.url}>
-                  {item.name}
-                </Link>
-              </li>
-            )
-          })
-        }
-      </ul>*/
-

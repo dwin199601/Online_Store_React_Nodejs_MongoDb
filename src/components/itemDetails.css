@@ -1,3 +1,8 @@
+.updateItem_content {
+    width: 100%;
+    position: relative;
+}
+
 .Loadingmessagestyle {
     margin-top: 10px;
     font-size: 30px;
@@ -7,7 +12,7 @@
 .boxParent {
     display: flex;
     flex-flow: row;
-    justify-content: space-evenly;
+    justify-content: space-around;
 }
 
 .boxParent img {
@@ -16,7 +21,7 @@
 }
 
 .itemDetail_h1 {
-    margin-top: 1rem;
+    margin: 1rem 0;
     background-image: linear-gradient(to top, rgb(118, 59, 118), rgb(230, 245, 19));
     background-size: 100%;
     font-weight: 800;
@@ -28,12 +33,7 @@
 }
 
 .boxContent {
-    margin: 10px 10px;
-}
-
-.description_item {
-    margin-right: 15px;
-    text-align: left;
+    max-width: 50%;
 }
 
 .description_item h3 {
@@ -69,7 +69,135 @@
     margin: 1rem;
 }
 
-@media screen and (max-width: 600px) {
+.button_box {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+.button_box * {
+    margin-left: 10px;
+}
+
+
+.buy_item_btn,
+.delete_item_btn {
+    width: 120px;
+    border-radius: 5px;
+    border: none;
+    padding: 5px 10px;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    transition: all 0.5s;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    box-shadow: 6px 6px 20px
+        /* 20px represent the amount of blure*/
+        rgba(145, 143, 143, 0.5);
+}
+
+.buy_item_btn {
+    background: #11998e;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #38ef7d, #11998e);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #38ef7d, #11998e);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+.delete_item_btn {
+    background: #ee0979;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #ff6a00, #ee0979);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #ff6a00, #ee0979);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.buy_item_btn:after,
+.delete_item_btn:after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: rgba(110, 5, 5, 0.6);
+    transition: all 0.5s;
+    border-radius: 5px;
+}
+
+.delete_item_btn:hover,
+.buy_item_btn:hover {
+    color: white;
+}
+
+.delete_item_btn:hover:after,
+.buy_item_btn:hover:after {
+    width: 100%;
+}
+
+.slider-item {
+    position: relative;
+}
+
+.slider-item img {
+    border-radius: 10px;
+}
+
+.right-arrow {
+    margin-top: 1.2rem;
+    position: absolute;
+    top: 100%;
+    right: 35%;
+    font-size: 3rem;
+    z-index: 10;
+    cursor: pointer;
+    user-select: none;
+    background-color: white;
+    border-radius: 50%;
+    transition: all 0.5s;
+}
+
+.left-arrow {
+    margin-top: 1.2rem;
+    position: absolute;
+    font-size: 3rem;
+    z-index: 10;
+    cursor: pointer;
+    user-select: none;
+    top: 100%;
+    left: 35%;
+    background-color: white;
+    border-radius: 50%;
+    transition: all 0.5s;
+}
+
+.right-arrow:hover,
+.left-arrow:hover {
+    background-color: #ff6a00;
+}
+
+.slide {
+    opacity: 0;
+    transition-duration: 1s ease;
+}
+
+.slide.active {
+    opacity: 1;
+    transition-duration: 1s;
+    transform: scale(1.08);
+}
+
+@media screen and (max-width: 1000px) {
+
+    .updateItem_content {
+        height: auto;
+    }
 
     .boxParent {
         display: flex;
@@ -79,20 +207,54 @@
         align-items: center;
     }
 
+    .right-arrow {
+        top: 50%;
+        right: -20%;
+    }
+
+    .left-arrow {
+        top: 50%;
+        left: -20%;
+    }
+
     .description_item,
     .price_item,
     .category_item {
         text-align: center;
     }
+
+    .boxParent img {
+        margin: 1rem 0;
+    }
 }
+
 
 @media screen and (max-width: 600px) {
     .boxParent img {
-        width: 250px;
-        height: auto;
+        width: 200px;
+        height: 220px;
     }
 
     .price_item {
         font-size: 20px;
+    }
+
+    .right-arrow {
+        top: 30%;
+        right: -30%;
+    }
+
+    .left-arrow {
+        top: 30%;
+        left: -30%;
+    }
+
+}
+
+@media screen and (max-width: 350px) {
+
+    .left-arrow,
+    .right-arrow {
+        font-size: 30px;
     }
 }

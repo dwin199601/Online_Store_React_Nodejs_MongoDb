@@ -9,6 +9,7 @@
     overflow: hidden;
     height: 70px;
     font-family: 'Ubuntu', sans-serif;
+    width: 100%;
 }
 
 .menu-icon .menu {
@@ -26,7 +27,7 @@
 .slider {
     margin-top: 5px;
     display: flex;
-    width: 100%;
+    min-width: 100%;
     transition: 1s ease;
     justify-content: space-between;
     padding-right: 10px;
@@ -42,6 +43,8 @@
 }
 
 .slider ul li {
+    display: flex;
+    text-align: center;
     padding: 15px 5px;
     list-style: none;
     transition: all 1s;

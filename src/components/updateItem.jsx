@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
@@ -25,23 +25,17 @@ function UpdateItem() {
     toast.success("The item was updated!", { position: toast.POSITION.TOP_RIGHT, autoClose: 4000 })
   }
 
-  const onImageChange = (e) => {
-    CapturFile(e, setFile)
-    setchangedImg(true);
-  }
-
   const updateD = async (e) => {
     e.preventDefault();
     if (item.category === 'Select') {
       deleteToastMessage("Select Category!")
     }
     else {
-      const imageUrl = await getImageUrl(file);
+
       fetch("http://localhost:6050/api/items/" + param, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          "item_image": file ? imageUrl : item.item_image,
           "item_name": item.item_name,
           "item_description": item.item_description,
           "price": item.price,
@@ -64,25 +58,8 @@ function UpdateItem() {
         <div className='UpdateImg'>
           <div>
             {
-              changedImg === false ?
-                item.item_image ? <img src={item.item_image} alt="item img" />
-                  : <LoadingOutlined className="Loadingmessagestyle" />
-                : <img src={item.item_image} alt="item img" className='uploadedImg' />
-            }
-          </div>
-          <div className='dragDropZone'>
-
-            {
-              changedImg === false ?
-                <>
-                  <input
-                    type="file"
-                    className="uploadImagebtn"
-                    onChange={(e) => onImageChange(e)} />
-                  <span className="dropzoneIcon">Drop Image Here</span>
-                </>
-                :
-                <span className="dropzoneIconChanged">Uploaded!</span>
+              item.item_image ? <img src={item.item_image[0]} alt="item img" />
+                : <LoadingOutlined className="Loadingmessagestyle" />
             }
           </div>
         </div>

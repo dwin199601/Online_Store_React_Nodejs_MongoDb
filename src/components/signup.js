@@ -71,7 +71,6 @@ function Signup() {
         placeholder='First name'
         value={values.firstName}
         onChange={handleChange} 
-        
       />
       <label htmlFor="lastName"> Last Name </label>
       <input 
@@ -88,9 +87,7 @@ function Signup() {
         name="email"
         value={values.email}
         onChange={handleChange}  
-        
       />
-
       <label htmlFor="password"> Password </label>
       <input 
         placeholder="Password"
@@ -98,7 +95,6 @@ function Signup() {
         name="password" 
         value={values.password}
         onChange={handleChange} 
-        
       />
       {error && <div className='error_box'>{error}</div>}
       <button>Sign Up</button>

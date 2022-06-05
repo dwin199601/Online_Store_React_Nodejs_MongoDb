@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.css';
-import { CapturFile, getImageUrl } from '../util/CaptureFileHelper.js';
+import { CapturFile, getImageUrl, DisplayImage } from '../util/CaptureFileHelper.js';
 import { newItem } from '../util/FetchDataHelper.js';
 import TextareaAutosize from 'react-textarea-autosize';
 import './newitem.css';
 import { VerifyUserHasToken } from '../util/VerifyUser.js';
 import getCategoryJson from '../data/categories.json';
 import { deleteToastMessage } from '../util/FetchDataHelper';
+import { successfullMessage } from '../util/FetchDataHelper.js';
 
 export default function Newitems() {
     VerifyUserHasToken();
@@ -16,9 +17,9 @@ export default function Newitems() {
     const [category, setCategory] = useState('');
     const [description, setDesctiption] = useState('');
     const [loading, setLoading] = useState(false);
-    const [file, setFile] = useState(null);
-    const [isCategory, setIsCategory] = useState(true)
-
+    const [file, setFile] = useState([]);
+    const [isCategory, setIsCategory] = useState(true);
+    const [media, setMedia] = useState([]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -28,11 +29,17 @@ export default function Newitems() {
             deleteToastMessage('Category is not selected!!')
         }
         else {
+            console.log(imgUrl);
             setIsCategory(true)
             setLoading(true);
             newItem(imgUrl, name, description, price, category, setLoading);
             window.location = "/items";
         }
+    }
+
+    const handleUploadFile = (e) => {
+        CapturFile(e, setFile);
+        DisplayImage(e, setMedia);
     }
 
     return (
@@ -41,9 +48,11 @@ export default function Newitems() {
             <form onSubmit={handleSubmit}>
                 <label>Name</label>
                 <input type="text"
-                    value={name} placeholder="Enter product name"
+                    value={name} placeholder="Enter product name within 50 character limit"
                     onChange={(e) => setName(e.target.value)}
-                    required />
+                    required
+                    maxLength={50}
+                />
                 <label>Price$</label>
                 <input type="number" placeholder="Enter product price" value={price}
                     onChange={(e) => setPrice(e.target.value)}
@@ -81,20 +90,27 @@ export default function Newitems() {
                     <input
                         type="file"
                         className="upload_btn"
-                        onChange={e => CapturFile(e, setFile)}
+                        onChange={e => handleUploadFile(e)}
                     />
-                    {file === null ?
-                        <div className="overlay-layer" >Upload photo</div>
-                        :
-                        <div className="overlay-layer" id="uploadedPhoto">Uploaded!</div>
-                    }
-                </div>
+                    <div className="overlay-layer" >Upload photo</div>
 
+                </div>
 
                 {!loading && <button className="btn btn-success">Add Item
                 </button>}
                 {loading && <button disabled className="btn btn-success">Adding Item...
                 </button>}
+                <div className='imageDisplaying'>
+                    {
+                        media && media.map((images, index) => {
+                            return (
+                                <div key={index}>
+                                    <img src={images.content} alt={images.name} title={images.name} />
+                                </div>
+                            )
+                        })
+                    }
+                </div>
             </form>
         </div>
     )

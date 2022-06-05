@@ -78,7 +78,11 @@ const ItemList = (props) => {
                                     <div className='product_content'>
                                         <h1 className='priceItem'>Price ${allitems.price}</h1>
                                         {
-                                            allitems.item_image ? <Link to={`/items/${allitems._id}`}> <img src={allitems.item_image} alt="item_image" className="imagestyles" /> </Link>
+                                            allitems.item_image ?
+                                                <Link to={`/items/${allitems._id}`}>
+
+                                                    <img src={allitems.item_image[0]} alt="item_image" className="imagestyles" />
+                                                </Link>
                                                 : <LoadingOutlined style={{ fontSize: 25 }} />
                                         }
                                         <Link to={`/items/${allitems._id}`}>{allitems.item_name}</Link>
