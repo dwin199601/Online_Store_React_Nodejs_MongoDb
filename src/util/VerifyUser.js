@@ -30,3 +30,18 @@ export const VerifyUserHasToken = async () => {
         verifyUser(cookies, removeCookie, navigate)
     },[cookies, navigate, removeCookie])
 }
+
+export const getUserData = (userData, userEmail, setFullName, setUserId, userDataComments) => {
+  userData.filter((val) => {
+      if(val.email === userEmail)
+      return val;
+  }).map((data) => {
+      setUserId(data._id);
+      if(userDataComments){ // if we need to get user data for comment section in itemDetail, then we go with this one
+        setFullName({authorName: `${data.firstName} ${data.lastName}`});
+      }
+      else {
+        setFullName({firstName: data.firstName, lastName: data.lastName});
+      }
+  })
+}

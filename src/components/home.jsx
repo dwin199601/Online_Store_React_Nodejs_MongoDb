@@ -20,16 +20,6 @@ function Home(props) {
   const [openLastNameUpdate, setOpenLastNameUpdate] = useState(false);
   const forUser = true;
 
-  /*const getUserData = async () => {
-    getUserEmail(setUserEmail);
-  }
-
-  useEffect(() => {
-    if (cookies.jwt) {
-      getUserData();
-    }
-  }, [cookies.jwt])*/
-
   const deleteUser = async (e, user_id) => {
     e.preventDefault();
     await axios.delete(`${USER_URL}/${user_id}`);

@@ -22,6 +22,7 @@ function App() {
   const [activeMenu, setActiveMenu] = useState(false);
   const [userData, setUserData] = useState([]);
   const [userEmail, setUserEmail] = useState(null);
+
   
   useEffect(() => {
     getUserEmail(setUserEmail);
@@ -41,7 +42,7 @@ function App() {
                       <Routes>
                         <Route exact path="/" element={<Home userData={userData} error={error} isLoading={isLoading} userEmail={userEmail}/>} />
                         <Route exact path="/newitems" element={ <Newitems/>} />
-                        <Route exact path="/items/:param" element= { <ItemDetails item={item} setItem={setItem}/>} />
+                        <Route exact path="/items/:param" element= { <ItemDetails item={item} setItem={setItem} userEmail={userEmail} userData={userData}/> } />
                         <Route exact path="/items" element = {<Items />} />
                         <Route exact path="/updateItem/:param" element = { <UpdateItem/>} />
                         <Route exact path="/signup" element = { <Signup />} />

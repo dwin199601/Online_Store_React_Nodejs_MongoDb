@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "rate": "Impressive"
+    },
+    {
+        "id": 2,
+        "rate": "Good"
+    },
+    {
+        "id": 3,
+        "rate": "Not bad"
+    },
+    {
+        "id": 4,
+        "rate": "Could be better"
+    },
+    {
+        "id": 5,
+        "rate": "Garbage?"
+    }
+]

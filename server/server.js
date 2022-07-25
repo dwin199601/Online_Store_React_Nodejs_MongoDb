@@ -4,9 +4,10 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
-const UserModel = require("./models/UserModel")
+const UserModel = require("./models/UserModel");
+const commentRouter = require('./routes/commentRoutes');
 const authRoutes = require("./routes/authRoutes");
-const itemRouter = require("./routes/itemRoutes")
+const itemRouter = require("./routes/itemRoutes");
 const connection = require("./dbconnection");
 const paymentRouter = require("./routes/paymentRoutes");
 const PORT = process.env.PORT || 5050;
@@ -22,6 +23,7 @@ app.use(cors({
 }));
 app.use('/', authRoutes);
 app.use('/', itemRouter);
+app.use('/', commentRouter);
 app.use(paymentRouter);
 
 app.get('/', (req, res) => {
@@ -73,7 +75,7 @@ app.put('/:id', (req, res) => {
         let _id = req.params.id;
         _id = mongoose.Types.ObjectId(_id);
         console.log(_id);
-        const {firstName, lastName, image} = req.body;
+        const {firstName, lastName, image, comments} = req.body;
         UserModel.updateOne(
             {
                 _id: _id
@@ -81,7 +83,9 @@ app.put('/:id', (req, res) => {
             {
                 firstName: firstName,
                 lastName: lastName,
-                image: image
+                image: image,
+                comments: comments
+
             },
             (err) => {
                if(err){
@@ -99,9 +103,9 @@ app.put('/:id', (req, res) => {
     {
         console.log(err);
     }
-})
+});
 
 
-    app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-    })
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});

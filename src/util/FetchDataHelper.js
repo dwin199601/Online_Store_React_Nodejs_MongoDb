@@ -6,6 +6,7 @@ import axios from 'axios';
 toast.configure();
 
 export const url = "http://localhost:6050/api/items";
+export const commentUrl = "http://localhost:6050/api/comment";
 
 export const successfullMessage = (message) => {
   toast.success(message, { position: toast.POSITION.TOP_RIGHT, autoClose: 4000 });
@@ -146,6 +147,44 @@ export const newItem = (itemUrl, name, description, price, category, setLoading)
             console.log("Error: " + err);
             setLoading(false);
         })    
+}
+
+export const newComment = (commentAuthorName, commentBody, itemRate, item_id) => {
+  fetch("http://localhost:6050/api/newComment", {
+    method: 'POST',
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      "commentAuthorName": commentAuthorName,
+      "commentBody": commentBody,
+      "itemRate": itemRate,
+      "item_id": item_id
+    })
+  })
+  .then(()=> {
+      console.log("New comment was added");
+      successfullMessage("Your comment was added!!");
+  })
+  .catch(err => {
+      console.log("Error: " + err);
+  })  
+}
+
+export const FetchCommentsFromDb = (setComment, setLoading) => {
+  fetch("http://localhost:6050/api/comment")
+  .then(res => {
+      if(!res.ok) {
+      console.log(`Couldn't fetch any comment from the server!`)
+     }
+    return res.json();
+  })
+  .then(data => {
+      setComment(data);
+      setLoading(false);
+  })
+  .catch(err=> {
+    console.log("Error when fetching comments for the item: ", err);
+    setLoading(false);
+  })
 }
 
 export const itemDetailsOpen = (setItem, setLoading, param, setError) => {

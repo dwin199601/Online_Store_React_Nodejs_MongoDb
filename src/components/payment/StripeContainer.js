@@ -6,30 +6,24 @@ import { useParams } from 'react-router';
 import { itemDetailsOpen } from "../../util/FetchDataHelper";
 import { useEffect, useState } from "react";
 import { LoadingOutlined } from '@ant-design/icons';
+import { getUserData } from "../../util/VerifyUser";
 
 function StripeContainer(props) {
     const stripePromise = loadStripe(PUBLISH_KEY);
     const { param } = useParams();
     const [isLoading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [userId, setUserId] = useState(null);
     const [fullName, setFullName] = useState({
         firstName: "",
         lastName: ""
     });
 
-    const getUserData = () => {
-        props.userData.filter((val) => {
-            if(val.email === props.userEmail)
-            return val;
-        }).map((data) => {
-            setFullName({firstName: data.firstName, lastName: data.lastName});
-        })
-    }
-
     useEffect(() => {
-        getUserData();
+        getUserData(props.userData, props.userEmail, setFullName, setUserId);
         itemDetailsOpen(props.setItem, setLoading, param, setError);
-    }, [param])
+    }, [param]);
+
 
     return (
         <span>
@@ -44,6 +38,7 @@ function StripeContainer(props) {
                 itemPrice = {props.item.price}
                 userEmail = {props.userEmail}
                 fullName={fullName}
+                userId={userId}
             />
             </Elements>
         }

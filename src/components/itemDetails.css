@@ -193,6 +193,119 @@
     transform: scale(1.08);
 }
 
+.comment-section {
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.comment-section textarea {
+    resize: none;
+    overflow-y: auto;
+    overflow-x: hidden !important;
+}
+
+.comment-section input,
+.comment-section textarea,
+.comment-section select {
+    width: 40%;
+    min-height: 30px;
+    max-height: 30px;
+    border: none;
+}
+
+.comment-section input:focus,
+.comment-section textarea:focus,
+.comment-section select:focus {
+    border: 0.5px solid rgb(227, 243, 152);
+    outline: none;
+}
+
+.comment-section label {
+    width: 60%;
+    text-align: left;
+}
+
+.comment-section form {
+    background: #0F2027;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to left, #2C5364, #203A43, #0F2027);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #2C5364, #203A43, #0F2027);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-flow: column;
+    box-shadow: 0 0 10px rgba(32, 31, 31, 0.4);
+    max-width: 50%;
+}
+
+.comment-section form div {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.comment-section button {
+    border: none;
+    padding: 5px 15px;
+}
+
+.allCommentsBox {
+    background: rgba(207, 204, 204, 0.5);
+    box-shadow: 0 0 10px rgba(32, 31, 31, 0.4);
+    padding: 10px;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.allCommentsBox>span {
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.commentContent {
+    padding: 10px;
+    margin: 5px;
+    background-color: white;
+    height: auto;
+    position: relative;
+    min-height: 200px;
+    max-height: 200px;
+}
+
+.commentsBody {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.commentContent>p {
+    text-align: left;
+    width: 11em;
+    word-wrap: break-word;
+    font-size: 20px;
+}
+
+.commentContent h2 {
+    position: absolute;
+    bottom: 10px;
+    font-size: 15px;
+    text-align: left;
+    font-style: italic;
+}
+
+.commentContent h3 {
+    position: absolute;
+    bottom: 0;
+    font-size: 10px;
+    text-align: left;
+    font-style: italic;
+}
+
 @media screen and (max-width: 1000px) {
 
     .updateItem_content {
