@@ -52,6 +52,17 @@
     align-items: right;
     position: relative;
     margin-right: 1rem;
+    animation: displaySearch 2s;
+}
+
+@keyframes displaySearch {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .search_icon {

@@ -144,7 +144,7 @@ function Home(props) {
 
                 </div>
                 <div className='user_rightSide'>
-                  <h2>Hey {val.firstName}! We are happy to see you again!</h2>
+                  <h2 className='wellcomeMsg'>Hey {val.firstName}! We are happy to see you again!</h2>
 
                 </div>
               </div>

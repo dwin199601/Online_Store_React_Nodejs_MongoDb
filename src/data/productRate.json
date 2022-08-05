@@ -1,22 +1,26 @@
 [
     {
         "id": 1,
-        "rate": "Impressive"
+        "rate": "Select"
     },
     {
         "id": 2,
-        "rate": "Good"
+        "rate": "Impressive"
     },
     {
         "id": 3,
-        "rate": "Not bad"
+        "rate": "Good"
     },
     {
         "id": 4,
-        "rate": "Could be better"
+        "rate": "Not bad"
     },
     {
         "id": 5,
+        "rate": "Could be better"
+    },
+    {
+        "id": 6,
         "rate": "Garbage?"
     }
 ]

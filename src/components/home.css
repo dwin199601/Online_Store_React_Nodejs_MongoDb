@@ -5,6 +5,20 @@
     margin-top: 1rem;
 }
 
+.wellcomeMsg {
+    animation: fadeIn 2s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
 .user_dashboard {
     flex: 30%;
     background: #C33764;

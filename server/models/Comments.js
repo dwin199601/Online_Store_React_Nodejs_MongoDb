@@ -16,6 +16,9 @@ const UserComment = new mongoose.Schema({
     item_id: {
         type: String
     },
+    user_id: {
+        type: String
+    },
     data_added: {
         type: Date,
         default: Date.now

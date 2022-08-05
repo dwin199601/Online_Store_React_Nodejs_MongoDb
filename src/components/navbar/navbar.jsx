@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.css'
-import { useState } from 'react';
 import { useCookies } from "react-cookie";
 import './navbar.css';
 import { MenuOutlined, CloseOutlined } from '@ant-design/icons';
@@ -10,15 +9,14 @@ import { MenuItems } from './menuItems';
 
 export default function Navbar(props) {
   const [cookies, setCookie, removeCookie] = useCookies([]);
-  //const [active, setActive] = useState(false);
 
   const showMobileMenu = () => {
     props.setActiveMenu(!props.activeMenu);
   }
 
   const handleLogout = () => {
-    removeCookie("jwt");
     window.location = "/login";
+    removeCookie("jwt");
   }
 
   return (

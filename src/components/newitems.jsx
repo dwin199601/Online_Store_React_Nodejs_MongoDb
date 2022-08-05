@@ -44,7 +44,7 @@ export default function Newitems() {
 
     return (
         <div className="additem">
-            <h1>Add New Item </h1>
+            <h1 className='newItemText'>Add New Item </h1>
             <form onSubmit={handleSubmit}>
                 <label>Name</label>
                 <input type="text"

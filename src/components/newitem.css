@@ -20,6 +20,21 @@
   margin-bottom: 30px;
 }
 
+.newItemText {
+  animation: fadeInText 2s;
+}
+
+@keyframes fadeInText {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
 .additem input,
 .additem textarea,
 .additem select {

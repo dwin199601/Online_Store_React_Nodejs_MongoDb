@@ -149,7 +149,7 @@ export const newItem = (itemUrl, name, description, price, category, setLoading)
         })    
 }
 
-export const newComment = (commentAuthorName, commentBody, itemRate, item_id) => {
+export const newComment = (commentAuthorName, commentBody, itemRate, item_id, user_id) => {
   fetch("http://localhost:6050/api/newComment", {
     method: 'POST',
     headers: { "Content-Type": "application/json" },
@@ -157,19 +157,19 @@ export const newComment = (commentAuthorName, commentBody, itemRate, item_id) =>
       "commentAuthorName": commentAuthorName,
       "commentBody": commentBody,
       "itemRate": itemRate,
-      "item_id": item_id
+      "item_id": item_id,
+      "user_id": user_id
     })
   })
   .then(()=> {
       console.log("New comment was added");
-      successfullMessage("Your comment was added!!");
   })
   .catch(err => {
-      console.log("Error: " + err);
+      deleteToastMessage("Opps, got error when creating the comment: " + err);
   })  
 }
 
-export const FetchCommentsFromDb = (setComment, setLoading) => {
+export const FetchCommentsFromDb = (setComment, param, setNumOfComments) => {
   fetch("http://localhost:6050/api/comment")
   .then(res => {
       if(!res.ok) {
@@ -178,13 +178,31 @@ export const FetchCommentsFromDb = (setComment, setLoading) => {
     return res.json();
   })
   .then(data => {
-      setComment(data);
-      setLoading(false);
+      let dataBasedOnUserId = data.filter((value) => {
+        if (value.item_id === param)
+          return value;
+      })
+      setNumOfComments(dataBasedOnUserId.length)
+      setComment(dataBasedOnUserId);
+     
   })
   .catch(err=> {
     console.log("Error when fetching comments for the item: ", err);
-    setLoading(false);
+    
   })
+}
+
+export const DeleteComment = async (param, allComments, setAllComments) => {
+  try {
+    const comment_id = param;
+    await axios.delete("http://localhost:6050/api/comment/"+comment_id);
+    const newCommentList = allComments.filter(comt => comt._id !== comment_id);
+    setAllComments([...newCommentList]);
+    successfullMessage("Your comment was erased");
+  }
+  catch(error) {
+    deleteToastMessage("Got error when deleting: ", error);
+  }
 }
 
 export const itemDetailsOpen = (setItem, setLoading, param, setError) => {
