@@ -35,13 +35,14 @@ module.exports.getItemById = async (req, res) => {
 
 module.exports.createItem = (req, res) => {
     try{
-        const {item_image, item_name, item_description, price, category} = req.body;
+        const {item_image, item_name, item_description, price, category, user_id} = req.body;
         const items = new Item({
             item_image: item_image,
             item_name: item_name,
             item_description: item_description,
             price: price,
             category: category,
+            user_id: user_id
         });
         items.save((err)=>{
            if(err){

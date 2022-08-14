@@ -20,7 +20,7 @@ function StripeContainer(props) {
     });
 
     useEffect(() => {
-        getUserData(props.userData, props.userEmail, setFullName, setUserId);
+        getUserData(props.userData, props.userEmail, setUserId, setFullName);
         itemDetailsOpen(props.setItem, setLoading, param, setError);
     }, [param]);
 

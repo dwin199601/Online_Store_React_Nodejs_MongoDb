@@ -21,6 +21,7 @@ export const FetchUserDataFromDb =(setData, setLoading, setError) => {
           .then(res => {
             if(!res.ok){
               console.log("Couldn't fetch user data from the server!");
+              deleteToastMessage("Sorry, cannot upload user data. Contact admin (dwin13672@gmail.com)");
             }
             console.log("User server is on");
             return res.json();
@@ -126,7 +127,7 @@ export const UpdateItemHelper = (param, setItem) => {
       }, []);
 }
 
-export const newItem = (itemUrl, name, description, price, category, setLoading) => {
+export const newItem = (itemUrl, name, description, price, category, userId, setLoading) => {
         fetch("http://localhost:6050/api/newitems", {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
@@ -135,12 +136,11 @@ export const newItem = (itemUrl, name, description, price, category, setLoading)
               "item_name": name,
               "item_description": description,
               "price": price,
-              "category": category
+              "category": category,
+              "user_id": userId
             }
             )
         }).then(() => {
-            console.log("New item added");
-            successfullMessage("New item was created!!");
             setLoading(false);
 
         }).catch(err => {

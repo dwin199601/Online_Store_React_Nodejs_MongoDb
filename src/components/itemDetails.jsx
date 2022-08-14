@@ -82,7 +82,7 @@ export default function ItemDetails(props) {
   }
 
   useEffect(() => {
-    getUserData(props.userData, props.userEmail, setCommentObj, setUserId, userDataComments);
+    getUserData(props.userData, props.userEmail, setUserId, setCommentObj, userDataComments);
     FetchCommentsFromDb(setAllComments, param, setNumOfComments);
     itemDetailsOpen(props.setItem, setLoading, param, setError);
     if (cookies.jwt) {
@@ -98,7 +98,7 @@ export default function ItemDetails(props) {
         <div className='itemRiview'>
           <h1 className='itemDetail_h1'>{props.item.item_name}</h1>
           <div className="boxParent">
-            <section className='slider-item'>
+            <div className='slider-item'>
               {
                 props.item.item_image ?
                   props.item.item_image.length > 1 ?
@@ -127,7 +127,7 @@ export default function ItemDetails(props) {
                   :
                   ""
               }
-            </section>
+            </div>
             <div className="boxContent">
               <span className='description_item'>
                 <h3>Description</h3>
@@ -179,7 +179,7 @@ export default function ItemDetails(props) {
           </div>
 
           <div className='reviewBox'>
-            <p>Leave your review</p>
+            <p>Leave Review</p>
             {
               displayReviewBox === false ?
                 <DownCircleFilled

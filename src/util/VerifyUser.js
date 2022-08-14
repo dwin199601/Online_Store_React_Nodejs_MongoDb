@@ -31,7 +31,7 @@ export const VerifyUserHasToken = async () => {
     },[cookies, navigate, removeCookie])
 }
 
-export const getUserData = (userData, userEmail, setFullName, setUserId, userDataComments) => {
+export const getUserData = (userData, userEmail, setUserId, setFullName, userDataComments) => {
   userData.filter((val) => {
       if(val.email === userEmail)
       return val;
@@ -41,7 +41,9 @@ export const getUserData = (userData, userEmail, setFullName, setUserId, userDat
         setFullName({authorName: `${data.firstName} ${data.lastName}`});
       }
       else {
+        if(setFullName){
         setFullName({firstName: data.firstName, lastName: data.lastName});
+        }
       }
   })
 }

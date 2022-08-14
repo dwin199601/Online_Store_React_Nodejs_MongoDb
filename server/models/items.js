@@ -21,7 +21,9 @@ const itemSchema = new mongoose.Schema({
         type: String,
         required: [true, "Enter item category!"]
     },
-
+    user_id: {
+        type: String
+    },
     data_added: {
         type: Date,
         default: Date.now

@@ -15,9 +15,11 @@
 }
 
 .boxParent {
+    position: relative;
     display: flex;
     flex-flow: row;
     justify-content: space-around;
+    width: 100%;
 }
 
 .boxParent img {
@@ -40,6 +42,10 @@
 
 .boxContent {
     max-width: 50%;
+}
+
+.description_item {
+    text-align: left;
 }
 
 .description_item h3 {
@@ -226,7 +232,8 @@
     color: white;
     padding: 8px;
     border-radius: 5px;
-    width: 30%;
+    min-width: 350px;
+    max-width: 350px;
 }
 
 .reviewBox p {
@@ -241,6 +248,17 @@
     align-items: center;
     width: 100%;
     font-size: 15px;
+    animation: fadeInAnim 2s;
+}
+
+@keyframes fadeInAnim {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .displayReviewBox label {
@@ -251,7 +269,7 @@
 .displayReviewBox input,
 .displayReviewBox textarea,
 .displayReviewBox select {
-    width: 150px;
+    width: 250px;
     height: 30px;
     transition: all 1s;
     border: none;
@@ -363,11 +381,14 @@
 
 .deleteComment {
     position: absolute;
-    top: 5%;
+    top: 3%;
     right: 5%;
     transition: all 0.5s;
     outline: none;
     cursor: pointer;
+    background-color: white;
+    z-index: 5;
+    border: none;
 }
 
 .deleteComment:hover {
@@ -469,6 +490,20 @@
         left: -30%;
     }
 
+}
+
+@media screen and (max-width: 550px) {
+
+    .displayReviewBox input,
+    .displayReviewBox textarea,
+    .displayReviewBox select {
+        width: 200px;
+
+    }
+
+    .reviewBox {
+        width: 250px;
+    }
 }
 
 @media screen and (max-width: 350px) {

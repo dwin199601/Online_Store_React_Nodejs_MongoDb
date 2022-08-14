@@ -1,7 +1,18 @@
 import { create } from "ipfs-http-client";
 import { Buffer } from "buffer";
-const client = create('https://ipfs.infura.io:5001/api/v0');
 
+const ipfsClient = require('ipfs-http-client');
+const projectId = process.env.REACT_APP_INFURA_PROJECT_ID;  
+const projectSecret = process.env.REACT_APP_INFURA_SECRET_KEY;
+const auth = 'Basic ' + Buffer.from(`${projectId}` + ':' + `${projectSecret}`).toString('base64');
+const client = ipfsClient.create({
+    host: 'ipfs.infura.io',
+    port: 5001,
+    protocol: 'https',
+    headers: {
+        authorization: auth,
+    },
+})
 
 export const CapturFile =  (e, setFile, forUser) => {
     try{

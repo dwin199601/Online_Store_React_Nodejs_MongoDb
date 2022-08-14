@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, Route, Routes, Link} from 'react-router-dom';
 import StripeContainer from './components/payment/StripeContainer';
 import './App.css';
 import Navbar from './components/navbar/navbar.jsx';
@@ -8,7 +8,7 @@ import Items from './components/items';
 import Newitems from './components/newitems';
 import ItemDetails from './components/itemDetails';
 import UpdateItem from './components/updateItem';
-import { getUserEmail } from './util/FetchDataHelper';
+import { getUserEmail} from './util/FetchDataHelper';
 import { useEffect, useState } from 'react';
 import { FetchUserDataFromDb } from './util/FetchDataHelper';
 import { LoadingOutlined, QuestionCircleTwoTone } from '@ant-design/icons';
@@ -22,8 +22,8 @@ function App() {
   const [activeMenu, setActiveMenu] = useState(false);
   const [userData, setUserData] = useState([]);
   const [userEmail, setUserEmail] = useState(null);
+  const [products, setProducts] = useState([]);
 
-  
   useEffect(() => {
     getUserEmail(setUserEmail);
     FetchUserDataFromDb(setUserData, setLoading, setError); // fetching user data from DB
@@ -32,7 +32,10 @@ function App() {
   return (
       <>    
         {
-          error? <h1><QuestionCircleTwoTone style={{ fontSize: 40 }} /> Sorry, we cannot fetch user data! Try again </h1> :
+          error?  <div className='uploadError'>
+                    <QuestionCircleTwoTone style={{ fontSize: 40 }} /> 
+                    <h1>Sorry, we cannot upload user data! Try again or contact <a href="mailto:dwin13672@gmail.com" class="email_contact">admin</a></h1> 
+                  </div> :
             isLoading === true? <LoadingOutlined style={{ fontSize: 50, marginTop: "20px" }} className="loadCircle"/>
               :
               <BrowserRouter>
@@ -40,10 +43,10 @@ function App() {
                   <div className="App">
                     <div className="content" onClick={()=> setActiveMenu(false)}>
                       <Routes>
-                        <Route exact path="/" element={<Home userData={userData} error={error} isLoading={isLoading} userEmail={userEmail}/>} />
-                        <Route exact path="/newitems" element={ <Newitems/>} />
+                        <Route exact path="/" element={<Home products={products} setProducts={setProducts} userData={userData} setError={setError} error={error} setLoading={setLoading} isLoading={isLoading} userEmail={userEmail}/>} />
+                        <Route exact path="/newitems" element={ <Newitems userData={userData} userEmail={userEmail}/>} />
                         <Route exact path="/items/:param" element= { <ItemDetails item={item} setItem={setItem} userEmail={userEmail} userData={userData}/> } />
-                        <Route exact path="/items" element = {<Items />} />
+                        <Route exact path="/items" element = {<Items error={error} setError={setError} setLoading={setLoading} isLoading={isLoading} products = {products} setProducts={setProducts}/>} />
                         <Route exact path="/updateItem/:param" element = { <UpdateItem/>} />
                         <Route exact path="/signup" element = { <Signup />} />
                         <Route exact path="/login" element = { <Login/>} /> 

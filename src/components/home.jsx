@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { VerifyUserHasToken } from '../util/VerifyUser';
 import axios from 'axios';
 import "./home.css";
 import { USER_URL } from '../util/constants';
 import { useCookies } from "react-cookie";
 import user_Image from "../assets/user_image.jpg";
+import { handledeleteProduct } from '../util/ProductsHelper';
+import { FetchDataFromDBWithErrors } from '../util/FetchDataHelper';
 import { CapturFile, getImageUrl } from '../util/CaptureFileHelper';
-import { EditOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import { EditOutlined, CloseCircleOutlined, LoadingOutlined, DeleteOutlined } from '@ant-design/icons';
 import { successfullMessage } from '../util/FetchDataHelper';
 
 function Home(props) {
@@ -67,6 +70,7 @@ function Home(props) {
       setOpenLastNameUpdate(false)
     }
   }
+  FetchDataFromDBWithErrors(props.setProducts, props.setLoading, props.setError);
 
   return (
     <>
@@ -145,10 +149,39 @@ function Home(props) {
                 </div>
                 <div className='user_rightSide'>
                   <h2 className='wellcomeMsg'>Hey {val.firstName}! We are happy to see you again!</h2>
+                  <div className='rightSideConten'>
+                    <p>Your Products</p>
+                    <div className='user_products'>
+                      {
+                        props.products.filter((userProduct) => {
+                          if (userProduct.user_id === val._id)
+                            return userProduct;
 
+                        })
+                          .map((allproducts) => {
+                            return (
+                              <div key={allproducts._id} className='productBox'>
+                                <h1>Title: <span className='productName' title={allproducts.item_name}>{allproducts.item_name.slice(0, 15).toUpperCase()}..</span></h1>
+                                {
+                                  allproducts.item_image ?
+                                    <img src={allproducts.item_image[0]} />
+                                    :
+                                    <LoadingOutlined />
+                                }
+                                <h3 className='productPrice'>${allproducts.price}</h3>
+                                <h4>Added date: {allproducts.data_added.slice(0, 10)}</h4>
+                                <div className='productListBtn'>
+                                  <Link to={`/updateItem/${allproducts._id}`} className='editLink'><EditOutlined className='editProducBtn' title='edit product' /> </Link>
+                                  <DeleteOutlined className='deleteProductBtn' title='delete product' onClick={() => { handledeleteProduct(allproducts, props.setProducts, props.products) }} />
+                                </div>
+                              </div>
+                            )
+                          })
+                      }
+                    </div>
+                  </div>
                 </div>
               </div>
-
             )
 
           })

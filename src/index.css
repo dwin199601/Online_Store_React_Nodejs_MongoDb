@@ -99,3 +99,10 @@ code {
   background-color: rgba(236, 248, 214, 0.7);
 
 }
+
+.uploadError {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}

@@ -1,6 +1,5 @@
 import React from 'react';
 import productRate from '../data/productRate.json';
-import { CloseCircleOutlined } from '@ant-design/icons';
 import TextareaAutosize from 'react-textarea-autosize';
 import "./itemDetails.css";
 
@@ -10,7 +9,6 @@ export default function LeaveReview(props) {
     return (
 
         <form onSubmit={props.leaveComment} className="displayReviewBox">
-
             <label>Your Name</label>
             <input
                 maxLength={30}

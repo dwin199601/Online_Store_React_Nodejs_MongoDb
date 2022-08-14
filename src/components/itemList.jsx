@@ -1,27 +1,13 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css'
 import { LoadingOutlined, DownCircleOutlined, UpCircleOutlined, SearchOutlined } from '@ant-design/icons';
 import './itemList.css';
-import { deleteToastMessage } from '../util/FetchDataHelper';
+import { handledeleteProduct } from '../util/ProductsHelper';
 
 const ItemList = (props) => {
     const [search, setSearch] = useState("");
-
-    const handledelete = async (allitems) => {
-        console.log("Item was deleted");
-        deleteToastMessage("Item was deleted");
-        const { data } = await axios.delete("http://localhost:6050/api/items/"
-            + allitems._id);
-
-        const newItems = props.item.filter(it => it._id !== allitems._id);
-        console.log(data, newItems);
-        props.setItem([...newItems]);
-
-    }
-
     const openDescription = (id) => {
         let newItems = props.item.map((items) => {
             if (items._id === id) {
@@ -60,7 +46,6 @@ const ItemList = (props) => {
                 />
                 <SearchOutlined className={search ? "searchWithmessage" : "search_icon"} />
             </div>
-
             <div className="itemstyles">
                 {
                     props.item.filter((titleValue) => {
@@ -88,7 +73,7 @@ const ItemList = (props) => {
                                         <Link to={`/items/${allitems._id}`}>{allitems.item_name}</Link>
                                         <div className='productBtn'>
                                             <Link to={`/updateItem/${allitems._id}`}><button className='edit_btn'>Edit</button></Link>
-                                            <button className="delete_btn" onClick={() => handledelete(allitems)}>Delete</button>
+                                            <button className="delete_btn" onClick={() => handledeleteProduct(allitems, props.setItem, props.item)}>Delete</button>
                                         </div>
                                         {
                                             allitems.visibleDescription === false ?
