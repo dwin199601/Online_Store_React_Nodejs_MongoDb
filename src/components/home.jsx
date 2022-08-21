@@ -171,7 +171,9 @@ function Home(props) {
                                 <h3 className='productPrice'>${allproducts.price}</h3>
                                 <h4>Added date: {allproducts.data_added.slice(0, 10)}</h4>
                                 <div className='productListBtn'>
-                                  <Link to={`/updateItem/${allproducts._id}`} className='editLink'><EditOutlined className='editProducBtn' title='edit product' /> </Link>
+                                  <Link to={`/updateItem/${allproducts._id}`} className='editLink'>
+                                    <EditOutlined className='editProducBtn' title='edit product' />
+                                  </Link>
                                   <DeleteOutlined className='deleteProductBtn' title='delete product' onClick={() => { handledeleteProduct(allproducts, props.setProducts, props.products) }} />
                                 </div>
                               </div>

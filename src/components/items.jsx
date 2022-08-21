@@ -18,7 +18,7 @@ export default function Items(props) {
     return (
         <div>
             {props.isLoading ? <LoadingOutlined className="Loadingmessagestyle" />
-                : <ItemList item={props.products} setItem={props.setProducts} />
+                : <ItemList item={props.products} setItem={props.setProducts} userData={props.userData} />
             }
 
             {props.error &&

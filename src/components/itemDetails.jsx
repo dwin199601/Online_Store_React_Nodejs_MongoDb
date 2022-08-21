@@ -54,22 +54,6 @@ export default function ItemDetails(props) {
   }
   getImgArrayLength();
 
-  const deleteHandler = async (items) => {
-    try {
-      items._id = param;
-      const { data } = await axios.delete("http://localhost:6050/api/items/" + items._id);
-      const newItem = props.item.filter(i => i._id !== items._id);
-      console.log(data, newItem);
-      props.setItem([...newItem]);
-      alert("Item was deleted!!")
-    }
-    catch (error) {
-      console.log(error);
-      navigate('/items');
-      setLoading(false);
-    }
-  }
-
   const leaveComment = async (e) => {
     e.preventDefault();
     if (!commentObj.itemRate || commentObj.itemRate === "Select") {
@@ -144,13 +128,6 @@ export default function ItemDetails(props) {
                 className='buy_item_btn'
               > Buy</button>
             </Link>
-            <button
-              type="button"
-              className='delete_item_btn'
-              onClick={deleteHandler}
-            >
-              Delete Item
-            </button>
           </div>
           <div className='allCommentsBox'>
             <div className='reviewText'>Reviews <span className='numOfComment'>{numOfComments}</span></div>

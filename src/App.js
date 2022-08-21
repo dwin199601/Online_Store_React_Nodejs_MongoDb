@@ -46,7 +46,7 @@ function App() {
                         <Route exact path="/" element={<Home products={products} setProducts={setProducts} userData={userData} setError={setError} error={error} setLoading={setLoading} isLoading={isLoading} userEmail={userEmail}/>} />
                         <Route exact path="/newitems" element={ <Newitems userData={userData} userEmail={userEmail}/>} />
                         <Route exact path="/items/:param" element= { <ItemDetails item={item} setItem={setItem} userEmail={userEmail} userData={userData}/> } />
-                        <Route exact path="/items" element = {<Items error={error} setError={setError} setLoading={setLoading} isLoading={isLoading} products = {products} setProducts={setProducts}/>} />
+                        <Route exact path="/items" element = {<Items error={error} setError={setError} setLoading={setLoading} isLoading={isLoading} products = {products} setProducts={setProducts} userData={userData}/>} />
                         <Route exact path="/updateItem/:param" element = { <UpdateItem/>} />
                         <Route exact path="/signup" element = { <Signup />} />
                         <Route exact path="/login" element = { <Login/>} /> 

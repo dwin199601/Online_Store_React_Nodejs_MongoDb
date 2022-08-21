@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Link } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css'
-import { LoadingOutlined, DownCircleOutlined, UpCircleOutlined, SearchOutlined } from '@ant-design/icons';
+import { LoadingOutlined, DownCircleOutlined, UpCircleOutlined, SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import './itemList.css';
 import { handledeleteProduct } from '../util/ProductsHelper';
 
@@ -71,10 +71,27 @@ const ItemList = (props) => {
                                                 : <LoadingOutlined style={{ fontSize: 25 }} />
                                         }
                                         <Link to={`/items/${allitems._id}`}>{allitems.item_name}</Link>
-                                        <div className='productBtn'>
-                                            <Link to={`/updateItem/${allitems._id}`}><button className='edit_btn'>Edit</button></Link>
-                                            <button className="delete_btn" onClick={() => handledeleteProduct(allitems, props.setItem, props.item)}>Delete</button>
-                                        </div>
+                                        {
+                                            props.userData.filter((value) => {
+                                                if (value._id === allitems.user_id)
+                                                    return value;
+                                            }).map((val) => {
+                                                if (val)
+                                                    return (
+                                                        <div key={val._id} className="productBtn">
+                                                            <Link to={`/updateItem/${allitems._id}`} className='editLink'>
+                                                                <EditOutlined className='edit_btn' />
+                                                            </Link>
+                                                            <DeleteOutlined
+                                                                className="delete_btn"
+                                                                onClick={() => handledeleteProduct(allitems, props.setItem, props.item)}
+                                                            />
+                                                        </div>
+                                                    )
+
+                                            })
+                                        }
+
                                         {
                                             allitems.visibleDescription === false ?
                                                 <DownCircleOutlined

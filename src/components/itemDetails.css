@@ -99,8 +99,7 @@
 }
 
 
-.buy_item_btn,
-.delete_item_btn {
+.buy_item_btn {
     width: 120px;
     border-radius: 5px;
     border: none;
@@ -115,29 +114,16 @@
     box-shadow: 6px 6px 20px
         /* 20px represent the amount of blure*/
         rgba(145, 143, 143, 0.5);
-}
-
-.buy_item_btn {
     background: #11998e;
     /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #38ef7d, #11998e);
     /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #38ef7d, #11998e);
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
 }
 
-.delete_item_btn {
-    background: #ee0979;
-    /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #ff6a00, #ee0979);
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #ff6a00, #ee0979);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
 
-.buy_item_btn:after,
-.delete_item_btn:after {
+.buy_item_btn:after {
     position: absolute;
     content: "";
     top: 0;
@@ -149,12 +135,10 @@
     border-radius: 5px;
 }
 
-.delete_item_btn:hover,
 .buy_item_btn:hover {
     color: white;
 }
 
-.delete_item_btn:hover:after,
 .buy_item_btn:hover:after {
     width: 100%;
 }
