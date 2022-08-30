@@ -71,25 +71,18 @@ const ItemList = (props) => {
                                                 : <LoadingOutlined style={{ fontSize: 25 }} />
                                         }
                                         <Link to={`/items/${allitems._id}`}>{allitems.item_name}</Link>
-                                        {
-                                            props.userData.filter((value) => {
-                                                if (value._id === allitems.user_id)
-                                                    return value;
-                                            }).map((val) => {
-                                                if (val)
-                                                    return (
-                                                        <div key={val._id} className="productBtn">
-                                                            <Link to={`/updateItem/${allitems._id}`} className='editLink'>
-                                                                <EditOutlined className='edit_btn' />
-                                                            </Link>
-                                                            <DeleteOutlined
-                                                                className="delete_btn"
-                                                                onClick={() => handledeleteProduct(allitems, props.setItem, props.item)}
-                                                            />
-                                                        </div>
-                                                    )
-
-                                            })
+                                        { // the edit and delete buttons are displayed only if user id = item.userId
+                                            props.userId === allitems.user_id ?
+                                                <div className="productBtn">
+                                                    <Link to={`/updateItem/${allitems._id}`} className='editLink'>
+                                                        <EditOutlined className='edit_btn' />
+                                                    </Link>
+                                                    <DeleteOutlined
+                                                        className="delete_btn"
+                                                        onClick={() => handledeleteProduct(allitems, props.setItem, props.item)}
+                                                    />
+                                                </div>
+                                                : ""
                                         }
 
                                         {

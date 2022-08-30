@@ -54,7 +54,7 @@ function PaymentForm(props) {
                     receipt_email: props.userEmail,
                     itemName: props.itemName,
                     itemPrice: props.itemPrice,
-                    recipientName: `${props.fullName.firstName} ${props.fullName.lastName}`,
+                    recipientName: `${props.userFirstName} ${props.userLastName}`,
                     phoneNumber: values.phoneNum,
                     street: values.streetName,
                     suite: values.suite,
@@ -142,11 +142,11 @@ function PaymentForm(props) {
         </form>
         :
        <div className='thank-you-content'>
-           <h2>Thank you {props.fullName.firstName}!</h2>
+           <h2>Thank you {props.userFirstName}!</h2>
            <p>The receipt will be sent to the email box: {props.userEmail}</p>
            <p>The item will be shipped by {values.streetName} {values.suite} {values.city} {values.state} {values.country} {values.postalCode}</p>
            <h3>NOTE: Make sure that spinning address is correct!</h3>
-           <p>If you want to change address, <a href="mailto:dwin13672@gmail.com" class="email_contact">contact</a> us as soon as possible</p>
+           <p>If you want to change address, <a href="mailto:dwin13672@gmail.com" className="email_contact">contact</a> us as soon as possible</p>
        </div> 
         }
             

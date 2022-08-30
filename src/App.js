@@ -18,17 +18,21 @@ import Login from './components/login';
 function App() {
   const [item, setItem] = useState({});
   const [error, setError] = useState(null);
-  const [isLoading, setLoading] = useState(true);
   const [activeMenu, setActiveMenu] = useState(false);
-  const [userData, setUserData] = useState([]);
+  const [user, setUser] = useState({
+    fistName: "",
+    lastName: "",
+    userId: "",
+    userImage: "",
+  })
   const [userEmail, setUserEmail] = useState(null);
   const [products, setProducts] = useState([]);
+  getUserEmail(setUserEmail);
 
   useEffect(() => {
-    getUserEmail(setUserEmail);
-    FetchUserDataFromDb(setUserData, setLoading, setError); // fetching user data from DB
-  },[])
-
+    FetchUserDataFromDb( setUser, userEmail, setError);
+  },[userEmail])
+   
   return (
       <>    
         {
@@ -36,26 +40,34 @@ function App() {
                     <QuestionCircleTwoTone style={{ fontSize: 40 }} /> 
                     <h1>Sorry, we cannot upload user data! Try again or contact <a href="mailto:dwin13672@gmail.com" class="email_contact">admin</a></h1> 
                   </div> :
-            isLoading === true? <LoadingOutlined style={{ fontSize: 50, marginTop: "20px" }} className="loadCircle"/>
-              :
-              <BrowserRouter>
-                <Navbar activeMenu={activeMenu} setActiveMenu={setActiveMenu}/>
-                  <div className="App">
-                    <div className="content" onClick={()=> setActiveMenu(false)}>
-                      <Routes>
-                        <Route exact path="/" element={<Home products={products} setProducts={setProducts} userData={userData} setError={setError} error={error} setLoading={setLoading} isLoading={isLoading} userEmail={userEmail}/>} />
-                        <Route exact path="/newitems" element={ <Newitems userData={userData} userEmail={userEmail}/>} />
-                        <Route exact path="/items/:param" element= { <ItemDetails item={item} setItem={setItem} userEmail={userEmail} userData={userData}/> } />
-                        <Route exact path="/items" element = {<Items error={error} setError={setError} setLoading={setLoading} isLoading={isLoading} products = {products} setProducts={setProducts} userData={userData}/>} />
-                        <Route exact path="/updateItem/:param" element = { <UpdateItem/>} />
-                        <Route exact path="/signup" element = { <Signup />} />
-                        <Route exact path="/login" element = { <Login/>} /> 
-                        <Route exact path="/payment/:param" element = { <StripeContainer item={item} setItem={setItem} userEmail={userEmail} userData={userData}/>} />
-                      </Routes>
-                    </div> 
-                  </div>
-                <Footer />
-              </BrowserRouter>
+                  <BrowserRouter>
+                    <Navbar activeMenu={activeMenu} setActiveMenu={setActiveMenu}/>
+                      <div className="App">
+                        <div className="content" onClick={()=> setActiveMenu(false)}>
+                          <Routes>
+                            <Route exact path="/" element={
+                              <Home 
+                                products={products} 
+                                setProducts={setProducts} 
+                                user={user}
+                                setUser={setUser}
+                                setError={setError} 
+                                error={error} 
+                                userEmail={userEmail}
+                              />} 
+                            />
+                            <Route exact path="/newitems" element={ <Newitems user={user}/>} />
+                            <Route exact path="/items/:param" element= { <ItemDetails item={item} setItem={setItem} userEmail={userEmail} user={user}/> } />
+                            <Route exact path="/items" element = {<Items error={error} setError={setError} products = {products} setProducts={setProducts} user={user}/>} />
+                            <Route exact path="/updateItem/:param" element = { <UpdateItem/>} />
+                            <Route exact path="/signup" element = { <Signup />} />
+                            <Route exact path="/login" element = { <Login/>} /> 
+                            <Route exact path="/payment/:param" element = { <StripeContainer item={item} setItem={setItem} userEmail={userEmail} user={user}/>} />
+                          </Routes>
+                        </div> 
+                      </div>
+                    <Footer />
+                  </BrowserRouter>
         }
       </>
   );

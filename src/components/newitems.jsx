@@ -4,13 +4,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { CapturFile, getImageUrl, DisplayImage } from '../util/CaptureFileHelper.js';
 import { newItem } from '../util/FetchDataHelper.js';
 import TextareaAutosize from 'react-textarea-autosize';
-import { getUserData } from '../util/VerifyUser.js';
 import './newitem.css';
 import { VerifyUserHasToken } from '../util/VerifyUser.js';
 import getCategoryJson from '../data/categories.json';
 import { deleteToastMessage } from '../util/FetchDataHelper';
-import { successfullMessage } from '../util/FetchDataHelper.js';
-import { useEffect } from 'react';
+
 
 export default function Newitems(props) {
     VerifyUserHasToken();
@@ -22,7 +20,6 @@ export default function Newitems(props) {
     const [file, setFile] = useState([]);
     const [isCategory, setIsCategory] = useState(true);
     const [media, setMedia] = useState([]);
-    const [userId, setUserId] = useState(null);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -35,7 +32,7 @@ export default function Newitems(props) {
             console.log(imgUrl);
             setIsCategory(true)
             setLoading(true);
-            newItem(imgUrl, name, description, price, category, userId, setLoading);
+            newItem(imgUrl, name, description, price, category, props.user.userId, setLoading);
             window.location = "/items";
         }
     }
@@ -45,9 +42,6 @@ export default function Newitems(props) {
         DisplayImage(e, setMedia);
     }
 
-    useEffect(() => {
-        getUserData(props.userData, props.userEmail, setUserId);
-    })
 
     return (
         <div className="additem">

@@ -28,10 +28,8 @@ export default function ItemDetails(props) {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const { param } = useParams();
-  const [userId, setUserId] = useState(null);
-  const userDataComments = true;
   const [commentObj, setCommentObj] = useState({
-    authorName: "",
+    authorName: `${props.user.fistName} ${props.user.lastName}`,
     commentBody: "",
     itemRate: ""
   });
@@ -60,13 +58,12 @@ export default function ItemDetails(props) {
       deleteToastMessage("You must rate the item before submitting the review!");
     }
     else {
-      newComment(commentObj.authorName, commentObj.commentBody, commentObj.itemRate, param, userId);
+      newComment(commentObj.authorName, commentObj.commentBody, commentObj.itemRate, param, props.user.userId);
       window.location.reload();
     }
   }
 
   useEffect(() => {
-    getUserData(props.userData, props.userEmail, setUserId, setCommentObj, userDataComments);
     FetchCommentsFromDb(setAllComments, param, setNumOfComments);
     itemDetailsOpen(props.setItem, setLoading, param, setError);
     if (cookies.jwt) {
@@ -139,10 +136,10 @@ export default function ItemDetails(props) {
                       return (
                         <div key={index} className="commentContent">
                           <p>{data.commentBody}</p>
-                          <h2>Author: {data.user_id === userId ? <span>{data.commentAuthorName} <span className='yoursComment'>You</span> </span> : data.commentAuthorName}</h2>
+                          <h2>Author: {data.user_id === props.user.userId ? <span>{data.commentAuthorName} <span className='yoursComment'>You</span> </span> : data.commentAuthorName}</h2>
                           <h3>Date: {data.data_added.slice(0, 10)}</h3>
                           {
-                            data.user_id === userId ?
+                            data.user_id === props.user.userId ?
                               <DeleteOutlined className='deleteComment' onClick={() => DeleteComment(data._id, allComments, setAllComments)} />
                               : ""
                           }
@@ -169,7 +166,6 @@ export default function ItemDetails(props) {
                   onClick={() => setDisplayReviewBox(false)}
                 />
             }
-
             <LeaveReview
               leaveComment={leaveComment}
               displayReviewBox={displayReviewBox}

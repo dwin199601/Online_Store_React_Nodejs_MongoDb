@@ -8,17 +8,19 @@ import { VerifyUserHasToken } from '../util/VerifyUser';
 import './item.css';
 
 export default function Items(props) {
+    const [isLoading, setLoading] = useState(true);
+
     VerifyUserHasToken();
     const RefresPage = (e) => {
         e.preventDefault();
         window.location.reload();
     };
-    FetchDataFromDBWithErrors(props.setProducts, props.setLoading, props.setError);
+    FetchDataFromDBWithErrors(props.setProducts, setLoading, props.setError);
 
     return (
         <div>
-            {props.isLoading ? <LoadingOutlined className="Loadingmessagestyle" />
-                : <ItemList item={props.products} setItem={props.setProducts} userData={props.userData} />
+            {isLoading ? <LoadingOutlined className="Loadingmessagestyle" />
+                : <ItemList item={props.products} setItem={props.setProducts} userId={props.user.userId} firstName={props.user.fistName} />
             }
 
             {props.error &&

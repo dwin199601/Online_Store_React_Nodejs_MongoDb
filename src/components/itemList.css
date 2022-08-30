@@ -146,6 +146,12 @@
     color: white;
 }
 
+.itemSeller {
+    position: absolute;
+    font-size: 12px;
+    top: 0%;
+}
+
 .more_content,
 .close_morecontent {
     margin-top: 10px;

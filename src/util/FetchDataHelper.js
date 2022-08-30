@@ -16,7 +16,7 @@ export const deleteToastMessage = (message) => {
   toast.error(message, { position: toast.POSITION.TOP_RIGHT, autoClose: 3000 });
 }
 
-export const FetchUserDataFromDb =(setData, setLoading, setError) => {
+export const FetchUserDataFromDb =(setUser, emailForUser, setError) => {
   return fetch ("http://localhost:6050")
           .then(res => {
             if(!res.ok){
@@ -27,13 +27,21 @@ export const FetchUserDataFromDb =(setData, setLoading, setError) => {
             return res.json();
           })
           .then(data => {
-            setData(data);
-            setLoading(false);
+            data.filter((value) => {
+              if (value.email === emailForUser)
+                return value;
+            })
+            .map((data) => {
+              setUser({
+                fistName: data.firstName,
+                lastName: data.lastName,
+                userId: data._id,
+                userImage: data.image
+              })
+            })
           })
           .catch(err => {
             setError(err);
-            console.log(err);
-            setLoading(false);
           })
 }
 
@@ -106,7 +114,7 @@ export const FetchDataFromDBWithErrors = (setItem, setLoading, setError ) => {
   }, []);
 }
 
-export const UpdateItemHelper = (param, setItem) => {
+export const UpdateItemHelper = (param, setItem, setLoading) => {
     useEffect(() => {
         const abortControl = new AbortController();
         fetch("http://localhost:6050/api/items/" + param, { signal: abortControl.signal })
@@ -118,6 +126,7 @@ export const UpdateItemHelper = (param, setItem) => {
           })
           .then((res) => {
             setItem(res);
+            setLoading(false);
           })
           .catch(err => {
             if (err.name === "AbortError")
@@ -236,6 +245,6 @@ export const getUserEmail = async (setUserEmail) => {
     USER_URL,
     {}, {withCredentials: true}
   );
-  setUserEmail(data.user); 
+  setUserEmail(data.user);
 }
 

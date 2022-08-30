@@ -13,14 +13,9 @@ function StripeContainer(props) {
     const { param } = useParams();
     const [isLoading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [userId, setUserId] = useState(null);
-    const [fullName, setFullName] = useState({
-        firstName: "",
-        lastName: ""
-    });
 
     useEffect(() => {
-        getUserData(props.userData, props.userEmail, setUserId, setFullName);
+        //getUserData(props.userData, props.userEmail, setUserId, setFullName);
         itemDetailsOpen(props.setItem, setLoading, param, setError);
     }, [param]);
 
@@ -37,8 +32,9 @@ function StripeContainer(props) {
                 itemName = {props.item.item_name}
                 itemPrice = {props.item.price}
                 userEmail = {props.userEmail}
-                fullName={fullName}
-                userId={userId}
+                userFirstName={props.user.fistName}
+                userLastName={props.user.lastName}
+                userId={props.user.userId}
             />
             </Elements>
         }
