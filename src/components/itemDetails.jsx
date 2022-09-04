@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { newComment, DeleteComment } from '../util/FetchDataHelper.js';
-import axios from 'axios';
 import LeaveReview from './leaveReview.jsx';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -12,8 +11,7 @@ import { useNavigate } from 'react-router';
 import { itemDetailsOpen } from '../util/FetchDataHelper.js';
 import { getUserEmail } from '../util/FetchDataHelper';
 import { useCookies } from "react-cookie";
-import { LoadingOutlined, DeleteOutlined, RightCircleFilled, LeftCircleFilled, DownCircleFilled, UpCircleOutlined } from '@ant-design/icons';
-import { getUserData } from '../util/VerifyUser.js';
+import { LoadingOutlined, DeleteOutlined, RightCircleFilled, LeftCircleFilled, DownCircleFilled, UpCircleOutlined, MessageOutlined } from '@ant-design/icons';
 import { FetchCommentsFromDb } from '../util/FetchDataHelper.js';
 import "./itemDetails.css";
 
@@ -114,8 +112,11 @@ export default function ItemDetails(props) {
                 <h3>Description</h3>
                 <p>{props.item.item_description}</p>
               </span>
-              <p className='price_item'>Price: ${props.item.price}</p>
-              <p className='category_item'>Category: {props.item.category}</p>
+              <div className='other_Item_Info'>
+                <p>Price: ${props.item.price}</p>
+                <p>Category: {props.item.category}</p>
+                <p>Seller: {props.item.seller_name ? props.item.seller_name : "Unknown"}</p>
+              </div>
             </div>
           </div>
           <div className='button_box'>

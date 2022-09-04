@@ -136,7 +136,7 @@ export const UpdateItemHelper = (param, setItem, setLoading) => {
       }, []);
 }
 
-export const newItem = (itemUrl, name, description, price, category, userId, setLoading) => {
+export const newItem = (itemUrl, name, description, price, category, userId, seller_name, setLoading) => {
         fetch("http://localhost:6050/api/newitems", {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
@@ -146,7 +146,8 @@ export const newItem = (itemUrl, name, description, price, category, userId, set
               "item_description": description,
               "price": price,
               "category": category,
-              "user_id": userId
+              "user_id": userId,
+              "seller_name" : seller_name
             }
             )
         }).then(() => {

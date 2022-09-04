@@ -32,7 +32,8 @@ export default function Newitems(props) {
             console.log(imgUrl);
             setIsCategory(true)
             setLoading(true);
-            newItem(imgUrl, name, description, price, category, props.user.userId, setLoading);
+            let userName = `${props.user.fistName} ${props.user.lastName}`
+            newItem(imgUrl, name, description, price, category, props.user.userId, userName, setLoading);
             window.location = "/items";
         }
     }

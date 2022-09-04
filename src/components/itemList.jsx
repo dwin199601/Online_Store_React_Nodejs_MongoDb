@@ -62,6 +62,11 @@ const ItemList = (props) => {
                                 <div key={allitems._id} >
                                     <div className='product_content'>
                                         <h1 className='priceItem'>Price ${allitems.price}</h1>
+                                        {allitems.seller_name ?
+                                            <h2 className='sellerName'>Seller: {allitems.seller_name}</h2>
+                                            :
+                                            ""
+                                        }
                                         {
                                             allitems.item_image ?
                                                 <Link to={`/items/${allitems._id}`}>

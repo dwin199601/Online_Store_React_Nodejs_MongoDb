@@ -24,6 +24,9 @@ const itemSchema = new mongoose.Schema({
     user_id: {
         type: String
     },
+    seller_name: {
+        type: String
+    },
     data_added: {
         type: Date,
         default: Date.now

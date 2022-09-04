@@ -59,22 +59,18 @@
     text-shadow: 1px 1px #037c87;
 }
 
-.price_item {
+.other_Item_Info {
     text-align: left;
-    font-size: 25px;
+    font-size: 20px;
     padding: 5px;
-    color: rgb(235, 134, 12);
-    font-weight: 700;
+    color: rgb(56, 133, 136);
+    font-weight: 500;
     text-shadow: 1px 1px #07023d;
 }
 
-.category_item {
-    text-align: left;
-    font-size: 15px;
-    padding: 5px;
-    color: rgb(235, 134, 12);
-    font-weight: 700;
-    text-shadow: 1px 1px #07023d;
+.other_Item_Info p {
+    border-bottom: 0.2px solid black;
+    width: 210px;
 }
 
 .itemRiview {
@@ -442,10 +438,13 @@
         left: -20%;
     }
 
-    .description_item,
-    .price_item,
-    .category_item {
+    .other_Item_Info {
         text-align: center;
+    }
+
+    .other_Item_Info p {
+        width: 100%;
+        border-bottom: none;
     }
 
     .boxParent img {
@@ -460,7 +459,7 @@
         height: 220px;
     }
 
-    .price_item {
+    .other_Item_Info {
         font-size: 20px;
     }
 
