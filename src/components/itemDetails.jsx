@@ -136,7 +136,17 @@ export default function ItemDetails(props) {
                     .map((data, index) => {
                       return (
                         <div key={index} className="commentContent">
-                          <p>{data.commentBody}</p>
+                          <div className='commentDescription'>{data.commentBody}</div>
+                          {
+                            data.itemRate === "Garbage?" || data.itemRate === "Could be better" ?
+                              <h1 className='poorRate'>Rate: {data.itemRate}</h1>
+                              :
+                              data.itemRate === "Not bad" || "Good" ?
+                                <h1 className='goodRate'>Rate: {data.itemRate}</h1>
+                                :
+                                <h1>Rate {data.itemRate}</h1>
+
+                          }
                           <h2>Author: {data.user_id === props.user.userId ? <span>{data.commentAuthorName} <span className='yoursComment'>You</span> </span> : data.commentAuthorName}</h2>
                           <h3>Date: {data.data_added.slice(0, 10)}</h3>
                           {

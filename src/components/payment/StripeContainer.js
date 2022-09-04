@@ -15,7 +15,6 @@ function StripeContainer(props) {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        //getUserData(props.userData, props.userEmail, setUserId, setFullName);
         itemDetailsOpen(props.setItem, setLoading, param, setError);
     }, [param]);
 

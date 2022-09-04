@@ -331,12 +331,33 @@
     justify-content: center;
 }
 
-.commentContent>p {
-    text-align: left;
-    width: 11em;
-    word-wrap: break-word;
+.commentDescription {
+    margin-top: 10px;
+    max-width: 230px;
+    min-width: 230px;
     font-size: 20px;
+    text-align: left;
 }
+
+.commentContent h1 {
+    font-size: 15px;
+    position: absolute;
+    top: 0;
+    left: 2%;
+    margin-right: 5px;
+    background-color: rgba(4, 61, 9, 0.9);
+    color: white;
+    padding: 2px 5px;
+}
+
+.poorRate {
+    background-color: rgba(232, 42, 28, 0.9) !important;
+}
+
+.goodRate {
+    background-color: rgba(162, 173, 13, 0.9) !important;
+}
+
 
 .commentContent h2 {
     position: absolute;
