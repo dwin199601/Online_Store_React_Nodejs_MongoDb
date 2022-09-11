@@ -6,6 +6,7 @@ const cors = require('cors');
 const app = express();
 const UserModel = require("./models/UserModel");
 const commentRouter = require('./routes/commentRoutes');
+const purchaseRouter = require('./routes/purchaseRoutes');
 const authRoutes = require("./routes/authRoutes");
 const itemRouter = require("./routes/itemRoutes");
 const connection = require("./dbconnection");
@@ -24,6 +25,7 @@ app.use(cors({
 app.use('/', authRoutes);
 app.use('/', itemRouter);
 app.use('/', commentRouter);
+app.use('/', purchaseRouter);
 app.use(paymentRouter);
 
 app.get('/', (req, res) => {

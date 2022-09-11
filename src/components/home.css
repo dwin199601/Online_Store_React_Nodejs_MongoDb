@@ -9,6 +9,23 @@
     animation: fadeIn 2s;
 }
 
+.boughProducts,
+.nothingToShow {
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.nothingToShow {
+    color: #f12711;
+}
+
+.noPurchasedProduct {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;

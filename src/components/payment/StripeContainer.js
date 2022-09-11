@@ -30,6 +30,8 @@ function StripeContainer(props) {
                 description = {props.item.item_description}
                 itemName = {props.item.item_name}
                 itemPrice = {props.item.price}
+                itemImage= {props.item.item_image}  
+                itemId={param}              
                 userEmail = {props.userEmail}
                 userFirstName={props.user.fistName}
                 userLastName={props.user.lastName}

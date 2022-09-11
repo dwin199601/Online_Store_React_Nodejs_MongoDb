@@ -4,7 +4,7 @@ import {CardElement, useElements, useStripe} from '@stripe/react-stripe-js';
 import "./PaymentForm.css";
 import getCountries from "./countryPayment.json";
 import { deleteToastMessage, successfullMessage } from "../../util/FetchDataHelper";
-import { USER_URL } from '../../util/constants';
+import { newPayment } from '../../util/FetchDataHelper';
 
 function PaymentForm(props) {
     const [success, setSuccess] = useState(false);
@@ -46,7 +46,10 @@ function PaymentForm(props) {
             type: 'card',
             card: elements.getElement(CardElement)
         })
-        if(!error) {
+        if(values.country === "Select") {
+            deleteToastMessage("Select country!");
+        }
+        else if(!error) {
             try{
                 const {id} = paymentMethod
                 const response = await axios.post("http://localhost:6050/api/payment", {
@@ -64,6 +67,7 @@ function PaymentForm(props) {
                     postalCode: values.postalCode,
                     id: id
                 })
+                newPayment(props.userFirstName, props.userId, props.itemName, props.itemImage[0], props.itemId, props.itemPrice,  values.streetName, values.suite, values.city, values.state, values.country, values.postalCode);
                 if(response.data.success) {
                     successfullMessage("Successfull payment");
                     setSuccess(true);
@@ -116,14 +120,16 @@ function PaymentForm(props) {
                 </span>
                 <span className='payment_element'>
                     <label htmlFor='country'>Country</label>
-                    <select>
+                    <select
+                     onChange={(e) => setValues({...values, country: e.target.value})}
+                     >
                         {
                             getCountries.map((value) => {
                                 return (
                                     <option 
                                         key={value.id} 
                                         value={value.country} 
-                                        onChange={(e) => setValues({...values, country: e.target.value})}
+                                        defaultValue="Select"
                                     >
                                         {value.country}
                                     </option>

@@ -51,7 +51,7 @@ export const FetchDataFromDB =(setItem, setLoading) => {
     fetch(url)
     .then(res=>{
       if(!res.ok){
-        console.log(`Couldn't fetch the data from the server!`);
+        console.log(`Cannot fatch data from the server`);
       }
       console.log("Server works!!");
       return res.json();
@@ -75,6 +75,24 @@ export const FetchDataFromDB =(setItem, setLoading) => {
           isMounted = false;
       }
   }, []);
+}
+
+export const FetchAllPurchases = (setPurchases, setLoading) => {
+  fetch("http://localhost:6050/api/newPurchase")
+    .then(res => {
+      if(!res.ok){
+        console.log('Cannot fatch data from the server');
+      }
+      return res.json();
+    })
+    .then(data => {
+      setPurchases(data);
+      setLoading(false);
+    })
+    .catch(err => {
+        console.log("Error: " + err);
+        setLoading(false); 
+    })
 }
 
 export const FetchDataFromDBWithErrors = (setItem, setLoading, setError ) => {
@@ -134,6 +152,32 @@ export const UpdateItemHelper = (param, setItem, setLoading) => {
           })
         return () => abortControl.abort();
       }, []);
+}
+
+export const newPayment = (recipientName, recipientId, itemName, 
+  itemImage, itemId, paidAmount, street, suite, city, state, country, postalCode) => {
+  fetch("http://localhost:6050/api/newPurchase", {
+    method: 'POST',
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      "recipientName": recipientName,
+      "recipientId": recipientId,
+      "itemName": itemName,
+      "itemImage": itemImage,
+      "itemId": itemId,
+      "paidAmount": paidAmount,
+      "street": street,
+      "suite": suite,
+      "city": city,
+      "state": state,
+      "country": country,
+      "postalCode": postalCode
+    })
+  }).then(() => {
+    console.log("Payment is saved");
+  }).catch(err => {
+    console.log("Error: " + err);
+  }) 
 }
 
 export const newItem = (itemUrl, name, description, price, category, userId, seller_name, setLoading) => {

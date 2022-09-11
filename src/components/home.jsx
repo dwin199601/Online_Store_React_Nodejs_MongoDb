@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { VerifyUserHasToken } from '../util/VerifyUser';
 import axios from 'axios';
+import Purchases from './purchases';
 import "./home.css";
 import { USER_URL } from '../util/constants';
 import { useCookies } from "react-cookie";
+import { FetchAllPurchases } from '../util/FetchDataHelper';
 import user_Image from "../assets/user_image.jpg";
 import { handledeleteProduct } from '../util/ProductsHelper';
-import { FetchDataFromDBWithErrors, FetchUserDataFromDb } from '../util/FetchDataHelper';
+import { FetchDataFromDBWithErrors } from '../util/FetchDataHelper';
 import { CapturFile, getImageUrl } from '../util/CaptureFileHelper';
 import { EditOutlined, CloseCircleOutlined, LoadingOutlined, DeleteOutlined } from '@ant-design/icons';
 import { successfullMessage } from '../util/FetchDataHelper';
@@ -16,6 +18,7 @@ import { useEffect } from 'react';
 function Home(props) {
   VerifyUserHasToken();
   const [first_Name, setFirstName] = useState("");
+  const [purchases, setPurchases] = useState(null);
   const [last_Name, setLastName] = useState("");
   const [isLoading, setLoading] = useState(true);
   const [isUserUpdated, setIsUserUpdated] = useState(false);
@@ -73,6 +76,10 @@ function Home(props) {
     }
   }
   FetchDataFromDBWithErrors(props.setProducts, setLoading, props.setError);
+
+  useEffect(() => {
+    FetchAllPurchases(setPurchases, setLoading);
+  }, []);
 
   return (
     <>
@@ -178,6 +185,15 @@ function Home(props) {
                 }
               </div>
             </div>
+            {
+              purchases ?
+                <>
+                  <h1 className='boughProducts'>Bought Products</h1>
+                  <Purchases allpurchases={purchases} userId={props.user.userId} />
+                </>
+                :
+                ""
+            }
           </div>
         </div>
       }
