@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
+    "@emailjs/browser": "^3.7.0",
     "@material-ui/icons": "^4.11.2",
     "@rpldy/sender": "^0.17.3",
     "@rpldy/uploady": "^0.17.3",

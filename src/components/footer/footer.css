@@ -48,3 +48,18 @@
     cursor: pointer;
     margin-left: 10px;
 }
+
+.contactUsBox {
+    display: flex;
+    justify-content: center;
+}
+
+.emailIcon {
+    color: white;
+    font-size: 20px;
+    transition: all 1s;
+}
+
+.emailIcon:hover {
+    color: rgb(10, 225, 10);
+}

@@ -15,9 +15,9 @@ const Purchases = (props) => {
                 return (
                     <div key={data._id} className='purchaseChild'>
                         {/*NOT COMPLITED*/}
-                        <Link to={""} 
+                        <Link to={"/contact"} 
                             className="contactAdmin" 
-                            title='contact admin/DEMO'
+                            title='contact admin'
                         >
                             <MessageFilled /> 
                         </Link>

@@ -12,6 +12,7 @@ import { getUserEmail} from './util/FetchDataHelper';
 import { useEffect, useState } from 'react';
 import { FetchUserDataFromDb } from './util/FetchDataHelper';
 import { LoadingOutlined, QuestionCircleTwoTone } from '@ant-design/icons';
+import ContactForm from './components/contactForm';
 import Signup from './components/signup';
 import Login from './components/login';
 
@@ -63,6 +64,7 @@ function App() {
                             <Route exact path="/signup" element = { <Signup />} />
                             <Route exact path="/login" element = { <Login/>} /> 
                             <Route exact path="/payment/:param" element = { <StripeContainer item={item} setItem={setItem} userEmail={userEmail} user={user}/>} />
+                            <Route exact path="/contact" element={<ContactForm/>} />
                           </Routes>
                         </div> 
                       </div>
