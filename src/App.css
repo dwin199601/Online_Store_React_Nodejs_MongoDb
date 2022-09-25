@@ -4,10 +4,6 @@
   min-height: 80vh;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-}
 
 ::-webkit-scrollbar {
   width: 5px;
@@ -25,7 +21,6 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background-image: linear-gradient(rgb(231, 235, 236), rgb(255, 136, 0));
 }
-
 
 .userLoginIcon {
   color: black;

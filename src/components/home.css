@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    margin-top: 1rem;
+    margin: 0;
 }
 
 .wellcomeMsg {
@@ -46,7 +46,8 @@
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: white;
     margin-left: 10px;
-    margin-bottom: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     display: flex;
     flex-direction: column;
     padding-top: 15px;
@@ -71,7 +72,7 @@
     display: flex;
     width: 100%;
     justify-content: center;
-    margin-bottom: 10px;
+
 }
 
 .delete_user_btn {
@@ -145,6 +146,8 @@
     position: relative;
     height: 40px;
     width: 100%;
+    justify-content: center;
+    align-items: center;
 }
 
 .update_imgbtn {
@@ -161,7 +164,6 @@
     position: absolute;
     outline: none;
     top: 0;
-    left: 30%;
     z-index: 22;
     opacity: 0;
 }
@@ -169,7 +171,6 @@
 .update_icon {
     position: absolute;
     top: 30%;
-    left: 28%;
     background-color: #f7f8fe;
     color: black;
     padding: 0px 15px;
@@ -180,11 +181,9 @@
     cursor: pointer;
     position: absolute;
     top: 30%;
-    left: 28%;
     background-color: #058420;
     color: rgb(249, 245, 245);
     padding: 0px 15px;
-    border: 2px dashed rgb(10, 10, 10);
 }
 
 .imageBox {
@@ -301,7 +300,6 @@
     border-radius: 10px;
     max-width: 200px;
     min-width: 200px;
-    margin-top: 5px;
 }
 
 .productBox h1 {
@@ -362,4 +360,85 @@
 .editLink {
     color: black;
     font-size: 0;
+}
+
+.mobileDash,
+.closemenue {
+    display: none;
+}
+
+
+
+@media screen and (max-width: 700px) {
+
+    .home_container {
+        position: relative;
+    }
+
+    .user_dashboard.hide {
+        display: none;
+    }
+
+    .mobileDash {
+        display: block;
+        position: fixed;
+        font-size: 25px;
+        background-color: #7fcc12;
+        color: white;
+        border-radius: 50%;
+        padding: 2px;
+        top: 10%;
+        left: 0%;
+        border: 1px solid rgb(216, 210, 210);
+        box-shadow: 6px 6px 20px rgba(31, 230, 9, 0.5);
+    }
+
+    .mobileDash.hide {
+        display: none;
+    }
+
+    .user_dashboard {
+        position: fixed;
+        z-index: 20;
+        top: 0%;
+        min-width: 100%;
+        margin: 0;
+        max-width: 100%;
+        min-height: 100%;
+        max-height: 100%;
+        border-radius: 0;
+        animation: fadeInDashboard 1s;
+    }
+
+    @keyframes fadeInDashboard {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    .closemenue {
+        display: block;
+        top: 2%;
+        left: 1%;
+        background-color: red;
+        border-radius: 50%;
+        padding: 2px;
+        position: absolute;
+        font-size: 25px;
+        box-shadow: 5px 5px 20px rgba(248, 34, 5);
+        border: 1px solid white;
+    }
+
+    .closemenue.hide {
+        display: none;
+    }
+
+    .update_icon {
+        border: none;
+    }
+
 }

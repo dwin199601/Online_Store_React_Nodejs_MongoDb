@@ -1,4 +1,3 @@
-import { create } from "ipfs-http-client";
 import { Buffer } from "buffer";
 
 const ipfsClient = require('ipfs-http-client');

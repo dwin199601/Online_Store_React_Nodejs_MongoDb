@@ -44,7 +44,7 @@ function App() {
                   <BrowserRouter>
                     <Navbar activeMenu={activeMenu} setActiveMenu={setActiveMenu}/>
                       <div className="App">
-                        <div className="content" onClick={()=> setActiveMenu(false)}>
+                        <div  onClick={()=> setActiveMenu(false)}>
                           <Routes>
                             <Route exact path="/" element={
                               <Home 

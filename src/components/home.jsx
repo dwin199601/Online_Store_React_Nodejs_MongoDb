@@ -11,7 +11,7 @@ import user_Image from "../assets/user_image.jpg";
 import { handledeleteProduct } from '../util/ProductsHelper';
 import { FetchDataFromDBWithErrors } from '../util/FetchDataHelper';
 import { CapturFile, getImageUrl } from '../util/CaptureFileHelper';
-import { EditOutlined, CloseCircleOutlined, LoadingOutlined, DeleteOutlined } from '@ant-design/icons';
+import { EditOutlined, CloseCircleOutlined, LoadingOutlined, DeleteOutlined, UserOutlined, CloseOutlined } from '@ant-design/icons';
 import { successfullMessage } from '../util/FetchDataHelper';
 import { useEffect } from 'react';
 
@@ -26,6 +26,7 @@ function Home(props) {
   const [cookies, removeCookie] = useCookies([]);
   const [openNameUpdate, setOpenNameUpdate] = useState(false);
   const [openLastNameUpdate, setOpenLastNameUpdate] = useState(false);
+  const [onOpenDash, setOnOpenDash] = useState(false);
   const forUser = true;
 
   const deleteUser = async (e) => {
@@ -85,7 +86,9 @@ function Home(props) {
     <>
       {
         <div className="home_container">
-          <div className='user_dashboard'>
+          <UserOutlined className={onOpenDash === false ? "mobileDash" : "mobileDash hide"} title="open user menu" onClick={() => { setOnOpenDash(true) }} />
+          <div className={onOpenDash === false ? 'user_dashboard hide' : 'user_dashboard'}>
+            <CloseOutlined className={onOpenDash === true ? "closemenue" : "closemenue hide"} onClick={() => { setOnOpenDash(false) }} />
             <h1>Dashboard</h1>
             <div className='imageBox'>
               <img src={!props.user.userImage ? user_Image : props.user.userImage} alt="user_img" className='user_profile_img' />
