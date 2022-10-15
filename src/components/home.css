@@ -9,7 +9,6 @@
     animation: fadeIn 2s;
 }
 
-.boughProducts,
 .nothingToShow {
     margin-top: 10px;
     font-size: 20px;
@@ -26,15 +25,6 @@
     align-items: center;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
 
 .user_dashboard {
     flex: 30%;
@@ -56,6 +46,17 @@
     height: auto;
     border-radius: 10px;
     box-shadow: 6px 6px 20px rgba(16, 18, 18, 0.5);
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .user_dashboard h1 {

@@ -10,8 +10,9 @@ import ItemDetails from './components/itemDetails';
 import UpdateItem from './components/updateItem';
 import { getUserEmail} from './util/FetchDataHelper';
 import { useEffect, useState } from 'react';
-import { FetchUserDataFromDb } from './util/FetchDataHelper';
+import { FetchUserDataFromDb, FetchAllPurchases} from './util/FetchDataHelper';
 import { LoadingOutlined, QuestionCircleTwoTone } from '@ant-design/icons';
+import Purchases from './components/purchases';
 import ContactForm from './components/contactForm';
 import Signup from './components/signup';
 import Login from './components/login';
@@ -28,8 +29,10 @@ function App() {
   })
   const [userEmail, setUserEmail] = useState(null);
   const [products, setProducts] = useState([]);
-  getUserEmail(setUserEmail);
+  const [purchases, setPurchases] = useState([]);
 
+  getUserEmail(setUserEmail);
+  
   useEffect(() => {
     FetchUserDataFromDb( setUser, userEmail, setError);
   },[userEmail])
@@ -48,13 +51,13 @@ function App() {
                           <Routes>
                             <Route exact path="/" element={
                               <Home 
-                                products={products} 
-                                setProducts={setProducts} 
                                 user={user}
                                 setUser={setUser}
                                 setError={setError} 
                                 error={error} 
                                 userEmail={userEmail}
+                                products={products}
+                                setProducts={setProducts}
                               />} 
                             />
                             <Route exact path="/newitems" element={ <Newitems user={user}/>} />
@@ -63,6 +66,7 @@ function App() {
                             <Route exact path="/updateItem/:param" element = { <UpdateItem/>} />
                             <Route exact path="/signup" element = { <Signup />} />
                             <Route exact path="/login" element = { <Login/>} /> 
+                            <Route exact path="/purchases" element={<Purchases user={user} purchases={purchases} setPurchases={setPurchases}/>} />
                             <Route exact path="/payment/:param" element = { <StripeContainer item={item} setItem={setItem} userEmail={userEmail} user={user}/>} />
                             <Route exact path="/contact" element={<ContactForm/>} />
                           </Routes>

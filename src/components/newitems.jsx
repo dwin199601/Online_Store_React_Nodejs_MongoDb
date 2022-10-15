@@ -26,11 +26,10 @@ export default function Newitems(props) {
         const imgUrl = await getImageUrl(file)
         if (!category || category === "Select") {
             setIsCategory(false);
-            deleteToastMessage('Category is not selected!!')
+            deleteToastMessage('Category is not selected!!');
         }
         else {
-            console.log(imgUrl);
-            setIsCategory(true)
+            setIsCategory(true);
             setLoading(true);
             let userName = `${props.user.fistName} ${props.user.lastName}`
             newItem(imgUrl, name, description, price, category, props.user.userId, userName, setLoading);
@@ -38,11 +37,10 @@ export default function Newitems(props) {
         }
     }
 
-    const handleUploadFile = (e) => {
-        CapturFile(e, setFile);
-        DisplayImage(e, setMedia);
+    const handleUploadFile = (event) => {
+        CapturFile(event, setFile);
+        DisplayImage(event, setMedia);
     }
-
 
     return (
         <div className="additem">
@@ -92,7 +90,7 @@ export default function Newitems(props) {
                     <input
                         type="file"
                         className="upload_btn"
-                        onChange={e => handleUploadFile(e)}
+                        onChange={handleUploadFile}
                     />
                     <div className="overlay-layer" >Upload photo</div>
 

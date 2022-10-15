@@ -77,8 +77,8 @@ export const FetchDataFromDB =(setItem, setLoading) => {
   }, []);
 }
 
-export const FetchAllPurchases = (setPurchases, setLoading) => {
-  fetch("http://localhost:6050/api/newPurchase")
+export const FetchAllPurchases = (setPurchases, userId, setLoading) => {
+    fetch("http://localhost:6050/api/newPurchase")
     .then(res => {
       if(!res.ok){
         console.log('Cannot fatch data from the server');
@@ -86,12 +86,16 @@ export const FetchAllPurchases = (setPurchases, setLoading) => {
       return res.json();
     })
     .then(data => {
-      setPurchases(data);
-      setLoading(false);
+     let userPurchases = data.filter((value) => {
+          if (value.recipientId === userId)
+            return value;
+        });
+        setPurchases(userPurchases);
+        setLoading(false);
     })
     .catch(err => {
-        console.log("Error: " + err);
-        setLoading(false); 
+      console.log("Error: " + err);
+      setLoading(false); 
     })
 }
 
@@ -101,7 +105,7 @@ export const FetchDataFromDBWithErrors = (setItem, setLoading, setError ) => {
     fetch(url)
     .then(res => {
         if (!res.ok) {
-            console.log(`Couldn't fetch the data from the server!`)
+            console.log("Couldn't fetch the data from the server!");
         }
         return res.json();
     })
@@ -124,6 +128,7 @@ export const FetchDataFromDBWithErrors = (setItem, setLoading, setError ) => {
       }
     })
   }
+  
   useEffect(() => {
     fetchData();
     return ()=>{

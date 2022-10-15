@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.css'
 import { useCookies } from "react-cookie";
 import './navbar.css';
-import { MenuOutlined, CloseOutlined } from '@ant-design/icons';
+import { MenuOutlined, CloseOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { MenuItems } from './menuItems';
 
 
@@ -33,7 +33,11 @@ export default function Navbar(props) {
                 <Link to="/login" className='login'>Login</Link>
               </>
               :
-              <button onClick={handleLogout} className="logoutbtn">LogOut</button>
+              <div className='ifLoggedIn'>
+                <button onClick={handleLogout} className="logoutbtn">LogOut</button>
+                <Link to="/purchases"><ShoppingCartOutlined className='shoppingCartIcon' /></Link>
+              </div>
+
           }
         </span>
         <ul>

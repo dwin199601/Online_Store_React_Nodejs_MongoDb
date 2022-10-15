@@ -1,16 +1,14 @@
 import { Buffer } from "buffer";
-
 const ipfsClient = require('ipfs-http-client');
 const projectId = process.env.REACT_APP_INFURA_PROJECT_ID;  
 const projectSecret = process.env.REACT_APP_INFURA_SECRET_KEY;
+const projectGateWay = process.env.REACT_APP_INFURA_GATE_WAY;
 const auth = 'Basic ' + Buffer.from(`${projectId}` + ':' + `${projectSecret}`).toString('base64');
 const client = ipfsClient.create({
-    host: 'ipfs.infura.io',
-    port: 5001,
-    protocol: 'https',
+    url: "https://ipfs.infura.io:5001/api/v0",
     headers: {
         authorization: auth,
-    },
+    }
 })
 
 export const CapturFile =  (e, setFile, forUser) => {
@@ -28,21 +26,21 @@ export const CapturFile =  (e, setFile, forUser) => {
                 setFile(Buffer(reader.result));
             }
         }
-        
     } catch(error){
         console.log(error.message);
     }
     e.preventDefault();
 }
 
-export const getImageUrl = async (file, forUser) => {
+export const getImageUrl = async (file) => {
     const urls = [];
     let url;
-    if(!forUser) {
+    const fileType = Array.isArray(file);
+    if(fileType === true) {
         try {
             for (const value of file) {
                 const created = await client.add(value); 
-                urls.push(`https://ipfs.infura.io/ipfs/${created.path}`)
+                urls.push(`${projectGateWay}${created.path}`);
             }
         }
         catch (error) {
@@ -53,7 +51,7 @@ export const getImageUrl = async (file, forUser) => {
     else {
         try {
             const created = await client.add(file);
-             url = `https://ipfs.infura.io/ipfs/${created.path}`;
+             url = `${projectGateWay}${created.path}`;
         }
         catch (error) {
             console.log(error.message);

@@ -62,6 +62,27 @@
 }
 
 
+.ifLoggedIn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.shoppingCartIcon {
+    cursor: pointer;
+    position: absolute;
+    bottom: 5%;
+    left: 100%;
+    font-size: 27px;
+    background-color: rgb(91, 113, 9);
+    /*color: rgb(245, 244, 247);*/
+    border-radius: 50%;
+    padding-right: 3px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border: 1px solid white;
+}
 
 
 /*
@@ -228,5 +249,11 @@ FONTS
         font-size: 15px;
     }
 
-
+    .shoppingCartIcon {
+        top: 90%;
+        left: 15%;
+        color: white;
+        background-color: transparent;
+        border: none;
+    }
 }
