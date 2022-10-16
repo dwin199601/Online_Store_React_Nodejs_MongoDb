@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MessageFilled, ShoppingCartOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 const DisplayPurchases = (props) => {
+
+    const [hideTitle, setHideTitle] = useState(false);
 
     return (
         <div>
@@ -11,20 +13,25 @@ const DisplayPurchases = (props) => {
                     return (
                         <div key={data._id} className='purchaseBox'>
                             <div className='purchaseTitle'>
-                                <Link to={`/items/${data.itemId}`}><p className='productTitle'>{data.itemName}</p></Link>
+                                <Link to={`/items/${data.itemId}`} onMouseEnter={() => setHideTitle(true)} onMouseLeave={() => setHideTitle(false)}>
+                                    <p className={hideTitle === true ? 'productTitle hide' : 'productTitle'}>{data.itemName.slice(0, 11)}</p>
+                                    <p className={hideTitle === false ? 'openProduct' : 'openProduct show'}>See Product</p>
+                                </Link>
                                 <img src={data.itemImage} alt={data.itemImage} />
                             </div>
-                            <Link to={"/contact"}
-                                title='contact admin'
-                                className='contactAdmin'
-                            >
-                                <MessageFilled />
-                            </Link>
-                            <p>Paid: ${data.paidAmount}</p>
-                            <p>Date of Purchase: {data.data_added.slice(0, 16).toUpperCase()}</p>
-                            <div>
-                                <h3>Shipping Address:</h3>
-                                <p>{data.suite} Unit/Apartment {data.street} st, {data.city}, {data.state}, {data.country}, {data.postalCode}</p>
+                            <div className='purchaseDescript'>
+                                <Link to={"/contact"}
+                                    title='contact admin'
+                                    className='contactAdmin'
+                                >
+                                    <MessageFilled />
+                                </Link>
+                                <p className='paidAmount'>Paid: ${data.paidAmount}</p>
+                                <p>Date of Purchase: {data.data_added.slice(0, 10).toUpperCase()}</p>
+                                <div>
+                                    <p>Shipping Address:</p>
+                                    <div className='shipAddress'>{data.suite} Unit/Apartment {data.street} st, {data.city}, {data.state}, {data.country}, {data.postalCode}</div>
+                                </div>
                             </div>
                         </div>
                     )

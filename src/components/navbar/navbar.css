@@ -75,33 +75,32 @@
     bottom: 5%;
     left: 100%;
     font-size: 27px;
-    background-color: rgb(91, 113, 9);
+    background-color: rgb(93, 7, 133);
     /*color: rgb(245, 244, 247);*/
     border-radius: 50%;
     padding-right: 3px;
     padding-top: 2px;
     padding-bottom: 2px;
+    color: white;
     border: 1px solid white;
+    transition: all 1s ease-in-out;
+    animation: rotateCart 3s;
 }
 
+.shoppingCartIcon:hover {
+    rotate: 360deg;
+    color: #f8e808;
+}
 
-/*
-FONTS
-    font-family: 'Be Vietnam Pro', sans-serif;
+@keyframes rotateCart {
+    from {
+        opacity: 0;
+    }
 
-    font-family: 'Lato', sans-serif;
-
-    font-family: 'Mochiy Pop P One', sans-serif;
-
-    font-family: 'Oswald', sans-serif;
-
-    font-family: 'Raleway', sans-serif;
-
-    font-family: 'Ubuntu', sans-serif;
-
-    font-family: 'Vujahday Script', cursive;
-
-*/
+    to {
+        opacity: 1;
+    }
+}
 
 
 .signUp {
@@ -255,5 +254,9 @@ FONTS
         color: white;
         background-color: transparent;
         border: none;
+    }
+
+    .shoppingCartIcon:hover {
+        rotate: none;
     }
 }

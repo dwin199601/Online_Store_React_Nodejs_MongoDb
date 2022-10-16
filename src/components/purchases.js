@@ -8,7 +8,7 @@ const Purchases = (props) => {
     useEffect(() => {
         FetchAllPurchases(props.setPurchases, props.user.userId, setIsLoading);
     }, []);
-    console.log(props.user.userId);
+
   return (
     <div>
         {
