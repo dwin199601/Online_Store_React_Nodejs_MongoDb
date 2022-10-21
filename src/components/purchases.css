@@ -42,6 +42,11 @@ a {
     position: absolute;
     right: 5px;
     top: 0%;
+    transition: all 1s ease-in-out;
+}
+
+.contactAdmin:hover {
+    color: orange;
 }
 
 .purchaseTitle {
@@ -76,7 +81,7 @@ a {
 }
 
 .openProduct {
-    color: rgb(229, 253, 75);
+    color: orange;
     animation: fadeIn 3s;
     display: none;
 }
@@ -122,6 +127,7 @@ a {
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        border-bottom: 1px solid white;
     }
 
     .purchaseDescript {

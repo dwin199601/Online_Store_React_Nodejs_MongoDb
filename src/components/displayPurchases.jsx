@@ -1,10 +1,25 @@
-import React, { useState } from 'react';
-import { MessageFilled, ShoppingCartOutlined } from '@ant-design/icons';
+import React from 'react';
+import { MessageFilled } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 const DisplayPurchases = (props) => {
 
-    const [hideTitle, setHideTitle] = useState(false);
+    const isHide = true;
+    const hideDisplayTitle = (purchaseId, isHide) => {
+        let newPurchase = props.purchases.map((items) => {
+            if (items._id === purchaseId) {
+                if (isHide === true)
+                    items.titleDisplay = true;
+                else
+                    items.titleDisplay = false;
+                return items;
+            }
+            else {
+                return items;
+            }
+        })
+        props.setPurchases(newPurchase);
+    }
 
     return (
         <div>
@@ -13,10 +28,12 @@ const DisplayPurchases = (props) => {
                     return (
                         <div key={data._id} className='purchaseBox'>
                             <div className='purchaseTitle'>
-                                <Link to={`/items/${data.itemId}`} onMouseEnter={() => setHideTitle(true)} onMouseLeave={() => setHideTitle(false)}>
-                                    <p className={hideTitle === true ? 'productTitle hide' : 'productTitle'}>{data.itemName.slice(0, 11)}</p>
-                                    <p className={hideTitle === false ? 'openProduct' : 'openProduct show'}>See Product</p>
-                                </Link>
+                                {
+                                    <Link to={`/items/${data.itemId}`} onMouseEnter={() => hideDisplayTitle(data._id, isHide)} onMouseLeave={() => hideDisplayTitle(data._id)}>
+                                        <p className={data.titleDisplay === true ? 'productTitle hide' : 'productTitle'}>{data.itemName.slice(0, 11)}</p>
+                                        <p className={data.titleDisplay === false ? 'openProduct' : 'openProduct show'}>See Product</p>
+                                    </Link>
+                                }
                                 <img src={data.itemImage} alt={data.itemImage} />
                             </div>
                             <div className='purchaseDescript'>
