@@ -100,6 +100,44 @@ a {
     font-weight: 600;
 }
 
+.noPurchsesBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-height: 200px;
+    min-height: 200px;
+}
+
+.noPurchsesBox a {
+    color: white;
+    text-decoration: none;
+}
+
+.noPurchaseWindow {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 15px 10px;
+    border-radius: 5px;
+    color: white;
+    background-color: rgba(0, 2, 11, 0.8);
+    animation: fadeIn 2s;
+    box-shadow: 5px 6px 2px rgba(98, 98, 98, 0.5);
+}
+
+.visitStore {
+    position: absolute;
+    font-size: 20px;
+    bottom: 16%;
+    right: 14%;
+    transition: all 2s;
+}
+
+.visitStore:hover {
+    color: yellow;
+}
+
 
 @keyframes fadeIn {
     from {

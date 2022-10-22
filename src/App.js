@@ -30,13 +30,14 @@ function App() {
   const [userEmail, setUserEmail] = useState(null);
   const [products, setProducts] = useState([]);
   const [purchases, setPurchases] = useState([]);
+  const [numOfPurchases, setNumOfPurchases] = useState(0);
 
   getUserEmail(setUserEmail);
-  
+
   useEffect(() => {
     FetchUserDataFromDb( setUser, userEmail, setError);
   },[userEmail])
-   
+  
   return (
       <>    
         {
@@ -62,11 +63,27 @@ function App() {
                             />
                             <Route exact path="/newitems" element={ <Newitems user={user}/>} />
                             <Route exact path="/items/:param" element= { <ItemDetails item={item} setItem={setItem} userEmail={userEmail} user={user}/> } />
-                            <Route exact path="/items" element = {<Items error={error} setError={setError} products = {products} setProducts={setProducts} user={user}/>} />
+                            <Route exact path="/items" element = {
+                              <Items 
+                                error={error} 
+                                setError={setError} 
+                                products = {products} 
+                                setProducts={setProducts} 
+                                user={user}
+                              />} 
+                            />
                             <Route exact path="/updateItem/:param" element = { <UpdateItem/>} />
                             <Route exact path="/signup" element = { <Signup />} />
                             <Route exact path="/login" element = { <Login/>} /> 
-                            <Route exact path="/purchases" element={<Purchases user={user} purchases={purchases} setPurchases={setPurchases}/>} />
+                            <Route exact path="/purchases" element={
+                              <Purchases
+                                numOfPurchases={numOfPurchases} 
+                                setNumOfPurchases={setNumOfPurchases} 
+                                user={user} 
+                                purchases={purchases} 
+                                setPurchases={setPurchases}
+                              />} 
+                            />
                             <Route exact path="/payment/:param" element = { <StripeContainer item={item} setItem={setItem} userEmail={userEmail} user={user}/>} />
                             <Route exact path="/contact" element={<ContactForm/>} />
                           </Routes>

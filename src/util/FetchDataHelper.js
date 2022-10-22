@@ -77,7 +77,7 @@ export const FetchDataFromDB =(setItem, setLoading) => {
   }, []);
 }
 
-export const FetchAllPurchases = (setPurchases, userId, setLoading) => {
+export const FetchAllPurchases = ( setPurchases, setLoading) => {
     const fetchpurchases = () => {
       fetch("http://localhost:6050/api/newPurchase")
       .then(res => {
@@ -87,11 +87,11 @@ export const FetchAllPurchases = (setPurchases, userId, setLoading) => {
         return res.json();
       })
       .then(data => {
-       let userPurchases = data.filter((value) => {
+       /*let userPurchases = data.filter((value) => {
             if (value.recipientId === userId)
               return value;
-          });
-          let newPurch = userPurchases.map(item => {
+          });*/
+          let newPurch = data.map(item => {
             item.titleDisplay = false;
             return item;
           })
@@ -99,14 +99,13 @@ export const FetchAllPurchases = (setPurchases, userId, setLoading) => {
           setLoading(false);
       })
       .catch(err => {
+        setLoading(false);
         console.log("Error: " + err);
-        setLoading(false); 
       })
     }
     useEffect(() => {
       fetchpurchases();
-    })
-   
+    }, []); 
 }
 
 export const FetchDataFromDBWithErrors = (setItem, setLoading, setError ) => {
